@@ -1,0 +1,156 @@
+@import "mixins"
+
+#photo
+  @include white-bg-round-corners
+  padding:  20px
+  width:    1000px
+  margin:   0 auto
+  
+  img
+    padding: 0
+    margin: 0
+    
+  h2
+    font-size: 24px
+    line-height: 36px
+    padding-bottom: 10px
+    
+  #sidebar
+    float: right
+    width: 358px
+    height: 612px
+    overflow: hidden
+    position: relative
+    
+    .back
+      float: left
+      margin-right: 20px
+      line-height: 40px
+      color: #09c
+      cursor: pointer
+    
+    .container
+      overflow-x: none
+      overflow-y: scroll
+      height: 545px
+    
+    #general, #likes, #comments
+      position: absolute
+      width: 358px
+      top: 0
+      
+    #general
+      left: 0px
+      
+    #likes, #comments
+      left: 359px
+            
+      h4
+        text-align: right
+        color: #999
+        line-height: 40px
+        @include bottom-border
+        margin-bottom: 20px
+          
+    #profile
+      @include bottom-border
+      padding:
+        left: 90px
+        bottom: 15px
+      position: relative
+      min-height: 75px
+    
+      img
+        position: absolute
+        top: 0
+        left: 0
+        width: 75px
+        height: 75px
+        margin:
+          right: 10px
+          
+      h3
+        color: #333
+        font-size: 20px
+        line-height: 28px
+      
+      h4
+        font:
+          weight: normal
+          size: 14px
+        line-height: 22px
+        padding-bottom: 2px
+        
+      p.meta
+        padding-bottom: 5px
+        
+    #details
+      @include bottom-border
+      padding-bottom: 10px
+      margin-top: 15px
+        
+      img#map
+        border-radius: 3px
+        padding-bottom: 8px
+        
+      p.caption
+        color: #666
+        font:
+          size: 18px
+          style: italic
+        line-height: 24px
+        padding-bottom: 10px
+        
+      p.sherlock
+        font-size: 12px
+        
+    #link
+      @include bottom-border
+      padding-bottom: 10px
+      margin-top: 15px
+      
+      p
+        font-size: 18px
+        font-weight: bold
+        color: #09c
+        cursor: pointer
+        background:
+          image: url('/assets/arrow.png')
+          position: top right
+          repeat: no-repeat
+    
+    #likes
+      .like
+        width: 158px
+        display: inline-block
+        margin-bottom: 20px
+      
+        img
+          float: left
+          padding-right: 5px
+          width: 40px
+          height: 40px
+      
+        p
+          font-size: 14px
+          line-height: 40px
+          overflow: hidden
+          width: 103px
+          color: #09c
+        
+    #comments
+      .comment
+        margin-bottom: 10px
+        padding-bottom: 10px
+        @include bottom-border
+      
+        &:first-child
+          margin-top: 0
+        
+        a
+          padding-right: 5px
+        
+        .time
+          color: #ccc
+          font-size: 12px
+          padding-left: 5px

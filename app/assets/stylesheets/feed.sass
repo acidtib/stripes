@@ -1,0 +1,52 @@
+@import "mixins"
+
+.photos
+  .item
+    @include white-bg-round-corners
+    display:    block
+    float:      left
+    padding:    10px
+      bottom:   7px
+    margin: 
+      bottom: 30px
+    
+    img
+      display: block
+      padding:
+        bottom: 7px
+        
+    span
+      line-height: 20px
+      
+      &.user
+        font-weight:  bold
+      
+        img
+          width:    20px
+          height:   20px
+          padding:  0
+            right:  5px
+          display:  inline
+          float:    left
+      
+      &.likes, &.comments
+        float: right
+        color: #999
+        margin-left: 10px
+        padding-left: 15px
+        background:
+          repeat: no-repeat
+          position: 0px 4px
+        
+      &.likes
+        background:
+          image: url('/assets/like.gif')
+          
+      &.comments
+        background:
+          image: url('/assets/comment.gif')
+          
+      &.likes.my
+        color: #ff400d
+        background:
+          image: url('/assets/like-red.gif')

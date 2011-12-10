@@ -1,0 +1,62 @@
+#photo
+
+  #sidebar
+    #general
+      #profile
+        %img{:src => @photo["user"]["profile_picture"]}
+        
+        %h3<
+          = link_to @photo["user"]["username"], profile_url(@photo["user"]["id"])
+        %h4<
+          =@photo["user"]["full_name"]
+        - if @photo["user"]["bio"]
+          %p.meta<
+            =@photo["user"]["bio"]
+        - if @photo["user"]["website"]
+          %p
+            %a{:href=>@photo["user"]["website"]}<
+              =@photo["user"]["website"]
+      
+      #details
+        -if @photo["caption"]
+          %p.caption<
+            = raw("&laquo;#{@photo["caption"]["text"]}&raquo;")
+            
+        -if @photo["location"]
+          =render_location_image @photo["location"]["latitude"], @photo["location"]["longitude"]
+          
+        %p.meta.sherlock
+          =raw("This shot was created #{time_ago_in_words(Time.at(@photo["created_time"].to_i))} ago with filter #{@photo["filter"]}.")
+      
+      - if @photo["likes"]["count"].to_i > 0
+        #link.likes
+          %p<
+            ="#{@photo["likes"]["count"]} likes"
+
+      - if @photo["comments"]["count"].to_i > 0
+        #link.comments
+          %p<
+            ="#{@photo["comments"]["count"]} comments"
+          
+    #likes
+      %h4
+        .back<
+          Back
+        ="#{@photo["likes"]["count"]} likes for this shot"
+      .container
+        -@likes.each do |like|
+          .like
+            %img{:src => like["profile_picture"]}
+            %p
+              = link_to like["username"], profile_url(like["id"])
+  
+    #comments
+      %h4
+        .back<
+          Back
+        ="#{@photo["comments"]["count"]} comments"
+      .container
+        = render :partial => "comment", :collection => @comments
+          
+
+  %img{:src => @photo["images"]["standard_resolution"]["url"]}

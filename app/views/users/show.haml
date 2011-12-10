@@ -1,0 +1,43 @@
+#userinfo
+  %ul#meta
+    %li<
+      %span><
+        123
+      photos
+    %li<
+      %span><
+        123
+      followers
+    %li<
+      %span><
+        123
+      following
+    %li<
+      %a.follow
+        FOLLOW
+  =image_tag @user["profile_picture"], :width => 60
+  %h2<
+    =@user["username"]
+  - if @user["full_name"] != ""
+    %p#name<
+      =@user["full_name"]
+  %p#url<
+    =link_to @user["website"], @user["website"]
+  %p#bio<
+    =@user["bio"]
+    
+.photos#media
+
+  - @photos.each do |p|
+    .item
+      %a{:href => media_url(p["id"])}
+        %img{:src => p["images"]["low_resolution"]["url"]}
+
+      = render_likes_count(p["likes"], p["user_has_liked"])
+
+      %span.comments
+        = render_comments_count p["comments"]
+
+      %span.user
+        %img{:src => p["user"]["profile_picture"]}
+        = p["user"]["username"]

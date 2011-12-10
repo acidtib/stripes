@@ -1,0 +1,11 @@
+.row.photos
+
+  - @photos.each do |p|
+    .span4.item
+      %h5
+        = p["user"]["username"]
+      %img{:src => p["images"]["thumbnail"]["url"]}
+      %p
+        = "#{p["likes"]["count"]} likes"
+        = raw("&bull;")
+        = "#{p["comments"]["count"]} comments"
