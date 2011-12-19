@@ -11,9 +11,14 @@ html
     padding:  0
   
 body
-  background: #333
+  background: #333 url('/assets/bg.png')
   padding:
     top:  70px
+    
+  &.dark
+    background: #333 url('/assets/bg-dark.png') top center
+    padding:
+      top: 0
     
 .meta
   color: #999
@@ -41,11 +46,10 @@ ul, ul li
   line-height: 40px
   color: #fff
   
-  h2
-    margin:
-      left: 10px
-      right: 20px
+  img
     display: inline
+    float: left
+    margin-right: 20px
     
   ul
     display: inline

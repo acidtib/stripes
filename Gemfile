@@ -25,6 +25,10 @@ gem 'sqlite3'
 gem 'haml'
 gem 'json_pure'
 
+group :assets do
+  gem 'coffee-rails'
+end
+
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:

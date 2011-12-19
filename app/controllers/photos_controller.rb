@@ -1,9 +1,9 @@
 class PhotosController < ApplicationController
   
   def show id=params[:id]
-    data = wrap_request "media/#{id}"
-    likes_data = wrap_request "media/#{id}/likes"
-    comments_data = wrap_request "media/#{id}/comments"
+    data = Instagram.get_media_data id
+    likes_data = Instagram.get_media_likes id
+    comments_data = Instagram.get_media_comments id
     @photo = data["data"]
     @likes = likes_data["data"]
     @comments = comments_data["data"]
@@ -11,6 +11,18 @@ class PhotosController < ApplicationController
   
   def index
     redirect_to :controller => :home, :action => :feed
+  end
+  
+  def comment id=params[:id]
+    
+  end
+  
+  def like id=params[:id]
+    render :json => Instagram.like_media(id)
+  end
+  
+  def unlike id=params[:id]
+    render :json => Instagram.unlike_media(id)
   end
   
 end

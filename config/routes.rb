@@ -6,10 +6,14 @@ Easytiger::Application.routes.draw do
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
   match 'auth' => 'home#auth'
-  match 'home' => 'home#index'
+  match 'feed' => 'home#feed'
+  match 'login' => 'home#login'
   match 'logout' => 'home#logout'
   match 'get_my_media' => 'home#get_my_media'
   match 'photos/:id' => 'photos#show', :as => :media
+  match 'photos/:id/like' => 'photos#like', :as => :like_media
+  match 'photos/:id/unlike' => 'photos#unlike', :as => :unlike_media
+  match 'photos/:id/comment' => 'photos#comment', :as => :comment_media
   match 'photos' => 'photos#index'
   match '/temp' => 'home#temp'
   match 'user/:id' => 'users#show'
@@ -58,7 +62,7 @@ Easytiger::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => "home#feed"
+  root :to => "home#index"
 
   # See how all your routes lay out with "rake routes"
 

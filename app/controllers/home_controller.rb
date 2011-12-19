@@ -1,13 +1,15 @@
-class HomeController < ApplicationController
-  
-#  before_filter :update_current_user_likes 
+class HomeController < ApplicationController 
   
   def index
-    unless logged_in
-      redirect_to_instagram_auth 
+    if logged_in
+      redirect_to :action => :feed
     else
-      render :text => @session["access_token"]
+      render :layout => "splash"
     end
+  end
+  
+  def login
+    redirect_to_instagram_auth
   end
   
   def auth
@@ -16,18 +18,18 @@ class HomeController < ApplicationController
   end
   
   def feed
-    media = wrap_request("users/self/feed", "count=40")
+    media = Instagram.get_my_recent_media
     
     if media["data"]
       @photos = media["data"]
     else
-      render :text => "fuck, what has just happened?"
+      render :text => "Media data = nil, omg wtf."
     end
-    
   end
   
   def logout
     session[:access_token] = nil
+    IGNetworking::Request.halt
     redirect_to :action => :index
   end
   
