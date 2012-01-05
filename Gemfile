@@ -35,3 +35,7 @@ end
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+group :development, :test do
+  gem 'rspec-rails'
+end

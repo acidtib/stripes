@@ -1,9 +1,16 @@
+# some custom error definitions
+class Error404 < StandardError; end
+class MediaNotFoundError < Error404; end
+
+# there goes
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
   require 'i_g_networking'
   
   before_filter :get_session_data
+  
+  rescue_from MediaNotFoundError, :with => :generic_error_page
   
   def get_session_data
     if session[:access_token]
@@ -26,6 +33,10 @@ class ApplicationController < ActionController::Base
     session[:access_token] = JSON.parse response
     @session = session[:access_token]
     redirect_to :controller => :home, :action => :feed
+  end
+  
+  def generic_error_page e
+    render :text => e.message
   end
   
 end

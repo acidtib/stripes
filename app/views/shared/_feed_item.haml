@@ -1,6 +1,6 @@
 .item
   %a{:href => media_url(p["id"])}
-    %img{:src => p["images"]["low_resolution"]["url"]}
+    %img{:src => p["images"]["low_resolution"]["url"], :width => 306, :height => 306}
   
   = render_likes_count(p["likes"], p["user_has_liked"], p["id"])
   
@@ -9,4 +9,4 @@
   
   %span.user
     %img{:src => p["user"]["profile_picture"]}
-    = p["user"]["username"]
+    = link_to p["user"]["username"], profile_url(p["user"]["id"])

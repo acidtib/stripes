@@ -23,7 +23,7 @@ module IGNetworking
     end
   
     def self.init access_token
-      raise "No correct access token provided." unless access_token
+      raise "No correct access token provided." unless access_token # this bullshit should be rewritten
       @access_token = access_token
       @http = Net::HTTP.new 'api.instagram.com', 443
       @http.use_ssl = true
