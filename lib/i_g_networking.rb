@@ -7,6 +7,7 @@ module IGNetworking
   class Request
   
     def self.params2str params
+      params.delete_if { |k, v| v == "" }
       "&" + params.map{ |k, v| "#{k}=#{v}" }.join("&")
     end
 

@@ -1,10 +1,11 @@
 !!! 5
 %html
   %head
-    %title Stripes — just a bigger iPhone screen for Instagram.
+    %title Stripes: something went wrong.
     = stylesheet_link_tag :application
     = javascript_include_tag :application
     = csrf_meta_tag
 
-  %body.dark
-    = yield
+  %body
+    .container
+      = yield

@@ -6,4 +6,5 @@
 //
 //= require jquery
 //= require rails
+//= require waypoints
 //= require_tree .

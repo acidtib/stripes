@@ -1,12 +1,12 @@
 .item
-  %a{:href => media_url(p["id"])}
-    %img{:src => p["images"]["low_resolution"]["url"], :width => 306, :height => 306}
+  %a{:href => media_url(p.id)}
+    %img{:src => p.image.medium.url, :width => p.image.medium.width, :height => p.image.medium.height}
   
-  = render_likes_count(p["likes"], p["user_has_liked"], p["id"])
+  = render_likes_count(p.likes_count, p.i_have_liked, p.id)
   
   %span.comments
-    = render_comments_count p["comments"]
+    = p.comments_count
   
   %span.user
-    %img{:src => p["user"]["profile_picture"]}
-    = link_to p["user"]["username"], profile_url(p["user"]["id"])
+    %img{:src => p.user.profile_picture_url}
+    = link_to p.user.username, profile_url(p.user.id)

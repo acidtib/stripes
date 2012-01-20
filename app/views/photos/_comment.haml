@@ -1,5 +1,5 @@
 .comment
-  =link_to comment["from"]["username"], profile_url(comment["from"]["id"])
-  = comment["text"]
+  = link_to comment.user.username, profile_url(comment.user.id)
+  = comment.text
   %span.time<
-    ="#{time_ago_in_words(Time.at(comment["created_time"].to_i))} ago"
+    ="#{time_ago_in_words(comment.created_at)} ago"

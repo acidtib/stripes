@@ -1,4 +1,14 @@
 #menu
   %img{ :src => "/assets/logo.png" }
+  
+  %ul.right
+    %li
+      Logged in as 
+      = link_to @session["user"]["username"], "#"
+    %li
+      = link_to "Log out",  logout_url
+  
   %ul
     %li.current Feed
+    %li
+      = link_to "Popular", popular_url

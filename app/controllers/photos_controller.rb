@@ -1,12 +1,9 @@
 class PhotosController < ApplicationController
   
   def show id=params[:id]
-    data = Instagram.get_media_data id
-    likes_data = Instagram.get_media_likes id
-    comments_data = Instagram.get_media_comments id
-    @photo = data["data"]
-    @likes = likes_data["data"]
-    @comments = comments_data["data"]
+    @photo = Instagram.get_media_data id
+    @likes_users = Instagram.get_media_likes id
+    @comments = Instagram.get_media_comments id
   end
   
   def index

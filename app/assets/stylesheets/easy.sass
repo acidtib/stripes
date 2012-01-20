@@ -40,6 +40,7 @@ ul, ul li
 #menu
   background: #000
   position:   fixed
+  z-index: 5000
   top:  0
   left: 0
   height: 40px
@@ -61,3 +62,12 @@ ul, ul li
       
       &.current
         color: cyan
+        
+    &.right
+      float: right
+      margin-right: 20px
+      font-size: 12px
+      
+      li
+        color: #999
+        margin-right: 10px

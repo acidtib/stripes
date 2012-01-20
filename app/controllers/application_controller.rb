@@ -1,6 +1,10 @@
 # some custom error definitions
-class Error404 < StandardError; end
-class MediaNotFoundError < Error404; end
+class MetaError < StandardError; end
+class BadRequestError < MetaError; end
+class InternalServerError < MetaError; end
+class NotFoundError < MetaError; end
+class ServiceUnavailableError < MetaError; end
+
 
 # there goes
 class ApplicationController < ActionController::Base
@@ -10,7 +14,10 @@ class ApplicationController < ActionController::Base
   
   before_filter :get_session_data
   
-  rescue_from MediaNotFoundError, :with => :generic_error_page
+  rescue_from BadRequestError, :with => :relogin_error_page
+  rescue_from NotFoundError, :with => :page_not_found_page
+  rescue_from InternalServerError, :with => :instagram_is_broken_page
+  rescue_from ServiceUnavailableError, :with => :instagram_is_down_page
   
   def get_session_data
     if session[:access_token]
@@ -35,8 +42,19 @@ class ApplicationController < ActionController::Base
     redirect_to :controller => :home, :action => :feed
   end
   
-  def generic_error_page e
-    render :text => e.message
+  def instagram_is_broken_page
+    
+  end
+  
+  def page_not_found_page
+    render :layout => "error_layout", :partial => "shared/generic_error", :locals => { :message => "Some shit just has happened, you know" }
+  end
+  
+  def relogin_error_page
+    
+  end
+  
+  def instagram_is_down_page
   end
   
 end

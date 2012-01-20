@@ -18,13 +18,14 @@ class HomeController < ApplicationController
   end
   
   def feed
-    media = Instagram.get_my_recent_media
-    
-    if media["data"]
-      @photos = media["data"]
-    else
-      render :text => "Media data = nil, omg wtf."
-    end
+    @photos, @next_page_max_id = Instagram.get_my_recent_media
+  end
+  
+  def feed_page_from_max_id
+    @photos, @next_page_max_id = Instagram.get_my_recent_media params[:max_id]
+    render :text => JSON.generate( { :next_max_id => @next_page_max_id, 
+      :html => render_to_string(:partial => "shared/feed_item", :collection => @photos, :as => :p)
+    } )
   end
   
   def logout
@@ -33,9 +34,8 @@ class HomeController < ApplicationController
     redirect_to :action => :index
   end
   
-  def temp
-    data = wrap_request("/users/search", "q=vocaltsunami&count=1")
-    render :text => data
+  def popular
+    
   end
-  
+    
 end

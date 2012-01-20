@@ -2,29 +2,27 @@
   %ul#meta
     %li<
       %span><
-        123
+        = @user.media_count
       photos
     %li<
       %span><
-        123
+        = @user.followers
       followers
     %li<
       %span><
-        123
+        = @user.following
       following
-    %li<
-      %a.follow
-        FOLLOW
-  =image_tag @user["profile_picture"], :width => 60
+  = image_tag @user.profile_picture_url, :width => 60
   %h2<
-    =@user["username"]
-  - if @user["full_name"] != ""
+    = @user.username
+  - unless @user.full_name.empty?
     %p#name<
-      =@user["full_name"]
+      =@user.full_name
   %p#url<
-    =link_to @user["website"], @user["website"]
+    =link_to @user.website, @user.website
   %p#bio<
-    =@user["bio"]
+    =@user.bio
     
-.photos#media
+.photos#user{ "data-next-max-id" => (@next_page_max_id if @next_page_max_id), "data-user-id" => @user.id }
   = render :partial => "shared/feed_item", :collection => @photos, :as => :p
+  .item#bottom_loader
