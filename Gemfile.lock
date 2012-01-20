@@ -118,3 +118,4 @@ DEPENDENCIES
   rails (= 3.1.0)
   rspec-rails
   sqlite3
+	pg
