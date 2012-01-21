@@ -13,4 +13,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignoring SASS cache
 /.sasscahe
+
+# Ignoring precompiled assets from dev env
+/public/assets/manifest.yml
