@@ -11,5 +11,9 @@ class UsersController < ApplicationController
       :html => render_to_string(:partial => "shared/feed_item", :collection => @photos, :as => :p)
     } )
   end
+
+  def bad_request_page
+    render :layout => nil, :file => "#{Rails.root}/public/404.html", :status => 404
+  end
   
 end
