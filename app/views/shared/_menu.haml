@@ -9,6 +9,7 @@
       = link_to "Log out",  logout_url
   
   %ul
-    %li.current Feed
+    %li.current
+      = link_to "Feed", :controller => :home, :action => :feed
     %li
       = link_to "Popular", "#"
