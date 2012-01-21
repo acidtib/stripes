@@ -22,4 +22,10 @@ class PhotosController < ApplicationController
     render :json => Instagram.unlike_media(id)
   end
   
+  # fix to obscure instagram errors about bad requests when you
+  # provide wrong or illegal media id
+  def bad_request_page
+    render :file => "#{Rails.root}/public/404.html", :status => 404
+  end
+  
 end

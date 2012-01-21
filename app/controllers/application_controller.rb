@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   before_filter :instantiate_controller_and_action_names
   caches_action :instantiate_controller_and_action_names
   
-  rescue_from BadRequestError, :with => :relogin_error_page
+  rescue_from BadRequestError, :with => :bad_request_page
   rescue_from NotFoundError, :with => :page_not_found_page
   rescue_from InternalServerError, :with => :instagram_is_broken_page
   rescue_from ServiceUnavailableError, :with => :instagram_is_down_page
@@ -49,19 +49,22 @@ class ApplicationController < ActionController::Base
     redirect_to :controller => :home, :action => :feed
   end
   
-  def instagram_is_broken_page
-    
+  # error pages
+  
+  def bad_request_page
+    render :status => 400
   end
   
   def page_not_found_page
-    render :layout => "error_layout", :partial => "shared/generic_error", :locals => { :message => "Some shit just has happened, you know" }
+    render :file => "#{Rails.root}/public/404.html", :status => 404
   end
   
-  def relogin_error_page
-    
+  def instagram_is_broken_page
+    render  :file => "#{Rails.root}/public/500.html", :status => 500
   end
   
   def instagram_is_down_page
+    render :status => 503
   end
   
 end
