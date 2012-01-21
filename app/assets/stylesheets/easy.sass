@@ -25,8 +25,11 @@ body
   color: #999
   
 a
-  color: #09c
   text-decoration: none
+  -webkit-transition: color 0.5s
+
+  &:link, &:visited
+    color: #09c
   
 p
   font-size: 14px
@@ -71,3 +74,9 @@ ul, ul li
       li
         color: #999
         margin-right: 10px
+
+  a:hover
+    color: yellow
+
+.container a:hover
+  color: maroon
