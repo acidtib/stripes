@@ -7,6 +7,7 @@ $(document).ready ->
   min_margin = 15
   base_w = 326 + min_margin * 2
   
+  # -----
   # dumb function to build dynamic grid of photos
   $(window).resize ->
     num = Math.floor($(document).width() / base_w)
@@ -16,11 +17,7 @@ $(document).ready ->
     $(".photos .item").css("margin-left", margin)
     $(".photos .item").css("margin-right", margin)
   
-  # trigger once to reposition pictures on load
-  $(window).resize()
-  
   # -----
-  
   # animation triggers for Likes tab on photo page
   $("#link.likes").click ->
     $("#general").animate {left: '-=358'}, "fast"
@@ -40,63 +37,63 @@ $(document).ready ->
     $("#comments").animate {left: '359'}, "fast"
   
   # -----
-  
   # like/unlike toggle on photos grid page
-  $("span.likes.not").click ->
-    item = $(this)
-    $.get "/photos/#{item.attr("media_id")}/like", (data) ->
-      if data.meta.code == 200
-        item.removeClass("not")
-        item.addClass("my")
-        item.html parseInt(item.html())+1
+  assign_like_clicks = () ->
+    $("span.likes.not").click ->
+      item = $(this)
+      $.get "/photos/#{item.attr("media_id")}/like", (data) ->
+        if data.meta.code == 200
+          item.removeClass("not")
+          item.addClass("my")
+          item.html parseInt(item.html())+1
         
-  $("span.likes.my").click ->
-    item = $(this)
-    $.get "/photos/#{item.attr("media_id")}/unlike", (data) ->
-      if data.meta.code == 200
-        item.addClass("not")
-        item.removeClass("my")
-        item.html parseInt(item.html())-1
-    
+    $("span.likes.my").click ->
+      item = $(this)
+      $.get "/photos/#{item.attr("media_id")}/unlike", (data) ->
+        if data.meta.code == 200
+          item.addClass("not")
+          item.removeClass("my")
+          item.html parseInt(item.html())-1
+  
   # -----
-  
   # infinite scrolling implementation
-  
   next_page = () ->
+    url = 0
+    feed = 0
+    
     if $("#feed").length
       feed = $("#feed")
-      max_id = feed.attr("data-next-max-id")
-      $.getJSON "/feed/next_page/#{max_id}", (data) ->
-        photos_container.before(data["html"])
-        $(window).resize()
-        if data["next_max_id"] != ""
-          feed.attr("data-next-max-id", data["next_max_id"])
-          photos_container.waypoint opts
-        else
-          photos_container.fadeOut()
-      
-    if $("#user").length
+      url = "/feed/next_page/#{feed.attr("data-next-max-id")}"
+    else if $("#user").length
       feed = $("#user")
-      max_id = feed.attr("data-next-max-id")
-      user_id = feed.attr("data-user-id")
-      $.getJSON "/users/#{user_id}/next_page/#{max_id}", (data) ->
-        photos_container.before(data["html"])
-        $(window).resize()
-        if data["next_max_id"] != ""
-          feed.attr("data-next-max-id", data["next_max_id"])
-          photos_container.waypoint opts
-        else
-          photos_container.fadeOut()
+      url = "/users/#{feed.attr("data-user-id")}/next_page/#{feed.attr("data-next-max-id")}"
+    else
+      return false
+      
+    $.getJSON url, (data) ->
+      fake_preloader.before(data["html"])
+      assign_like_clicks()
+      $(window).resize()
+      
+      if data["next_max_id"] != ""
+        feed.attr("data-next-max-id", data["next_max_id"])
+        fake_preloader.waypoint opts
+      else
+        feed.removeAttr("data-next-max-id")
+        fake_preloader.html("<p>Can't load any more photos because of Instagram limitations. Sorry!</p>")
   
-  # jquery-waypoints setup
-  photos_container = $('#bottom_loader')
+  # -----
+  # setup for waypoints and initial function calls
+  fake_preloader = $('#fake-preloader')
   opts = { 
     offset: '100%',
     triggerOnce: true,
     handler: (e, d) ->
       if d == "down"
-        photos_container.waypoint "remove"
+        fake_preloader.waypoint "remove"
         next_page()
   }
   
-  photos_container.waypoint opts
+  fake_preloader.waypoint opts
+  assign_like_clicks()
+  $(window).resize()

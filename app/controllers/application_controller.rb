@@ -56,11 +56,11 @@ class ApplicationController < ActionController::Base
   end
   
   def page_not_found_page
-    render :file => "#{Rails.root}/public/404.html", :status => 404
+    render :layout => nil, :file => "#{Rails.root}/public/404.html", :status => 404
   end
   
   def instagram_is_broken_page
-    render  :file => "#{Rails.root}/public/500.html", :status => 500
+    render  :layout => nil, :file => "#{Rails.root}/public/500.html", :status => 500
   end
   
   def instagram_is_down_page

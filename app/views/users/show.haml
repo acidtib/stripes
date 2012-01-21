@@ -25,4 +25,4 @@
     
 .photos#user{ "data-next-max-id" => (@next_page_max_id if @next_page_max_id), "data-user-id" => @user.id }
   = render :partial => "shared/feed_item", :collection => @photos, :as => :p
-  .item#bottom_loader
+  = render :partial => "shared/fake_preloader"

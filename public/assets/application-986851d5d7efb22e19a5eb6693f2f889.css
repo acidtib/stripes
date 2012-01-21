@@ -1,0 +1,342 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+*/
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400italic,400,700,700italic&subset=latin,cyrillic);
+html {
+  font-family: "PT Sans", sans-serif;
+  font-size: 14px; }
+  html * {
+    margin: 0;
+    padding: 0; }
+
+body {
+  background: #333333 url("/assets/bg.png");
+  background-attachment: fixed;
+  padding-top: 70px; }
+  body.dark {
+    background: #333333 url("/assets/bg-dark.png") top center;
+    padding-top: 0; }
+
+.meta {
+  color: #999999; }
+
+a {
+  color: #0099cc;
+  text-decoration: none; }
+
+p {
+  font-size: 14px;
+  line-height: 21px; }
+
+ul, ul li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none; }
+
+#menu {
+  background: black;
+  position: fixed;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 100%;
+  line-height: 40px;
+  color: white; }
+  #menu img {
+    display: inline;
+    float: left;
+    margin-right: 20px; }
+  #menu ul {
+    display: inline; }
+    #menu ul li {
+      display: inline;
+      margin-right: 20px; }
+      #menu ul li.current a {
+        color: cyan; }
+    #menu ul.right {
+      float: right;
+      margin-right: 20px;
+      font-size: 12px; }
+      #menu ul.right li {
+        color: #999999;
+        margin-right: 10px; }
+#error {
+  width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 80px;
+  color: white;
+  margin: 0;
+  margin: 0;
+    margin-left: -250px; }
+  #error h2 {
+    font-size: 30px;
+    font-style: italic;
+    padding-bottom: 20px; }
+  #error p, #error ul {
+    font-size: 18px;
+    line-height: 24px; }
+  #error p {
+    padding-bottom: 10px; }
+  #error ul {
+    padding-bottom: 20px; }
+.photos .item {
+  background: white;
+  border-radius: 3px;
+  box-shadow: black 0px 4px 10px;
+  display: block;
+  float: left;
+  padding: 10px;
+    padding-bottom: 7px;
+  margin-bottom: 30px;
+  background-image: url("/assets/spinner.gif");
+  background-position: center;
+  background-repeat: no-repeat; }
+  .photos .item img {
+    display: block;
+    padding-bottom: 7px; }
+  .photos .item span {
+    line-height: 20px; }
+    .photos .item span.user {
+      font-weight: bold; }
+      .photos .item span.user img {
+        width: 20px;
+        height: 20px;
+        padding: 0;
+          padding-right: 5px;
+        display: inline;
+        float: left; }
+    .photos .item span.likes, .photos .item span.comments {
+      float: right;
+      color: #999999;
+      margin-left: 10px;
+      padding-left: 15px;
+      background-repeat: no-repeat;
+      background-position: 0px 4px; }
+    .photos .item span.likes {
+      cursor: hand;
+      cursor: pointer;
+      background-image: url("/assets/like.gif"); }
+    .photos .item span.comments {
+      background-image: url("/assets/comment.gif"); }
+    .photos .item span.likes.my {
+      color: #ff400d;
+      background-image: url("/assets/like-red.gif"); }
+  .photos .item.preloader {
+    color: #999999;
+    padding: 0;
+    box-shadow: none;
+    border-radius: none;
+    width: 306px; }
+    .photos .item.preloader p {
+      font-size: 18px;
+      line-height: 24px; }
+    .photos .item.preloader img {
+      float: left;
+      margin-right: 7px; }
+#splash {
+  width: 100%;
+  min-height: 500px;
+  text-align: center;
+  font-style: italic;
+  color: white;
+  margin: 0;
+  padding: 0;
+    padding-top: 80px;
+  background: url("/assets/lights-bg.png") center top no-repeat; }
+  #splash #say {
+    color: #fdaf08;
+    font-size: 36px;
+    margin-bottom: 20px; }
+  #splash img {
+    color: red; }
+  #splash #desc {
+    font-size: 36px;
+    margin-top: 20px;
+    padding-bottom: 40px; }
+    #splash #desc a {
+      color: white;
+      padding-left: 2px;
+      border-bottom: 2px solid;
+      border-color: #00c1d8; }
+  #splash #login {
+    display: inline-block;
+    width: 160px;
+    height: 40px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 172, 248, 0.25) 0px 5px 20px;
+    background: -webkit-linear-gradient(bottom, #18406b 0%, #00b1f7 100%);
+    line-height: 40px;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    text-shadow: rgba(0, 0, 0, 0.8) 0px -1px 1px;
+    -webkit-transition: box-shadow 0.5s, -webkit-transform 0.5s; }
+    #splash #login:hover {
+      background: -webkit-linear-gradient(bottom, #009088 0%, #00ffea 100%);
+      box-shadow: rgba(0, 245, 248, 0.5) 0px 5px 40px; }
+  #splash #comment {
+    line-height: 80px;
+    color: #333333; }
+#photo {
+  background: white;
+  border-radius: 3px;
+  box-shadow: black 0px 4px 10px;
+  padding: 20px;
+  width: 1000px;
+  margin: 0 auto; }
+  #photo img {
+    padding: 0;
+    margin: 0; }
+  #photo h2 {
+    font-size: 24px;
+    line-height: 36px;
+    padding-bottom: 10px; }
+  #photo #sidebar {
+    float: right;
+    width: 358px;
+    height: 612px;
+    overflow: hidden;
+    position: relative; }
+    #photo #sidebar .back {
+      float: left;
+      margin-right: 20px;
+      line-height: 40px;
+      color: #0099cc;
+      cursor: pointer; }
+    #photo #sidebar .container {
+      overflow-x: none;
+      overflow-y: scroll;
+      height: 545px; }
+    #photo #sidebar #general, #photo #sidebar #likes, #photo #sidebar #comments {
+      position: absolute;
+      width: 358px;
+      top: 0; }
+    #photo #sidebar #general {
+      left: 0px; }
+    #photo #sidebar #likes, #photo #sidebar #comments {
+      left: 359px; }
+      #photo #sidebar #likes h4, #photo #sidebar #comments h4 {
+        text-align: right;
+        color: #999999;
+        line-height: 40px;
+        border-bottom: 1px solid #e9e9e9;
+        margin-bottom: 20px; }
+    #photo #sidebar #profile {
+      border-bottom: 1px solid #e9e9e9;
+      padding-left: 90px;
+      padding-bottom: 15px;
+      position: relative;
+      min-height: 75px; }
+      #photo #sidebar #profile img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 75px;
+        height: 75px;
+        margin-right: 10px; }
+      #photo #sidebar #profile h3 {
+        color: #333333;
+        font-size: 20px;
+        line-height: 28px; }
+      #photo #sidebar #profile h4 {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 22px;
+        padding-bottom: 2px; }
+      #photo #sidebar #profile p.meta {
+        padding-bottom: 5px; }
+    #photo #sidebar #details {
+      border-bottom: 1px solid #e9e9e9;
+      padding-bottom: 10px;
+      margin-top: 15px; }
+      #photo #sidebar #details img#map {
+        border-radius: 3px;
+        padding-bottom: 8px; }
+      #photo #sidebar #details p.caption {
+        color: #666666;
+        font-size: 18px;
+        font-style: italic;
+        line-height: 24px;
+        padding-bottom: 10px; }
+      #photo #sidebar #details p.sherlock {
+        font-size: 12px; }
+    #photo #sidebar #link {
+      border-bottom: 1px solid #e9e9e9;
+      padding-bottom: 10px;
+      margin-top: 15px; }
+      #photo #sidebar #link p {
+        font-size: 18px;
+        font-weight: bold;
+        color: #0099cc;
+        cursor: pointer;
+        background-image: url("/assets/arrow.png");
+        background-position: top right;
+        background-repeat: no-repeat; }
+    #photo #sidebar #likes .like {
+      width: 158px;
+      display: inline-block;
+      margin-bottom: 20px; }
+      #photo #sidebar #likes .like img {
+        float: left;
+        padding-right: 5px;
+        width: 40px;
+        height: 40px; }
+      #photo #sidebar #likes .like p {
+        font-size: 14px;
+        line-height: 40px;
+        overflow: hidden;
+        width: 103px;
+        color: #0099cc; }
+    #photo #sidebar #comments .comment {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e9e9e9; }
+      #photo #sidebar #comments .comment:first-child {
+        margin-top: 0; }
+      #photo #sidebar #comments .comment a {
+        padding-right: 5px; }
+      #photo #sidebar #comments .comment .time {
+        color: #cccccc;
+        font-size: 12px;
+        padding-left: 5px; }
+#userinfo {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background: #222222;
+  color: #cccccc; }
+  #userinfo img {
+    float: left;
+    padding-left: 10px;
+    padding-right: 15px; }
+  #userinfo h2 {
+    display: inline;
+    line-height: 32px;
+    padding-right: 7px; }
+  #userinfo p#name, #userinfo p#url {
+    display: inline;
+    padding-right: 7px; }
+  #userinfo p#bio {
+    font-size: 13px;
+    color: #999999; }
+  #userinfo ul#meta {
+    float: right; }
+    #userinfo ul#meta li {
+      font-size: 13px;
+      display: inline-block;
+      padding-right: 20px;
+      padding-top: 9px; }
+      #userinfo ul#meta li span {
+        display: block;
+        font-size: 18px; }
+
+.photos#user {
+  margin-top: 60px; }

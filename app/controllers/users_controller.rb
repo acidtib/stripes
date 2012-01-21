@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   
-  def show id = params[:id]
-    @user = Instagram.get_user_info id
-    @photos, @next_page_max_id = Instagram.get_user_feed id
+  def show
+    @user = Instagram.get_user_info params[:id]
+    @photos, @next_page_max_id = Instagram.get_user_feed params[:id]
   end
   
   def feed_page_from_max_id
