@@ -19,3 +19,7 @@
 
 # Ignoring precompiled assets from dev env
 /public/assets/manifest.yml
+
+# Ignoring test stuff in assets
+/app/assets/javascripts/dev-*
+/app/assets/stylesheets/dev-*
