@@ -38,10 +38,17 @@ module IGNetworking
   
   class OAuth
 
-     CLIENT_ID = '5b94ab73a59145be939858ad04be772d'
-     CLIENT_SECRET = '800e0c7c46c243a48ece23d022ce25d0'
-     REDIRECT_URI = 'http://localhost:3000/auth'
-     SCOPE = 'basic+relationships+comments+likes'
+    if Rails.env.production?
+      CLIENT_ID = 'dc8647ac03ec496aaa387a287c97acca'
+      CLIENT_SECRET = 'd3d03d10ffea4b2c84db5c84c579abae'
+      REDIRECT_URI = 'http://stripesdemo.herokuapp.com/auth'
+    else
+      CLIENT_ID = '5b94ab73a59145be939858ad04be772d'
+      CLIENT_SECRET = '800e0c7c46c243a48ece23d022ce25d0'
+      REDIRECT_URI = 'http://localhost:3000/auth'
+    end
+    
+    SCOPE = 'basic+relationships+comments+likes'
 
      def self.request_auth_url
        "https://api.instagram.com/oauth/authorize/?" + { :client_id => CLIENT_ID, :redirect_uri => REDIRECT_URI, :response_type => "code" }.to_query + "&scope=" + SCOPE
