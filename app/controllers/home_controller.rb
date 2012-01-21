@@ -35,7 +35,7 @@ class HomeController < ApplicationController
   end
   
   def popular
-    
+    @photos = Instagram.get_popular_media
   end
     
 end

@@ -22,6 +22,11 @@ class Instagram
     return data["data"].collect do |m| Meta::Photo.new m end, data["pagination"].empty? ? "" : data["pagination"]["next_max_id"]
   end
   
+  def self.get_popular_media
+    data = handle IGNetworking::Request.get("media/popular"), :json => true
+    return data["data"].collect do |m| Meta::Photo.new m end
+  end
+  
   def self.get_user_info user_id
     data = handle IGNetworking::Request.get("/users/#{user_id}"), :json => true
     return Meta::ExtendedUser.new data["data"]

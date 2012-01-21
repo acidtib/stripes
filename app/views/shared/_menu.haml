@@ -4,11 +4,11 @@
   %ul.right
     %li
       Logged in as 
-      = link_to @session["user"]["username"], "#"
+      = link_to @session["user"]["username"], profile_url(@session["user"]["id"]) 
     %li
       = link_to "Log out",  logout_url
   
   %ul
     %li.current Feed
     %li
-      = link_to "Popular", popular_url
+      = link_to "Popular", "#"
