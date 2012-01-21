@@ -13,11 +13,18 @@ class ApplicationController < ActionController::Base
   require 'i_g_networking'
   
   before_filter :get_session_data
+  before_filter :instantiate_controller_and_action_names
+  caches_action :instantiate_controller_and_action_names
   
   rescue_from BadRequestError, :with => :relogin_error_page
   rescue_from NotFoundError, :with => :page_not_found_page
   rescue_from InternalServerError, :with => :instagram_is_broken_page
   rescue_from ServiceUnavailableError, :with => :instagram_is_down_page
+  
+  def instantiate_controller_and_action_names
+    @current_action = action_name
+    @current_controller = controller_name
+  end
   
   def get_session_data
     if session[:access_token]
