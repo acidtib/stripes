@@ -80,7 +80,7 @@ $(document).ready ->
         fake_preloader.waypoint opts
       else
         feed.removeAttr("data-next-max-id")
-        fake_preloader.html("<p>Can't load any more photos because of Instagram limitations. Sorry!</p>")
+        fake_preloader.html("<p>The end!</p>")
   
   # -----
   # setup for waypoints and initial function calls
