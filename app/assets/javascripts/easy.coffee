@@ -7,6 +7,7 @@ $(document).ready ->
   min_margin = 15
   base_w = 326 + min_margin * 2
   
+  ###
   # -----
   # dumb function to build dynamic grid of photos
   $(window).resize ->
@@ -16,6 +17,7 @@ $(document).ready ->
     
     $(".photos .item").css("margin-left", margin)
     $(".photos .item").css("margin-right", margin)
+  ###
   
   # -----
   # animation triggers for Likes tab on photo page
