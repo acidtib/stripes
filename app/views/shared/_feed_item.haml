@@ -1,6 +1,6 @@
 .item
   %a{:href => media_url(p.id)}
-    %img{:src => p.image.medium.url, :width => p.image.medium.width, :height => p.image.medium.height}
+    %img{:src => p.image.medium.url}
   
   = render_likes_count(p.likes_count, p.i_have_liked, p.id)
   
