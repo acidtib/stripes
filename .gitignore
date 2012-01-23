@@ -15,7 +15,7 @@
 /tmp
 
 # Ignoring SASS cache
-/.sass-cahe
+/.sass-cahe/
 
 # Ignoring precompiled assets from dev env
 /public/assets/manifest.yml
