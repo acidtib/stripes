@@ -87,6 +87,22 @@
 
 // tuning for different screen sizes
 
+// Determining optimal amount of image items per screen width:
+// before 2000x - 5
+// before 1600x — 4
+// before 1200x - 3
+// before 800x  - 2
+// before 500x  - 1
+
+// WIDTH: 1600(max) -> 1200(min) / 25% scale at minimum
+// For 1600px document width,
+//  image width: 306 px
+//  item height: 333px
+//  item left-right margins: 35px
+//  item bottom margins: 30px
+//  item paddings: 10px
+//  item width: 326px
+
 // 7 photos
 @media screen and (min-width: 2400px) and (max-width: 2800px)
   .photos 
