@@ -5,20 +5,29 @@
     @include white-bg-round-corners
     display:    block
     float:      left
-    padding:    10px
-      bottom:   7px
-    margin: 
+    // padding:    10px
+    //  bottom:   7px
+    margin:
+      top: 0
       bottom:   30px
     background:
       image: url('/assets/spinner.gif')
       position: center
       repeat: no-repeat
+    padding:
+      left: 0
+      right: 0
+      top: 0.712857142857143em // 10 ÷ 14
     
     img
       image-rendering: optimizequality
       display: block
-      padding:
-        bottom: 7px
+      margin:
+        bottom: 0.5em
+      
+      // + fluid  
+      max-width: 93.865030674846628% // 306 ÷ 326
+      margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
         
     span
       line-height: 20px
@@ -47,6 +56,9 @@
         cursor: pointer
         background:
           image: url('/assets/like.gif')
+        
+        // + fluid
+        margin-right: 3.0674846625766871% // 10 ÷ 326
           
       &.comments
         background:
@@ -75,23 +87,65 @@
 
 // tuning for different screen sizes
 
-@media screen and (min-width: 1200px) and (max-width: 1680px)
-  
+// 7 photos
+@media screen and (min-width: 2400px) and (max-width: 2800px)
   .photos 
     .item
-      width: 20.374999999999999%
+      width: 11.642857142857142% // 326 ÷ 2800
       margin:
-        top:    0
-        left:   2.2499999999999999%
-        right:  2.2499999999999999%
-        bottom: 1.8749999999999999%
-      padding: 0
-        top: 0.712857142857143em
-        bottom: 0.5em
+        left:   1.3214285714285714% // ((2800 - 326 × 7) ÷ 14) ÷ 2800
+        right:  1.3214285714285714%
 
-      img
-        max-width: 93.865030674846628%
-        margin-left: 3.3674846625766871%
+// 6 photos
+@media screen and (min-width: 1600px) and (max-width: 2400px)
+  .photos 
+    .item
+      width: 13.583333333333333% // 326 ÷ 2400
+      margin:
+        left:   1.5416666666666667% // ((2400 - 326 × 6) ÷ 12) ÷ 2400
+        right:  1.5416666666666667%
 
-      span.likes
-        margin-right: 3.0674846625766871%
+// 5 photos
+@media screen and (min-width: 1600px) and (max-width: 2000px)  
+  .photos 
+    .item
+      width: 16.3% // 326 ÷ 2000
+      margin:
+        left:   1.85% // ((2000 - 326 × 5) ÷ 10) ÷ 2000
+        right:  1.85%
+
+// 4 photos
+@media screen and (min-width: 1200px) and (max-width: 1600px)  
+  .photos 
+    .item
+      width: 20.375% // 326 ÷ 1600
+      margin:
+        left:   2.3125% // ((1600 - 326 × 4) ÷ 8) ÷ 1600
+        right:  2.3125%
+
+// 3 photos
+@media screen and (min-width: 800px) and (max-width: 1200px)  
+  .photos 
+    .item
+      width: 27.166666666666667% // 326 ÷ 1200
+      margin:
+        left:   3.0833333333333334% // ((1200 - 326 × 3) ÷ 6) ÷ 1200
+        right:  3.0833333333333334%
+
+// 2 photos
+@media screen and (min-width: 500px) and (max-width: 800px)  
+  .photos 
+    .item
+      width: 40.75% // 326 ÷ 800
+      margin:
+        left:   4.625% // ((800 - 326 × 2) ÷ 4) ÷ 800
+        right:  4.625%
+
+// 1 photo
+@media screen and (max-width: 500px)
+  .photos 
+    .item
+      width: 65% // 326 ÷ 500
+      margin:
+        left:   17.4% // ((500 - 326) ÷ 2 ÷ 500
+        right:  17.4%
