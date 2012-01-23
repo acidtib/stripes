@@ -9,20 +9,20 @@ $(document).ready ->
   
   # -----
   # animation triggers for Likes tab on photo page
-  $("#link.likes").click ->
+  $("#actions .likes").click ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#likes").animate {left: '0'}, "fast"
   
-  $("#likes .back").click ->
+  $("#likes #navbar span").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#likes").animate {left: '359'}, "fast"
   
   # animation triggers for Comments tab on photo page
-  $("#link.comments").click ->
+  $("#actions .comments").click ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#comments").animate {left: '0'}, "fast"
   
-  $("#comments .back").click ->
+  $("#comments #navbar span").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#comments").animate {left: '359'}, "fast"
 

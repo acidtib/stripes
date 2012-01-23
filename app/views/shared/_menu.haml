@@ -1,16 +1,18 @@
 #menu
-  %a{ :href => "/" }
-    %img{ :src => "/assets/logo.png" }
-  
-  %ul.right
+  %ul.right.user-menu
     %li
       Logged in as 
-      = link_to @session["user"]["username"], profile_url(@session["user"]["id"]) 
+      = link_to @session["user"]["username"], profile_url(@session["user"]["id"]), { :title => "View your profile" }
     %li
-      = link_to "Log out",  logout_url
+      = link_to "Log out",  logout_url, { :title => "Log out" }
   
-  %ul
+  %h1
+    %a{ :href => "/", :title => "Stripes main page" }
+      %span
+      Stripes
+
+  %ul.main-menu
     %li{ :class => is_current?("home", "feed") }
-      = link_to "Feed", :controller => :home, :action => :feed
+      = link_to "Feed", { :controller => :home, :action => :feed }, { :title => "View your feed"}
     %li{ :class => is_current?("home", "popular") }
-      = link_to "Popular", "#"
+      = link_to "Popular", "#", { :title => "View popular photos" }

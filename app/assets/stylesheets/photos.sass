@@ -22,13 +22,6 @@
     overflow: hidden
     position: relative
     
-    .back
-      float: left
-      margin-right: 20px
-      line-height: 40px
-      color: #09c
-      cursor: pointer
-    
     .container
       overflow-x: none
       overflow-y: scroll
@@ -45,12 +38,25 @@
     #likes, #comments
       left: 359px
             
-      h4
-        text-align: right
-        color: #999
+    #navbar
+      text-align: right
+      color: #999
+      font-size: 15px
+      font-weight: bold
+      line-height: 40px
+      margin-bottom: 20px
+      @include bottom-border
+
+      span
+        float: left
+        margin-right: 20px
         line-height: 40px
-        @include bottom-border
-        margin-bottom: 20px
+        color: #09c
+        cursor: pointer
+        -webkit-transition: color 0.5s
+
+        &:hover
+          color: maroon
           
     #profile
       @include bottom-border
@@ -104,46 +110,43 @@
       p.sherlock
         font-size: 12px
         
-    #link
+    ul.actions li
       @include bottom-border
       padding-bottom: 10px
       margin-top: 15px
-      
-      p
-        font-size: 18px
-        font-weight: bold
-        color: #09c
-        cursor: pointer
-        background:
-          image: url('/assets/arrow.png')
-          position: top right
-          repeat: no-repeat
-        -webkit-transition: color 0.5s
 
-        &:hover
-          color: maroon
+      font-size: 18px
+      font-weight: bold
+      color: #09c
+      cursor: pointer
+      background:
+        image: url('/assets/arrow.png')
+        position: top right
+        repeat: no-repeat
+      -webkit-transition: color 0.5s
+
+      &:hover
+        color: maroon
     
     #likes
-      .like
-        width: 158px
+      ul li
+        width: 153px
         display: inline-block
         margin-bottom: 20px
+        margin-right: 5px
+        font-size: 14px
+        line-height: 40px
+        overflow: hidden
+        color: #09c
       
         img
           float: left
-          padding-right: 5px
+          margin-right: 5px
           width: 40px
           height: 40px
-      
-        p
-          font-size: 14px
-          line-height: 40px
-          overflow: hidden
-          width: 103px
-          color: #09c
         
     #comments
-      .comment
+      ul li
         margin-bottom: 10px
         padding-bottom: 10px
         @include bottom-border

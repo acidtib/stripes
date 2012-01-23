@@ -28,7 +28,46 @@
       // + fluid  
       max-width: 93.865030674846628% // 306 ÷ 326
       margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
+    
+    ul.actions
+      float: right
+      // + fluid
+      margin-right: 3.0674846625766871% // 10 ÷ 326
+
+      li
+        display: inline
+        line-height: 20px
+        color: #999
+        padding-left: 14px
+        background:
+          repeat: no-repeat
+          position: 0px 3px
         
+        b
+          font-weight: normal
+
+        span
+          display: none
+
+        &:first-child
+          margin-right: 5px
+        
+        &.like
+          cursor: hand
+          cursor: pointer
+          background:
+            image: url('/assets/like.gif')
+
+          &.liked
+            color: #ff400d
+            background:
+              image: url('/assets/like-red.gif')
+
+        &.comment
+          background:
+            image: url('/assets/comment.gif')
+    
+    // ---------
     span
       line-height: 20px
       
@@ -41,33 +80,6 @@
             right:  5px
           display:  inline
           float:    left
-      
-      &.likes, &.comments
-        float: right
-        color: #999
-        margin-left: 10px
-        padding-left: 15px
-        background:
-          repeat: no-repeat
-          position: 0px 4px
-        
-      &.likes
-        cursor: hand
-        cursor: pointer
-        background:
-          image: url('/assets/like.gif')
-        
-        // + fluid
-        margin-right: 3.0674846625766871% // 10 ÷ 326
-          
-      &.comments
-        background:
-          image: url('/assets/comment.gif')
-          
-      &.likes.my
-        color: #ff400d
-        background:
-          image: url('/assets/like-red.gif')
     
   #fake-preloader
     color: #999
@@ -75,7 +87,8 @@
     padding: 0
     box-shadow: none
     border-radius: none
-    width: 306px
+    display: block
+    float: left
 
     p
       font-size: 18px

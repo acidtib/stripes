@@ -3,16 +3,17 @@
   #sidebar
     #general
       #profile
-        %img{:src => @photo.user.profile_picture_url}
+        %img{:src => @photo.user.profile_picture_url, :alt => "#{@photo.user.username}'s portrait"}
         
         %h3<
-          = link_to @photo.user.username, profile_url(@photo.user.id)
-        %h4<
-          =@photo.user.full_name
-        - if @photo.user.bio
+          = link_to @photo.user.username, profile_url(@photo.user.id), { :title => "Link to #{@photo.user.username}'s profile" }
+        - unless @photo.user.full_name.empty?
+          %h4<
+            =@photo.user.full_name
+        - unless @photo.user.bio.empty?
           %p.meta<
             =@photo.user.bio
-        - if @photo.user.website
+        - unless @photo.user.website.empty?
           %p
             %a{:href => @photo.user.website}<
               =@photo.user.website
@@ -27,35 +28,28 @@
           
         %p.meta.sherlock
           =raw("This shot was created #{time_ago_in_words(@photo.created_at)} ago with filter #{@photo.filter}.")
-      
-      - if @photo.likes_count > 0
-        #link.likes
-          %p<
-            ="#{@photo.likes_count} likes"
 
-      - if @photo.comments_count > 0
-        #link.comments
-          %p<
-            ="#{@photo.comments_count} comments"
+      %ul.actions#actions
+        %li.likes{:class => ("disabled" if @photo.likes_count == 0)}
+          ="#{@photo.likes_count} likes"
+        %li.comments{:class => ("disabled" if @photo.comments_count == 0)}
+          ="#{@photo.comments_count} comments"
           
     #likes
-      %h4
-        .back<
-          Back
+      #navbar<
+        %span Back
         ="#{@likes_users.length} likes for this shot"
-      .container
+      %ul
         -@likes_users.each do |user|
-          .like
-            %img{:src => user.profile_picture_url}
-            %p
-              = link_to user.username, profile_url(user.id)
+          %li
+            %img{:src => user.profile_picture_url, :alt => "#{user.username}'s portrait"}
+            = link_to user.username, profile_url(user.id), { :title => "View #{user.username}'s profile" }
   
     #comments
-      %h4
-        .back<
-          Back
+      #navbar<
+        %span Back
         ="#{@comments.length} comments"
-      .container
+      %ul
         = render :partial => "comment", :collection => @comments
           
-  %img{:src => @photo.image.large.url, :width => @photo.image.large.width, :height => @photo.image.large.height}
+  %img{:src => @photo.image.large.url, :alt => "#{@photo.user.username}'s photo"}

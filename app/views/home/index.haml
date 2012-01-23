@@ -1,13 +1,13 @@
-#splash
-  #say Say hello to
-  %img{:src => "/assets/logo-splash.png"}
-  #desc>
+#landing
+  %p#say Say hello to
+  %img{:src => "/assets/logo-splash.png", :alt => "Stripes logo"}
+  %p#desc<
     A new beautiful and cool web app for 
-    %a{:href => "http://instagram.com"}
+    %a{:href => "http://instagram.com", :title => "Instagram website"}<
       Instagram
   
-  %a#login{:href => "/login"}
-    Try it!
-    
+    %a#login{:href => "/login", :title => "Sign in to Stripes"}<
+      Try it!
+  
   %p#comment
-    You'll need to have an Instagram account for that.
+    Sign in using your Instagram account.

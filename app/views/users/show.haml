@@ -12,16 +12,18 @@
       %span><
         = @user.following
       following
-  = image_tag @user.profile_picture_url, :width => 60
+  = image_tag @user.profile_picture_url, :width => 60, :alt => "#{@user.username}'s portrait"
   %h2<
     = @user.username
   - unless @user.full_name.empty?
     %p#name<
       =@user.full_name
-  %p#url<
-    =link_to @user.website, @user.website
-  %p#bio<
-    =@user.bio
+  - unless @user.website.empty?
+    %p#url<
+      =link_to @user.website, @user.website
+  - unless @user.bio.empty?
+    %p#bio<
+      =@user.bio
     
 .photos#user{ "data-next-max-id" => (@next_page_max_id if @next_page_max_id), "data-user-id" => @user.id }
   = render :partial => "shared/feed_item", :collection => @photos, :as => :p
