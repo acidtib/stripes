@@ -7,18 +7,6 @@ $(document).ready ->
   min_margin = 15
   base_w = 326 + min_margin * 2
   
-  ###
-  # -----
-  # dumb function to build dynamic grid of photos
-  $(window).resize ->
-    num = Math.floor($(document).width() / base_w)
-    total_margin = $(document).width() - num * base_w
-    margin = Math.floor(total_margin / num / 2 - 1 + min_margin)
-    
-    $(".photos .item").css("margin-left", margin)
-    $(".photos .item").css("margin-right", margin)
-  ###
-  
   # -----
   # animation triggers for Likes tab on photo page
   $("#link.likes").click ->
@@ -37,26 +25,28 @@ $(document).ready ->
   $("#comments .back").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#comments").animate {left: '359'}, "fast"
-  
+
   # -----
   # like/unlike toggle on photos grid page
+  toggle_like_media = (photos_item) ->
+    number_object = photos_item.children().last()
+    
+    if photos_item.hasClass "liked"
+      $.get "/photos/#{photos_item.attr("data-media-id")}/unlike", (data) ->
+        if data.meta.code == 200
+          photos_item.removeClass("liked")
+          number_object.html parseInt(number_object.html())-1
+    else
+      $.get "/photos/#{photos_item.attr("data-media-id")}/like", (data) ->
+        if data.meta.code == 200
+          photos_item.addClass("liked")
+          number_object.html parseInt(number_object.html())+1
+
   assign_like_clicks = () ->
-    $("span.likes.not").click ->
-      item = $(this)
-      $.get "/photos/#{item.attr("media_id")}/like", (data) ->
-        if data.meta.code == 200
-          item.removeClass("not")
-          item.addClass("my")
-          item.html parseInt(item.html())+1
-        
-    $("span.likes.my").click ->
-      item = $(this)
-      $.get "/photos/#{item.attr("media_id")}/unlike", (data) ->
-        if data.meta.code == 200
-          item.addClass("not")
-          item.removeClass("my")
-          item.html parseInt(item.html())-1
-  
+    $("li.like").unbind()
+    $("li.like").click -> 
+      toggle_like_media $(this)
+    
   # -----
   # infinite scrolling implementation
   next_page = () ->
@@ -75,7 +65,6 @@ $(document).ready ->
     $.getJSON url, (data) ->
       fake_preloader.before(data["html"])
       assign_like_clicks()
-      $(window).resize()
       
       if data["next_max_id"] != ""
         feed.attr("data-next-max-id", data["next_max_id"])
@@ -98,4 +87,3 @@ $(document).ready ->
   
   fake_preloader.waypoint opts
   assign_like_clicks()
-  $(window).resize()
