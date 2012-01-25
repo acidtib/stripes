@@ -5,4 +5,5 @@
  *= require_self
  *= require reset
  *= require_tree . 
+ *= require fluid_layout
 */

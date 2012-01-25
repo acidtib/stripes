@@ -1,11 +1,14 @@
+@import "mixins"
+
 #userinfo
-  position: fixed
-  top: 40px
-  left: 0 
-  height: 60px
-  width: 100%
-  background: #222
+  min-height: 60px
+  padding: 10px 0 
   color: #ccc
+  border-radius: 6px
+  background: #141416 url('/assets/bg-blurred.png') top center
+  background-attachment: fixed
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px
+  text-shadow: rgba(0, 0, 0, 1) 0px -1px 0px
 
   a:hover
     color: yellow
@@ -19,19 +22,28 @@
   h2
     display: inline
     line-height: 32px
-    padding-right: 7px
+    margin-right: 13px
+    color: #fff
+    font:
+      size: 18px
+      weight: bold
+
     
   p
+    &#name
+      padding-right: 13px
+
     &#name, &#url
       display: inline
-      padding-right: 7px
     
     &#bio
       font-size: 13px
-      color: #999
+      color: #666
+      margin-right: 20px
       
   ul#meta
     float: right
+    margin-left: 20px
     
     li
       font-size: 13px
@@ -43,6 +55,7 @@
       span
         display: block
         font-size: 18px
+        line-height: 24px
       
 .photos#user
-  margin-top: 60px
+  margin-top: 30px
