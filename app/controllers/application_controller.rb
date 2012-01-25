@@ -48,6 +48,12 @@ class ApplicationController < ActionController::Base
     @session = session[:access_token]
     redirect_to :controller => :home, :action => :feed
   end
+
+  def logout
+    session[:access_token] = nil
+    IGNetworking::Request.halt
+    redirect_to :action => :index
+  end
   
   # error pages
   

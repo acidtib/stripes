@@ -32,12 +32,6 @@ class HomeController < ApplicationController
     )
   end
   
-  def logout
-    session[:access_token] = nil
-    IGNetworking::Request.halt
-    redirect_to :action => :index
-  end
-  
   def popular
     @photos = Instagram.get_popular_media
   end

@@ -1,6 +1,7 @@
 .item
-  %a{:href => media_url(p.id), :title => "View #{p.user.username}'s photo"}
-    %img{:src => p.image.medium.url, :alt => "#{p.user.username}'s photo preview"}
+  %a.link-to-photo{:href => media_url(p.id), :title => "View #{p.user.username}'s photo"}
+    %img.filler{:src => "/assets/transparent-306.gif"}
+    %img.thumbnail{:src => p.image.medium.url, :alt => "#{p.user.username}'s photo preview"}
   
   %ul.actions
     %li.comment<

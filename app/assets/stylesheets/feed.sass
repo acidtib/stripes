@@ -5,8 +5,7 @@
     @include white-bg-round-corners
     display:    block
     float:      left
-    // padding:    10px
-    //  bottom:   7px
+    position:   relative
     margin:
       top: 0
       bottom:   30px
@@ -17,17 +16,27 @@
     padding:
       left: 0
       right: 0
-      top: 0.712857142857143em // 10 ÷ 14
     
-    img
-      image-rendering: optimizequality
+    a.link-to-photo
+      // display: block
+      // position: relative
+
+
+    img.filler
+      max-width: 93.865030674846628% // 306 ÷ 326
+      margin-top: 0.712857142857143em // 10 ÷ 14
       display: block
       margin:
         bottom: 0.5em
-      
+
+    img.thumbnail
+      position: absolute
+      top: 0.712857142857143em // 10 ÷ 14
+      left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
+      image-rendering: optimizequality
       // + fluid  
       max-width: 93.865030674846628% // 306 ÷ 326
-      margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
+      // margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
     
     ul.actions
       float: right
@@ -74,6 +83,9 @@
       &.user
         font-weight:  bold
         img
+          margin:
+            left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
+            bottom: 0.5em
           width:    20px
           height:   20px
           padding:  0
