@@ -1,7 +1,7 @@
 @import "mixins"
 
 .photos
-  .item
+  .thumbnail
     @include white-bg-round-corners
     display:    block
     float:      left
@@ -29,7 +29,7 @@
       margin:
         bottom: 0.5em
 
-    img.thumbnail
+    img.photo
       position: absolute
       top: 0.712857142857143em // 10 ÷ 14
       left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
