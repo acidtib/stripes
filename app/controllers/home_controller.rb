@@ -20,6 +20,10 @@ class HomeController < ApplicationController
   def feed
     @photos, @next_page_max_id = Instagram.get_my_recent_media
   end
+
+  def popular
+    @photos = Instagram.get_popular_media
+  end
   
   def feed_page_from_max_id
     @photos, @next_page_max_id = Instagram.get_my_recent_media params[:max_id]
@@ -30,10 +34,6 @@ class HomeController < ApplicationController
                                   :collection => @photos, :as => :p)
       } 
     )
-  end
-  
-  def popular
-    @photos = Instagram.get_popular_media
   end
     
 end

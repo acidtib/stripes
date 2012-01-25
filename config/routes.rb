@@ -7,6 +7,7 @@ Easytiger::Application.routes.draw do
   # Keep in mind you can assign values other than :controller and :action
   match 'auth' => 'home#auth'
   match 'feed' => 'home#feed'
+  match 'popular' => 'home#popular'
   match 'feed/next_page/:max_id' => 'home#feed_page_from_max_id'
   match 'login' => 'home#login'
   match 'logout' => 'home#logout', :as => :logout

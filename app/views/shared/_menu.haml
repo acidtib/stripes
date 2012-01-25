@@ -15,4 +15,4 @@
     %li{ :class => is_current?("home", "feed") }
       = link_to "Feed", { :controller => :home, :action => :feed }, { :title => "View your feed"}
     %li{ :class => is_current?("home", "popular") }
-      = link_to "Popular", "#", { :title => "View popular photos" }
+      = link_to "Popular", { :controller => :home, :action => :popular }, { :title => "View popular photos" }
