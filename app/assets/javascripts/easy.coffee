@@ -52,7 +52,7 @@ $(document).ready ->
   next_page = () ->
     url = 0
     feed = 0
-    
+
     if $("#feed").length
       feed = $("#feed")
       url = "/feed/next_page/#{feed.attr("data-next-max-id")}"
@@ -61,29 +61,37 @@ $(document).ready ->
       url = "/users/#{feed.attr("data-user-id")}/next_page/#{feed.attr("data-next-max-id")}"
     else
       return false
-      
+
+    if feed.attr("data-next-max-id") == ''
+      fake_preloader.html("<p>The end!</p>")
+      return false
+
     $.getJSON url, (data) ->
       fake_preloader.before(data["html"])
       assign_like_clicks()
       
       if data["next_max_id"] != ""
         feed.attr("data-next-max-id", data["next_max_id"])
-        fake_preloader.waypoint opts
+        $(window).bind "scroll", if_reached_bottom
       else
         feed.removeAttr("data-next-max-id")
         fake_preloader.html("<p>The end!</p>")
   
   # -----
-  # setup for waypoints and initial function calls
+  # infinite scroll
   fake_preloader = $('#fake-preloader')
-  opts = { 
-    offset: '100%',
-    triggerOnce: true,
-    handler: (e, d) ->
-      if d == "down"
-        fake_preloader.waypoint "remove"
-        next_page()
-  }
-  
-  fake_preloader.waypoint opts
+
+  if_reached_bottom = () ->
+    bottom_offset = 400
+    scroll_top = $(document).scrollTop()  
+    scroll_height = $(window).height()
+    body_height = $(document).height()
+    
+    if (scroll_height + scroll_top) >= (body_height - bottom_offset)
+      next_page()
+      console.log "NEXT PAGE"
+      $(window).unbind()
+
+  $(window).bind "scroll", if_reached_bottom
+  $(window).trigger "scroll"
   assign_like_clicks()
