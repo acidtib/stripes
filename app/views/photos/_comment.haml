@@ -1,5 +1,7 @@
 %li
-  = link_to comment.user.username, profile_url(comment.user.id), { :title => "View #{comment.user.username}'s profile" }
-  = comment.text
+  %a.author{ :href => profile_url(comment.user.id), :title => "View #{comment.user.username}'s profile" }><
+    = comment.user.username
+  = ": "
+  = raw parse_usernames(comment.text)
   %span.time<
     ="#{time_ago_in_words(comment.created_at)} ago"
