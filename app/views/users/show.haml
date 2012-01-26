@@ -3,13 +3,9 @@
 #userinfo
   %ul#meta
     %li<
-      %span><
-        = @user.media_count
-      photos
+      = meta_pluralize @user.media_count, "photo"
     %li<
-      %span><
-        = @user.followers
-      followers
+      = meta_pluralize @user.followers, "follower"
     %li<
       %span><
         = @user.following
