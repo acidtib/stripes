@@ -1,6 +1,11 @@
 class HomeController < ApplicationController
 
   before_filter :check_authorization, :except => [ :index ]
+  after_filter :cache_data, :except => [ :index ]
+
+  def cache_data
+    User.cache_data @photos if @photos
+  end
 
   def index
     if logged_in?

@@ -6,6 +6,8 @@ class PhotosController < ApplicationController
     @photo = Instagram.get_media_data params[:id]
     @likes_users = Instagram.get_media_likes params[:id]
     @comments = Instagram.get_media_comments params[:id]
+
+    User.cache_data @photo, @likes_users, @comments
   end
   
   def index
