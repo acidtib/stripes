@@ -133,39 +133,49 @@
         color: maroon
     
     #likes
-      ul li
-        width: 153px
-        display: inline-block
-        margin-bottom: 20px
-        margin-right: 5px
-        font-size: 14px
-        line-height: 40px
-        overflow: hidden
-        color: #09c
-      
-        img
-          float: left
+      ul
+        overflow-x: none
+        overflow-y: scroll
+        height: 545px
+
+        li
+          width: 153px
+          display: inline-block
+          margin-bottom: 20px
           margin-right: 5px
-          width: 40px
-          height: 40px
+          font-size: 14px
+          line-height: 40px
+          overflow: hidden
+          color: #09c
+        
+          img
+            float: left
+            margin-right: 5px
+            width: 40px
+            height: 40px
         
     #comments
-      ul li
-        margin-bottom: 10px
-        padding-bottom: 10px
-        line-height: 20px
-        @include bottom-border
-      
-        &:first-child
-          margin-top: 0
+      ul
+        overflow-x: none
+        overflow-y: scroll
+        height: 545px
         
-        a.author
-          font-weight: bold
+        li
+          margin-bottom: 10px
+          padding-bottom: 10px
+          line-height: 20px
+          @include bottom-border
+        
+          &:first-child
+            margin-top: 0
+          
+          a.author
+            font-weight: bold
 
-        span.user
-          color: #2ab6cc
-        
-        .time
-          color: #ccc
-          font-size: 12px
-          padding-left: 5px
+          span.user
+            color: #2ab6cc
+          
+          .time
+            color: #ccc
+            font-size: 12px
+            padding-left: 5px
