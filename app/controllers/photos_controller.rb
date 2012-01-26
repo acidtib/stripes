@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+
+  before_filter :check_authorization
   
   def show
     @photo = Instagram.get_media_data params[:id]

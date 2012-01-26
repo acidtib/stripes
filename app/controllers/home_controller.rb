@@ -1,20 +1,13 @@
-class HomeController < ApplicationController 
-  
+class HomeController < ApplicationController
+
+  before_filter :check_authorization, :except => [ :index ]
+
   def index
     if logged_in
       redirect_to :action => :feed
     else
       render :layout => "splash"
     end
-  end
-  
-  def login
-    redirect_to_instagram_auth
-  end
-
-  def auth
-    code = params[:code]
-    get_instagram_access_and_redirect code
   end
   
   def feed

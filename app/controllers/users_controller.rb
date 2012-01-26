@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+  before_filter :check_authorization
   
   def show
     @user = Instagram.get_user_info params[:id]

@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_session_data
-    if session[:access_token]
+    if session.key? :access_token
       @session = session[:access_token]
       @access_token = @session["access_token"]
       IGNetworking::Request.init @access_token
@@ -35,7 +35,14 @@ class ApplicationController < ActionController::Base
   end
   
   def logged_in
-    session[:access_token]
+    @session
+  end
+
+  def check_authorization
+    unless logged_in
+      session[:redirect] = request.url
+      render :layout => "splash", :file => "home/unauthorized"
+    end
   end
 
   def redirect_to_instagram_auth
@@ -46,15 +53,33 @@ class ApplicationController < ActionController::Base
     response = IGNetworking::OAuth.authorize code
     session[:access_token] = JSON.parse response
     @session = session[:access_token]
-    redirect_to :controller => :home, :action => :feed
+
+    if session[:redirect]
+      url = session[:redirect]
+      session[:redirect] = nil
+      redirect_to url
+    else
+      redirect_to :controller => :home, :action => :feed
+    end
+  end
+
+  # authentication etc
+
+  def login
+    redirect_to_instagram_auth
+  end
+
+  def auth
+    code = params[:code]
+    get_instagram_access_and_redirect code
   end
 
   def logout
     session[:access_token] = nil
     IGNetworking::Request.halt
-    redirect_to :action => :index
+    redirect_to :controller => :home, :action => :index
   end
-  
+
   # error pages
   
   def bad_request_page

@@ -5,22 +5,18 @@ Easytiger::Application.routes.draw do
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
-  match 'auth' => 'home#auth'
+  match 'auth' => 'application#auth'
   match 'feed' => 'home#feed'
-  match 'popular' => 'home#popular'
   match 'feed/next_page/:max_id' => 'home#feed_page_from_max_id'
-  match 'login' => 'home#login'
-  match 'logout' => 'home#logout', :as => :logout
+  match 'login' => 'application#login'
+  match 'logout' => 'application#logout', :as => :logout
   match 'popular' => 'home#popular', :as => :popular
   match 'photos/:id' => 'photos#show', :as => :media
   match 'photos/:id/like' => 'photos#like', :as => :like_media
   match 'photos/:id/unlike' => 'photos#unlike', :as => :unlike_media
   match 'photos/:id/comment' => 'photos#comment', :as => :comment_media
-  match 'photos' => 'photos#index'
-  match '/temp' => 'home#temp'
   match 'users/:id' => 'users#show', :as => :profile
   match 'users/:id/next_page/:max_id' => 'users#feed_page_from_max_id'
-  match 'error' => 'application#page_not_found_page'
   
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
