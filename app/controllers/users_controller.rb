@@ -3,8 +3,8 @@ class UsersController < ApplicationController
   before_filter :check_authorization
   
   def show
-    cache = User.find_by_username(params[:username]) ||
-            (User.find_by_instagram_id(params[:username].to_i) if params[:username].to_i > 0)
+    cache = User.find_by_username(params[:username])
+    cache = User.find_by_instagram_id(params[:username].to_i) if params[:username].to_i > 0 and not cache
     
     unless cache
       users = Instagram.search_users params[:username]

@@ -5,7 +5,6 @@ class InternalServerError < MetaError; end
 class NotFoundError < MetaError; end
 class ServiceUnavailableError < MetaError; end
 
-
 # there goes
 class ApplicationController < ActionController::Base
   protect_from_forgery

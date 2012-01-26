@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
     item = User.new :instagram_id => instagram_id, :username => username
     return false unless item.valid? # little firewall from crap
 
-    cache = User.find_by_instagram_id item
+    cache = User.find_by_instagram_id item.instagram_id
 
     if cache
       if cache.username != username
