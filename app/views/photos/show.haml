@@ -33,9 +33,9 @@
 
       %ul.actions#actions
         %li.likes{:class => ("disabled" if @photo.likes_count == 0)}
-          ="#{@photo.likes_count} likes"
+          = pluralize(@photo.likes_count, "like", "likes")
         %li.comments{:class => ("disabled" if @photo.comments_count == 0)}
-          ="#{@photo.comments_count} comments"
+          = pluralize(@photo.comments_count, "comment", "comments")
           
     #likes
       #navbar<
