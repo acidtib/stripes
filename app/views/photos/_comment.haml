@@ -1,5 +1,5 @@
 %li
-  %a.author{ :href => profile_url(comment.user.id), :title => "View #{comment.user.username}'s profile" }><
+  %a.author{ :href => profile_url(comment.user.username), :title => "View #{comment.user.username}'s profile" }><
     = comment.user.username
   = ": "
   = raw parse_usernames(comment.text)

@@ -8,7 +8,7 @@
         %img{:src => @photo.user.profile_picture_url, :alt => "#{@photo.user.username}'s portrait"}
         
         %h3<
-          = link_to @photo.user.username, profile_url(@photo.user.id), { :title => "Link to #{@photo.user.username}'s profile" }
+          = link_to @photo.user.username, profile_url(@photo.user.username), { :title => "Link to #{@photo.user.username}'s profile" }
         - unless @photo.user.full_name.empty?
           %h4<
             =@photo.user.full_name
@@ -45,7 +45,7 @@
         -@likes_users.each do |user|
           %li
             %img{:src => user.profile_picture_url, :alt => "#{user.username}'s portrait"}
-            = link_to user.username, profile_url(user.id), { :title => "View #{user.username}'s profile" }
+            = link_to user.username, profile_url(user.username), { :title => "View #{user.username}'s profile" }
   
     #comments
       #navbar<

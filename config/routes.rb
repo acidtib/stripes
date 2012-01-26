@@ -15,9 +15,9 @@ Easytiger::Application.routes.draw do
   match 'photos/:id/like' => 'photos#like', :as => :like_media
   match 'photos/:id/unlike' => 'photos#unlike', :as => :unlike_media
   match 'photos/:id/comment' => 'photos#comment', :as => :comment_media
-  match 'users/:id' => 'users#show', :as => :profile
+  match 'users/:username' => 'users#show', :as => :profile
   match 'users/:id/next_page/:max_id' => 'users#feed_page_from_max_id'
-  
+
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)

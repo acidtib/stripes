@@ -15,4 +15,4 @@
   
   %span.user
     %img{:src => p.user.profile_picture_url, :alt => "#{p.user.username}'s portrait"}
-    = link_to p.user.username, profile_url(p.user.id), { :title => "View #{p.user.username}'s profile" }
+    = link_to p.user.username, profile_url(p.user.username), { :title => "View #{p.user.username}'s profile" }
