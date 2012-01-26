@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
     if session.key? :access_token
       @session = session[:access_token]
       @access_token = @session["access_token"]
+      @current_user = Meta::User.new @session["user"]
       IGNetworking::Request.init @access_token
     end
   end
@@ -52,7 +53,6 @@ class ApplicationController < ActionController::Base
   def get_instagram_access_and_redirect code
     response = IGNetworking::OAuth.authorize code
     session[:access_token] = JSON.parse response
-    @session = session[:access_token]
 
     if session[:redirect]
       url = session[:redirect]

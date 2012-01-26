@@ -2,7 +2,7 @@
   %ul.right.user-menu
     %li
       Logged in as 
-      = link_to @session["user"]["username"], profile_url(@session["user"]["id"]), { :title => "View your profile" }
+      = link_to @current_user.username, profile_url(@current_user.id), { :title => "View your profile" }
     %li
       = link_to "Log out",  logout_url, { :title => "Log out" }
   
