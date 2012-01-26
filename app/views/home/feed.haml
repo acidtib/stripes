@@ -1,3 +1,5 @@
+- content_for :title, "Your Instagram feed - Stripes"
+
 .photos#feed{ "data-next-max-id" => (@next_page_max_id if @next_page_max_id) }
   = render :partial => "shared/feed_item", :collection => @photos, :as => :p
   = render :partial => "shared/fake_preloader"
