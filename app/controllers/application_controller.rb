@@ -35,12 +35,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def logged_in
+  def logged_in?
     @session
   end
 
   def check_authorization
-    unless logged_in
+    unless logged_in?
       session[:redirect] = request.url
       render :layout => "splash", :file => "home/unauthorized"
     end
@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # authentication etc
+  # authentication routing
 
   def login
     redirect_to_instagram_auth
