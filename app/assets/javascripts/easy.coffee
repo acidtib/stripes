@@ -9,7 +9,7 @@ $(document).ready ->
   
   # -----
   # animation triggers for Likes tab on photo page
-  $("#actions .likes").click ->
+  $("#actions #likes-link").bind "click", () ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#likes").animate {left: '0'}, "fast"
   
@@ -18,7 +18,7 @@ $(document).ready ->
     $("#likes").animate {left: '359'}, "fast"
   
   # animation triggers for Comments tab on photo page
-  $("#actions .comments").click ->
+  $("#actions #comments-link").bind "click", () ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#comments").animate {left: '0'}, "fast"
   
@@ -89,9 +89,43 @@ $(document).ready ->
     
     if (scroll_height + scroll_top) >= (body_height - bottom_offset)
       next_page()
-      console.log "NEXT PAGE"
       $(window).unbind()
 
   $(window).bind "scroll", if_reached_bottom
   $(window).trigger "scroll"
   assign_like_clicks()
+
+  # -----
+  # on-demand loading for too much likes
+  likes_preloader = $("#photo #likes #likes_placeholder")
+  if likes_preloader.length > 0
+    likes_link = $("#actions #likes-link")
+
+    preload_likes = () ->
+      photo = $("#photo")
+
+      $.getJSON "/photos/#{photo.attr("data-media-id")}/load/likes", (data) ->
+        likes_container = likes_preloader.parent()
+        likes_container.empty()
+        likes_container.html(data["html"])
+        likes_link.unbind "click", preload_likes
+
+    likes_link.bind "click", preload_likes
+
+  # -----
+  # on-demand loading for too much comments
+  comments_preloader = $("#photo #comments #comments_placeholder")
+  if comments_preloader.length > 0
+    comments_link = $("#actions #comments-link")
+
+    preload_comments = () ->
+      photo = $("#photo")
+
+      $.getJSON "/photos/#{photo.attr("data-media-id")}/load/comments", (data) ->
+        comments_container = comments_preloader.parent()
+        comments_container.empty()
+        comments_container.html(data["html"])
+        comments_link.unbind "click", preload_comments
+
+    comments_link.bind "click", preload_comments
+      

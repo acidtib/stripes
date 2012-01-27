@@ -15,6 +15,8 @@ Easytiger::Application.routes.draw do
   match 'photos/:id/like' => 'photos#like', :as => :like_media
   match 'photos/:id/unlike' => 'photos#unlike', :as => :unlike_media
   match 'photos/:id/comment' => 'photos#comment', :as => :comment_media
+  match 'photos/:id/load/likes' => 'photos#lazy_load_likes'
+  match 'photos/:id/load/comments' => 'photos#lazy_load_comments'
   match 'users/:username' => 'users#show', :as => :profile
   match 'users/:id/next_page/:max_id' => 'users#feed_page_from_max_id'
 

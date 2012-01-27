@@ -4,10 +4,22 @@ class PhotosController < ApplicationController
   
   def show
     @photo = Instagram.get_media_data params[:id]
-    @likes_users = Instagram.get_media_likes params[:id]
-    @comments = Instagram.get_media_comments params[:id]
+    
+    if @photo.likes_count < 250
+      @likes_users = Instagram.get_media_likes params[:id]
+      User.cache_data @likes_users
+    else
+      @lazy_load_likes = true
+    end
 
-    User.cache_data @photo, @likes_users, @comments
+    if @photo.comments_count < 50
+      @comments = Instagram.get_media_comments params[:id]
+      User.cache_data @comments
+    else
+      @lazy_load_comments = true
+    end
+
+    User.cache_data @photo
   end
   
   def index
@@ -20,6 +32,17 @@ class PhotosController < ApplicationController
   
   def unlike
     render :json => Instagram.unlike_media(params[:id])
+  end
+
+  # xhr methods for lazy loading 
+  def lazy_load_likes
+    likes_users = Instagram.get_media_likes params[:id]
+    render :text => JSON.generate( { :html => render_to_string(:partial => "like", :collection => likes_users, :as => :user) } )
+  end
+
+  def lazy_load_comments
+    comments = Instagram.get_media_comments params[:id]
+    render :text => JSON.generate( { :html => render_to_string(:partial => "comment", :collection => comments) } )    
   end
   
   # fix to obscure instagram errors about bad requests when you

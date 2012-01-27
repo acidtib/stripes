@@ -1,6 +1,6 @@
 - content_for :title, (@photo.title ? "#{@photo.title}" : "#{@photo.user.username}'s photo") + " - Stripes"
 
-#photo
+#photo{"data-media-id" => @photo.id}
 
   #sidebar
     #general
@@ -32,26 +32,31 @@
           =raw("This shot was created #{time_ago_in_words(@photo.created_at)} ago with filter #{@photo.filter}.")
 
       %ul.actions#actions
-        %li.likes{:class => ("disabled" if @photo.likes_count == 0)}
+        %li.likes#likes-link{:class => ("disabled" if @photo.likes_count == 0)}
           = pluralize(@photo.likes_count, "like", "likes")
-        %li.comments{:class => ("disabled" if @photo.comments_count == 0)}
+        %li.comments#comments-link{:class => ("disabled" if @photo.comments_count == 0)}
           = pluralize(@photo.comments_count, "comment", "comments")
           
     #likes
       #navbar<
         %span Back
-        ="#{@likes_users.length} likes for this shot"
+        ="#{@photo.likes_count} likes for this shot"
       %ul
-        -@likes_users.each do |user|
-          %li
-            %img{:src => user.profile_picture_url, :alt => "#{user.username}'s portrait"}
-            = link_to user.username, profile_url(user.username), { :title => "View #{user.username}'s profile" }
+        - unless @lazy_load_likes
+          = render :partial => "like", :collection => @likes_users, :as => :user
+        - else
+          %li#likes_placeholder.placeholder
+            Loading all those likes...
   
     #comments
       #navbar<
         %span Back
-        ="#{@comments.length} comments"
+        ="#{@photo.comments_count} comments"
       %ul
-        = render :partial => "comment", :collection => @comments
+        - unless @lazy_load_comments
+          = render :partial => "comment", :collection => @comments
+        - else
+          %li.placeholder#comments_placeholder
+            Loading all those comments...
           
   %img{:src => @photo.image.large.url, :alt => "#{@photo.user.username}'s photo"}
