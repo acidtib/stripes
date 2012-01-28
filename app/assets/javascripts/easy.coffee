@@ -67,11 +67,11 @@ $(document).ready ->
       return false
 
     $.getJSON url, (data) ->
-      fake_preloader.before(data["html"])
+      fake_preloader.before(data.html)
       assign_like_clicks()
       
       if data["next_max_id"] != ""
-        feed.attr("data-next-max-id", data["next_max_id"])
+        feed.attr("data-next-max-id", data.next_max_id)
         $(window).bind "scroll", if_reached_bottom
       else
         feed.removeAttr("data-next-max-id")
@@ -107,7 +107,8 @@ $(document).ready ->
       $.getJSON "/photos/#{photo.attr("data-media-id")}/load/likes", (data) ->
         likes_container = likes_preloader.parent()
         likes_container.empty()
-        likes_container.html(data["html"])
+        console.log data
+        likes_container.html(data.html)
         likes_link.unbind "click", preload_likes
 
     likes_link.bind "click", preload_likes
@@ -124,7 +125,7 @@ $(document).ready ->
       $.getJSON "/photos/#{photo.attr("data-media-id")}/load/comments", (data) ->
         comments_container = comments_preloader.parent()
         comments_container.empty()
-        comments_container.html(data["html"])
+        comments_container.html(data.html)
         comments_link.unbind "click", preload_comments
 
     comments_link.bind "click", preload_comments
@@ -132,10 +133,44 @@ $(document).ready ->
   # -----
   # follow user
   user_follow_button = $("#userinfo #button-follow")
-  user_follow_button.click ->
+  user_unfollow_button = $("#userinfo #button-unfollow")
+
+  follow_and_transform_button = () ->
     user_follow_button.addClass "down"
+    user_follow_button.html ""
     
     $.getJSON "/users/#{$("#user").attr("data-user-id")}/follow", (data) ->
-      user_follow_button.removeClass "down"
-      user_follow_button.removeClass "flat"
-      user_follow_button.html "OK"
+      if data.meta.code == 200
+        user_follow_button.animate {width: 35, paddingLeft: 0, paddingRight: 0}, 250, "swing", () ->
+          user_follow_button.html ""
+          user_follow_button.removeClass "down"
+          user_follow_button.addClass "following"
+          user_follow_button.addClass "flat"
+          user_follow_button.bind "click", unfollow_and_transform_button
+          user_follow_button.unbind "click", follow_and_transform_button
+          user_unfollow_button = user_follow_button
+      else
+        user_follow_button.removeClass "down"
+        user_follow_button.html "Follow"
+        alert data.meta.error_message
+    
+  unfollow_and_transform_button = () ->
+    user_unfollow_button.addClass "down"
+    
+    $.getJSON "/users/#{$("#user").attr("data-user-id")}/unfollow", (data) ->
+      if data.meta.code == 200
+        user_unfollow_button.html "Follow"
+        user_unfollow_button.removeClass "down"
+        user_unfollow_button.removeClass "following"
+        user_unfollow_button.removeClass "flat"
+        user_unfollow_button.addClass "follow"
+        user_unfollow_button.unbind "click", unfollow_and_transform_button
+        user_follow_button.bind "click", follow_and_transform_button
+        user_unfollow_button.animate {width: 45, paddingLeft: 35, paddingRight: 15}
+        user_follow_button = user_unfollow_button
+      else
+        user_unfollow_button.removeClass "down"
+        alert data.meta.error_message
+  
+  user_follow_button.bind "click", follow_and_transform_button
+  user_unfollow_button.bind "click", unfollow_and_transform_button

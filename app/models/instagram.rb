@@ -1,20 +1,22 @@
 class Instagram
   
   def self.handle response, args = {}
-    unless response.code == "200"
-      case response.code
-      when "400"
-        raise BadRequestError
-      when "404"
-        raise NotFoundError
-      when "500"
-        raise InternalServerError
-      when "503"
-        raise ServiceUnavailableError
+    unless args[:suppress_errors]
+      unless response.code == "200"
+        case response.code
+        when "400"
+          raise BadRequestError
+        when "404"
+          raise NotFoundError
+        when "500"
+          raise InternalServerError
+        when "503"
+          raise ServiceUnavailableError
+        end
       end
-    else
-      return (args[:json] ? JSON.parse(response.body) : response.body)
     end
+
+    return (args[:json] ? JSON.parse(response.body) : response.body)
   end
   
   def self.get_my_recent_media next_max_id = nil
@@ -68,11 +70,16 @@ class Instagram
 
   # now some user relationship handling
   def self.get_relationship_status user_id
-    
+    data = handle IGNetworking::Request.get("users/#{user_id}/relationship"), :json => true
+    return Meta::UserRelation.new data["data"]
   end
 
   def self.follow_user user_id
-    handle IGNetworking::Request.post("users/#{user_id}/relationship", :action => "follow")
+    handle IGNetworking::Request.post("users/#{user_id}/relationship", :action => "follow"), :suppress_errors => true
+  end
+
+  def self.unfollow_user user_id
+    handle IGNetworking::Request.post("users/#{user_id}/relationship", :action => "unfollow"), :suppress_errors => true
   end
   
 end

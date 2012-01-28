@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def show
     cache = User.find_by_username(params[:username])
     cache = User.find_by_instagram_id(params[:username].to_i) if params[:username].to_i > 0 and not cache
-    
+
     unless cache
       users = Instagram.search_users params[:username]
       cache = users.first if users
@@ -22,11 +22,10 @@ class UsersController < ApplicationController
     end
       
     @user = Instagram.get_user user_id
+    @relation = Instagram.get_relationship_status user_id
     @photos, @next_page_max_id = Instagram.get_user_feed user_id
 
     User.cache_data @user
-
-    Instagram.follow_user user_id
   end
   
   def feed_page_from_max_id
@@ -42,6 +41,10 @@ class UsersController < ApplicationController
 
   def follow
     render :json => Instagram.follow_user(params[:id])
+  end
+
+  def unfollow
+    render :json => Instagram.unfollow_user(params[:id])
   end
 
 end

@@ -17,6 +17,13 @@
   cursor: pointer
   cursor: hand
 
+@mixin big-button-with-icon($icon_url)
+  @include big-button
+  background-image: url($icon_url)
+  background-position: 10px center
+  background-repeat: no-repeat
+  padding-left: 35px
+
 @mixin border-color-like-bevel($color)
   border-top-color: lighten($color, 25%)
   border-left-color: lighten($color, 10%)

@@ -20,6 +20,7 @@ Easytiger::Application.routes.draw do
   match 'users/:username' => 'users#show', :as => :profile
   match 'users/:id/next_page/:max_id' => 'users#feed_page_from_max_id'
   match 'users/:id/follow' => 'users#follow'
+  match 'users/:id/unfollow' => 'users#unfollow'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
