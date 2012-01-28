@@ -27,7 +27,7 @@ class Instagram
     return data["data"].collect do |m| Meta::Photo.new m end
   end
   
-  def self.get_user_info user_id
+  def self.get_user user_id
     data = handle IGNetworking::Request.get("/users/#{user_id}"), :json => true
     return Meta::ExtendedUser.new data["data"]
   end
@@ -37,7 +37,7 @@ class Instagram
     return data["data"].collect do |m| Meta::Photo.new m end, data["pagination"].empty? ? "" : data["pagination"]["next_max_id"]
   end
   
-  def self.get_media_data media_id
+  def self.get_media media_id # get general information about media
     data = handle IGNetworking::Request.get("media/#{media_id}"), :json => true
     return Meta::Photo.new data["data"]
   end
@@ -64,6 +64,15 @@ class Instagram
     data = handle IGNetworking::Request.get("users/search", :q => query), :json => true
     return false if data["data"].empty?
     data["data"].collect do |l| Meta::User.new l end
+  end
+
+  # now some user relationship handling
+  def self.get_relationship_status user_id
+    
+  end
+
+  def self.follow_user user_id
+    handle IGNetworking::Request.post("users/#{user_id}/relationship", :action => "follow")
   end
   
 end

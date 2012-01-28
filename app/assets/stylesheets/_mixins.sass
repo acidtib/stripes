@@ -5,3 +5,27 @@
   
 @mixin bottom-border
   border-bottom: 1px solid #e9e9e9
+
+@mixin big-button
+  display: block
+  height: 30px
+  padding: 0 15px
+  border: 1px solid transparent
+  border-radius: 3px
+  font-size: 15px
+  line-height: 30px
+  cursor: pointer
+  cursor: hand
+
+@mixin border-color-like-bevel($color)
+  border-top-color: lighten($color, 25%)
+  border-left-color: lighten($color, 10%)
+  border-right-color: lighten($color, 10%)
+
+@mixin border-color-like-bevel-down($color)
+  border-top-color: darken($color, 25%)
+  border-left-color: transparent
+  border-right-color: transparent
+  // border-left-color: darken($color, 10%)
+  // border-right-color: darken($color, 10%)
+  border-bottom-color: lighten($color, 10%)

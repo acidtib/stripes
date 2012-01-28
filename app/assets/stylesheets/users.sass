@@ -47,8 +47,8 @@
     
     li
       font-size: 13px
-      display: inline-block
-      padding:
+      float: left
+      margin:
         right: 20px
         top: 9px
         
@@ -56,6 +56,35 @@
         display: block
         font-size: 18px
         line-height: 24px
+
+      &.action
+
+        span#button-follow
+          @include big-button
+          margin-top: 5px
+          color: #fff
+          background: #0380ff
+          // border-top-color: #62acff
+          // border-left-color: #3996ff
+          // border-right-color: #3996ff
+          @include border-color-like-bevel(#0380ff)
+          box-shadow: transparentize(#000, 0.8) 0px 1px 5px
+          -webkit-transition: box-shadow .5s, -webkit-transform .5s, background-color 0.5s, border-color .5s
+
+          &:hover
+            background: #03a3ff
+            @include border-color-like-bevel(#03a3ff)
+            box-shadow: rgba(41, 152, 255, 0.5) 0px 0px 20px
+
+          &.down
+            background: #19416a
+            @include border-color-like-bevel-down(#19416a)
+            box-shadow: none
+
+            &:hover
+              box-shadow: none
+
       
 .photos#user
   margin-top: 30px
+  

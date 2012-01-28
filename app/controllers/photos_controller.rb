@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
   before_filter :check_authorization
   
   def show
-    @photo = Instagram.get_media_data params[:id]
+    @photo = Instagram.get_media params[:id]
     
     if @photo.likes_count < 250
       @likes_users = Instagram.get_media_likes params[:id]

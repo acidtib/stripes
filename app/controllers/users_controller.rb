@@ -21,10 +21,12 @@ class UsersController < ApplicationController
       user_id = params[:username]
     end
       
-    @user = Instagram.get_user_info user_id
+    @user = Instagram.get_user user_id
     @photos, @next_page_max_id = Instagram.get_user_feed user_id
 
     User.cache_data @user
+
+    Instagram.follow_user user_id
   end
   
   def feed_page_from_max_id
@@ -36,6 +38,10 @@ class UsersController < ApplicationController
 
   def bad_request_page
     render :layout => nil, :file => "#{Rails.root}/public/404.html", :status => 404
+  end
+
+  def follow
+    render :json => Instagram.follow_user(params[:id])
   end
 
 end

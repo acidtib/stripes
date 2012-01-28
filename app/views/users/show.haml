@@ -1,7 +1,7 @@
 - content_for :title, "#{@user.username}'s profile - Stripes"
 
 #userinfo
-  %ul#meta
+  %ul#meta    
     %li<
       = meta_pluralize @user.media_count, "photo"
     %li<
@@ -10,6 +10,8 @@
       %span><
         = @user.following
       following
+    %li.action
+      %span#button-follow Follow
   = image_tag @user.profile_picture_url, :width => 60, :alt => "#{@user.username}'s portrait"
   %h2<
     = @user.username

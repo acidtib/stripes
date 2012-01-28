@@ -19,6 +19,7 @@ Easytiger::Application.routes.draw do
   match 'photos/:id/load/comments' => 'photos#lazy_load_comments'
   match 'users/:username' => 'users#show', :as => :profile
   match 'users/:id/next_page/:max_id' => 'users#feed_page_from_max_id'
+  match 'users/:id/follow' => 'users#follow'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

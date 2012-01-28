@@ -128,4 +128,14 @@ $(document).ready ->
         comments_link.unbind "click", preload_comments
 
     comments_link.bind "click", preload_comments
-      
+
+  # -----
+  # follow user
+  user_follow_button = $("#userinfo #button-follow")
+  user_follow_button.click ->
+    user_follow_button.addClass "down"
+    
+    $.getJSON "/users/#{$("#user").attr("data-user-id")}/follow", (data) ->
+      user_follow_button.removeClass "down"
+      user_follow_button.removeClass "flat"
+      user_follow_button.html "OK"
