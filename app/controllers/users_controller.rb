@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :check_authorization
+  helper UsersHelper
   
   def show
     cache = User.find_by_username(params[:username])
@@ -40,11 +41,17 @@ class UsersController < ApplicationController
   end
 
   def follow
-    render :json => Instagram.follow_user(params[:id])
+    data = Instagram.follow_user params[:id]
+    user = Instagram.get_user params[:id]
+    html_update = view_context.meta_pluralize user.followers, "follower"
+    render :json => data.chop.concat(",\"html\": \"#{html_update}\"}")
   end
 
   def unfollow
-    render :json => Instagram.unfollow_user(params[:id])
+    data = Instagram.unfollow_user params[:id]
+    user = Instagram.get_user params[:id]
+    html_update = view_context.meta_pluralize user.followers, "follower"
+    render :json => data.chop.concat(",\"html\": \"#{html_update}\"}")
   end
 
 end

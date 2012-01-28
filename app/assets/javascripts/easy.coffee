@@ -144,11 +144,11 @@ $(document).ready ->
         user_follow_button.animate {width: 35, paddingLeft: 0, paddingRight: 0}, 250, "swing", () ->
           user_follow_button.html ""
           user_follow_button.removeClass "down"
-          user_follow_button.addClass "following"
-          user_follow_button.addClass "flat"
+          user_follow_button.addClass "following flat"
           user_follow_button.bind "click", unfollow_and_transform_button
           user_follow_button.unbind "click", follow_and_transform_button
           user_unfollow_button = user_follow_button
+          $("#meta-followers").html data.html
       else
         user_follow_button.removeClass "down"
         user_follow_button.html "Follow"
@@ -160,14 +160,13 @@ $(document).ready ->
     $.getJSON "/users/#{$("#user").attr("data-user-id")}/unfollow", (data) ->
       if data.meta.code == 200
         user_unfollow_button.html "Follow"
-        user_unfollow_button.removeClass "down"
-        user_unfollow_button.removeClass "following"
-        user_unfollow_button.removeClass "flat"
+        user_unfollow_button.removeClass "down following flat"
         user_unfollow_button.addClass "follow"
         user_unfollow_button.unbind "click", unfollow_and_transform_button
-        user_follow_button.bind "click", follow_and_transform_button
         user_unfollow_button.animate {width: 45, paddingLeft: 35, paddingRight: 15}
         user_follow_button = user_unfollow_button
+        user_follow_button.bind "click", follow_and_transform_button
+        $("#meta-followers").html data.html
       else
         user_unfollow_button.removeClass "down"
         alert data.meta.error_message
