@@ -10,11 +10,12 @@
       %span><
         = @user.following
       following
-    %li.action
-      - if @relation.outgoing == "follows"
-        %span#button-unfollow.flat.following
-      - else
-        %span#button-follow.follow Follow
+    - unless @user.id == @current_user.id
+      %li.action
+        - if @relation.outgoing == "follows"
+          %span#button-unfollow.flat.following
+        - else
+          %span#button-follow.follow Follow
   = image_tag @user.profile_picture_url, :width => 60, :alt => "#{@user.username}'s portrait"
   %h2<
     = @user.username
