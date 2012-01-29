@@ -9,7 +9,7 @@ $(document).ready ->
   
   # -----
   # animation triggers for Likes tab on photo page
-  $("#pages #likes-link").bind "click", () ->
+  $("#pages #likes-link").click ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#likes").animate {left: '0'}, "fast"
   
@@ -18,7 +18,7 @@ $(document).ready ->
     $("#likes").animate {left: '359'}, "fast"
   
   # animation triggers for Comments tab on photo page
-  $("#pages #comments-link").bind "click", () ->
+  $("#pages #comments-link").click ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#comments").animate {left: '0'}, "fast"
   
@@ -43,8 +43,8 @@ $(document).ready ->
           number_object.html parseInt(number_object.html())+1
 
   assign_like_clicks = () ->
-    $("li.like").unbind()
-    $("li.like").click -> 
+    $("li.like").off "click"
+    $("li.like").on "click", () -> 
       toggle_like_media $(this)
     
   # -----
@@ -72,7 +72,7 @@ $(document).ready ->
       
       if data["next_max_id"] != ""
         feed.attr("data-next-max-id", data.next_max_id)
-        $(window).bind "scroll", if_reached_bottom
+        $(window).on "scroll", if_reached_bottom
       else
         feed.removeAttr("data-next-max-id")
         fake_preloader.html("<p>The end!</p>")
@@ -89,9 +89,9 @@ $(document).ready ->
     
     if (scroll_height + scroll_top) >= (body_height - bottom_offset)
       next_page()
-      $(window).unbind()
+      $(window).off "scroll"
 
-  $(window).bind "scroll", if_reached_bottom
+  $(window).on "scroll", if_reached_bottom
   $(window).trigger "scroll"
   assign_like_clicks()
 
@@ -109,9 +109,9 @@ $(document).ready ->
         likes_container.empty()
         console.log data
         likes_container.html(data.html)
-        likes_link.unbind "click", preload_likes
+        likes_link.off "click", preload_likes
 
-    likes_link.bind "click", preload_likes
+    likes_link.on "click", preload_likes
 
   # -----
   # on-demand loading for too much comments
@@ -126,9 +126,9 @@ $(document).ready ->
         comments_container = comments_preloader.parent()
         comments_container.empty()
         comments_container.html(data.html)
-        comments_link.unbind "click", preload_comments
+        comments_link.off "click", preload_comments
 
-    comments_link.bind "click", preload_comments
+    comments_link.on "click", preload_comments
 
   # -----
   # follow user
