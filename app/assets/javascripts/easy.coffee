@@ -192,13 +192,12 @@ $(document).ready ->
         else
           button.removeClass "down"
           if data.meta.code == 200
-            button.html(if t then untoggle_action_name else toggle_action_name)
             if t then button.addClass("toggled") else button.removeClass("toggled")
-            if id_to_update
-              $("##{id_to_update}").html data.html
+            button.html(if t then untoggle_action_name else toggle_action_name)
+            $("##{id_to_update}").html data.html if id_to_update
   
   media_id = $("#photo").attr "data-media-id"
-  action_button("like", "Like", "Unlike", "/photos/#{media_id}/like", "/photos/#{media_id}/unlike", null, null, "likes-link")
+  action_button("like", "", "", "/photos/#{media_id}/like", "/photos/#{media_id}/unlike", null, null, "likes-link")
   
 
     

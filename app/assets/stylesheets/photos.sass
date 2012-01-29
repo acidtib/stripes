@@ -132,6 +132,41 @@
       &:hover
         color: maroon
 
+    .actions
+      margin-top: 20px
+
+      li
+        margin-right: 10px
+        float: left  
+      
+      #action-like
+        @include big-button-with-icon-and-no-text('/assets/actions/like.png')
+        @include border-color-like-bevel-white-bg(#ff0000)
+        background-color: #ff0000
+
+        &:hover
+          background-color: #ff4200
+          @include border-color-like-bevel-white-bg(#ff4200)
+
+        &.down
+          margin-top: 2px
+          background-color: #9b1515
+          @include border-color-like-bevel-down(#9b1515)
+          background-image: url('/assets/actions/spinners/like.gif')
+
+        &.toggled
+          background-color: #ce5a5a
+          @include border-color-like-bevel-down(#ce5a5a)
+          border-color: transparent
+
+          &:hover
+            background-image: url('/assets/actions/unlike.png')
+
+          &.down
+            background-color: #9b1515
+            @include border-color-like-bevel-down(#9b1515)
+            background-image: url('/assets/actions/spinners/like.gif')
+
     #likes
       ul
         overflow-x: none

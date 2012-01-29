@@ -20,14 +20,27 @@
 @mixin big-button-with-icon($icon_url)
   @include big-button
   background-image: url($icon_url)
-  background-position: 10px center
+  background-position: 15px center
   background-repeat: no-repeat
-  padding-left: 35px
+  padding-left: 40px
+
+@mixin big-button-with-icon-and-no-text($icon_url)
+  @include big-button
+  background-image: url($icon_url)
+  background-position: center
+  background-repeat: no-repeat
+  padding: 0
+  width: 60px
 
 @mixin border-color-like-bevel($color)
   border-top-color: lighten($color, 25%)
   border-left-color: lighten($color, 10%)
   border-right-color: lighten($color, 10%)
+
+@mixin border-color-like-bevel-white-bg($color)
+  border-bottom-color: darken($color, 15%)
+  border-left-color: darken($color, 5%)
+  border-right-color: darken($color, 5%)
 
 @mixin border-color-like-bevel-down($color)
   border-top-color: darken($color, 25%)
