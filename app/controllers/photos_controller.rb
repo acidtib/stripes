@@ -27,11 +27,17 @@ class PhotosController < ApplicationController
   end
   
   def like
-    render :json => Instagram.like_media(params[:id])
+    data = Instagram.like_media params[:id]
+    photo = Instagram.get_media params[:id]
+    html_update = view_context.pluralize photo.likes_count, "like", "likes"
+    render :json => data.chop.concat(",\"html\": \"#{html_update}\"}")
   end
   
   def unlike
-    render :json => Instagram.unlike_media(params[:id])
+    data = Instagram.unlike_media params[:id]
+    photo = Instagram.get_media params[:id]
+    html_update = view_context.pluralize photo.likes_count, "like", "likes"
+    render :json => data.chop.concat(",\"html\": \"#{html_update}\"}")
   end
 
   # xhr methods for lazy loading 

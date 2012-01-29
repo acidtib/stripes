@@ -31,11 +31,18 @@
         %p.meta.sherlock
           =raw("This shot was created #{time_ago_in_words(@photo.created_at)} ago with filter #{@photo.filter}.")
 
-      %ul.actions#actions
+      %ul.pages#pages
         %li.likes#likes-link{:class => ("disabled" if @photo.likes_count == 0)}
           = pluralize(@photo.likes_count, "like", "likes")
         %li.comments#comments-link{:class => ("disabled" if @photo.comments_count == 0)}
           = pluralize(@photo.comments_count, "comment", "comments")
+
+      %ul.actions
+        %li
+          - unless @photo.i_have_liked
+            %span.like#action-like Like
+          - else
+            %span.like.toggled#action-like Unlike
           
     #likes
       #navbar<

@@ -9,7 +9,7 @@ $(document).ready ->
   
   # -----
   # animation triggers for Likes tab on photo page
-  $("#actions #likes-link").bind "click", () ->
+  $("#pages #likes-link").bind "click", () ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#likes").animate {left: '0'}, "fast"
   
@@ -18,7 +18,7 @@ $(document).ready ->
     $("#likes").animate {left: '359'}, "fast"
   
   # animation triggers for Comments tab on photo page
-  $("#actions #comments-link").bind "click", () ->
+  $("#pages #comments-link").bind "click", () ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#comments").animate {left: '0'}, "fast"
   
@@ -173,3 +173,33 @@ $(document).ready ->
   
   user_follow_button.bind "click", follow_and_transform_button
   user_unfollow_button.bind "click", unfollow_and_transform_button
+
+  #-------------------------------
+
+  # abstract action button constructor and handler
+  action_button = (action_id, toggle_action_name, untoggle_action_name, toggle_action_url, untoggle_action_url, toggle_action_handler = null, untoggle_action_handler = null, id_to_update = null) ->
+
+    button = $("#action-#{action_id}")
+
+    button.on "click", () ->
+      t = not button.hasClass "toggled"
+      button.addClass("down").html("")
+
+      $.getJSON (if t then toggle_action_url else untoggle_action_url), (data) ->
+
+        if null != (if t then toggle_action_handler else untoggle_action_handler)
+          if t then toggle_action_handler(button, data) else untoggle_action_handler(button, data)
+        else
+          button.removeClass "down"
+          if data.meta.code == 200
+            button.html(if t then untoggle_action_name else toggle_action_name)
+            if t then button.addClass("toggled") else button.removeClass("toggled")
+            if id_to_update
+              $("##{id_to_update}").html data.html
+  
+  media_id = $("#photo").attr "data-media-id"
+  action_button("like", "Like", "Unlike", "/photos/#{media_id}/like", "/photos/#{media_id}/unlike", null, null, "likes-link")
+  
+
+    
+                  
