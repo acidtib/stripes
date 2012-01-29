@@ -9,22 +9,60 @@ $(document).ready ->
   
   # -----
   # animation triggers for Likes tab on photo page
-  $("#pages #likes-link").click ->
+  likes_link = $("#pages #likes-link")
+
+  likes_link.on "click", ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#likes").animate {left: '0'}, "fast"
-  
+
   $("#likes #navbar span").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#likes").animate {left: '359'}, "fast"
+
+  # -----
+  # on-demand loading for too much likes
+  likes_preloader = $("#photo #likes #likes_placeholder")
+  if likes_preloader.length > 0
+      
+    preload_likes = () ->
+      console.log "THING"
+      photo = $("#photo")
+
+      $.getJSON "/photos/#{photo.attr("data-media-id")}/load/likes", (data) ->
+        likes_container = likes_preloader.parent()
+        likes_container.empty()
+        console.log data
+        likes_container.html(data.html)
+        likes_link.off "click", preload_likes
+
+    likes_link.on "click", preload_likes
   
+  # -----
   # animation triggers for Comments tab on photo page
-  $("#pages #comments-link").click ->
+  comments_link = $("#pages #comments-link")
+
+  comments_link.on "click", ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#comments").animate {left: '0'}, "fast"
   
   $("#comments #navbar span").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#comments").animate {left: '359'}, "fast"
+
+  # -----
+  # on-demand loading for too much comments
+  comments_preloader = $("#photo #comments #comments_placeholder")
+  if comments_preloader.length > 0
+    preload_comments = () ->
+      photo = $("#photo")
+
+      $.getJSON "/photos/#{photo.attr("data-media-id")}/load/comments", (data) ->
+        comments_container = comments_preloader.parent()
+        comments_container.empty()
+        comments_container.html(data.html)
+        comments_link.off "click", preload_comments
+
+    comments_link.on "click", preload_comments
 
   # -----
   # like/unlike toggle on photos grid page
@@ -94,41 +132,6 @@ $(document).ready ->
   $(window).on "scroll", if_reached_bottom
   $(window).trigger "scroll"
   assign_like_clicks()
-
-  # -----
-  # on-demand loading for too much likes
-  likes_preloader = $("#photo #likes #likes_placeholder")
-  if likes_preloader.length > 0
-    likes_link = $("#actions #likes-link")
-
-    preload_likes = () ->
-      photo = $("#photo")
-
-      $.getJSON "/photos/#{photo.attr("data-media-id")}/load/likes", (data) ->
-        likes_container = likes_preloader.parent()
-        likes_container.empty()
-        console.log data
-        likes_container.html(data.html)
-        likes_link.off "click", preload_likes
-
-    likes_link.on "click", preload_likes
-
-  # -----
-  # on-demand loading for too much comments
-  comments_preloader = $("#photo #comments #comments_placeholder")
-  if comments_preloader.length > 0
-    comments_link = $("#actions #comments-link")
-
-    preload_comments = () ->
-      photo = $("#photo")
-
-      $.getJSON "/photos/#{photo.attr("data-media-id")}/load/comments", (data) ->
-        comments_container = comments_preloader.parent()
-        comments_container.empty()
-        comments_container.html(data.html)
-        comments_link.off "click", preload_comments
-
-    comments_link.on "click", preload_comments
 
   # -----
   # follow user
