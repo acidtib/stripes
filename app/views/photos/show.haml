@@ -65,5 +65,8 @@
         - else
           %li.placeholder#comments_placeholder
             Loading all those comments...
+      #comments-form
+        %textarea.comment
+        %span.action-post-comment#action-post-comment Post comment
           
   %img{:src => @photo.image.large.url, :alt => "#{@photo.user.username}'s photo"}

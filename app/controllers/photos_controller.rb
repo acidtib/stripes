@@ -56,5 +56,17 @@ class PhotosController < ApplicationController
   def bad_request_page
     render :layout => nil, :file => "#{Rails.root}/public/404.html", :status => 404
   end
+
+  def comment
+    data = Instagram.post_comment params[:id], params[:text]
+    if data["meta"]["code"] == 200
+      comment = Meta::Comment.new data["data"]
+      comment.user = @current_user
+      data["html"] = render_to_string(:partial => "photos/comment", :locals => { :comment => comment })
+      render :json => data
+    else
+      render :json => data
+    end
+  end
   
 end

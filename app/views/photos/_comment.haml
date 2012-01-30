@@ -1,4 +1,4 @@
-%li
+%li{ "data-comment-id" => comment.id }
   %a.author{ :href => profile_url(comment.user.username), :title => "View #{comment.user.username}'s profile" }><
     = comment.user.username
   = ": "

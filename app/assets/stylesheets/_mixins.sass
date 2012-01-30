@@ -17,6 +17,17 @@
   cursor: pointer
   cursor: hand
 
+@mixin small-button
+  display: block
+  height: 22px
+  padding: 0 8px
+  border: 1px solid transparent
+  border-radius: 3px
+  font-size: 12px
+  line-height: 22px
+  cursor: pointer
+  cursor: hand
+
 @mixin big-button-with-icon($icon_url)
   @include big-button
   background-image: url($icon_url)
@@ -46,6 +57,4 @@
   border-top-color: darken($color, 25%)
   border-left-color: transparent
   border-right-color: transparent
-  // border-left-color: darken($color, 10%)
-  // border-right-color: darken($color, 10%)
   border-bottom-color: lighten($color, 10%)

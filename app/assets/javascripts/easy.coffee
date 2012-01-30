@@ -201,7 +201,18 @@ $(document).ready ->
   
   media_id = $("#photo").attr "data-media-id"
   action_button("like", "", "", "/photos/#{media_id}/like", "/photos/#{media_id}/unlike", null, null, "likes-link")
-  
 
-    
-                  
+  # -----
+  # commenting function
+  comment_form = $("#comments-form textarea")
+  comment_form_button = $("#action-post-comment") 
+
+  comment_form_button.click ->
+    comment_text = comment_form.val()
+
+    $.post "/photos/#{$("#photo").attr("data-media-id")}/comment", { "text" : comment_text }, (data) ->
+      if data.meta.code == 200
+        $("#comments ul").append data.html
+        comment_form.val ""
+      else
+        alert data.meta.error_message

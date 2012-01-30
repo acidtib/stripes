@@ -62,6 +62,14 @@ class Instagram
     handle IGNetworking::Request.delete("media/#{media_id}/likes/")
   end
 
+  def self.post_comment media_id, text
+    handle IGNetworking::Request.post("media/#{media_id}/comments", :text => text), :json => true, :suppress_errors => true
+  end
+
+  def self.delete_comment media_id, comment_id
+    handle IGNetworking::Request.delete("media/#{media_id}/comments/#{comment_id}")
+  end
+
   def self.search_users query
     data = handle IGNetworking::Request.get("users/search", :q => query), :json => true
     return false if data["data"].empty?
