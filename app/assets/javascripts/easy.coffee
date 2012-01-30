@@ -15,7 +15,7 @@ $(document).ready ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#likes").animate {left: '0'}, "fast"
 
-  $("#likes #navbar span").click ->
+  $("#likes .navbar span").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#likes").animate {left: '359'}, "fast"
 
@@ -45,7 +45,7 @@ $(document).ready ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#comments").animate {left: '0'}, "fast"
   
-  $("#comments #navbar span").click ->
+  $("#comments .navbar span").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#comments").animate {left: '359'}, "fast"
 
@@ -223,7 +223,7 @@ $(document).ready ->
           $("#comments ul").append data.html
           comment_form.val ""
           char_counter.text "0"
-          $("#comments #navbar").html data.html_update
+          $("#comments .navbar").html data.html_update
         else
           alert data.meta.error_message
         
