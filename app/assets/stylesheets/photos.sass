@@ -232,6 +232,14 @@
         background: #f0f0f0
         width: 358px
         height: 100px
+
+        img
+          display: block
+          margin-left: 8px
+          margin-top: 8px
+
+          &.hidden
+            display: none
         
         .comment
           height: 48px
@@ -242,6 +250,9 @@
           font-size: 12px
           display: block
           border: 1px solid #ccc
+
+          &.disabled
+            background: #f0f0f0
 
         .action-post-comment
           @include small-button
@@ -261,6 +272,16 @@
             background: darken(#93d3ff, 20%)
             margin-top: 2px
             @include border-color-like-bevel-down(darken(#93d3ff, 10%))  
+        
+        .counter
+          float: left
+          line-height: 25px
+          font-size: 11px
+          color: #999
+          margin-left: 6px
+
+          &.full
+            color: #f00
                         
 
     #likes .placeholder,

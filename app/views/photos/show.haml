@@ -66,7 +66,11 @@
           %li.placeholder#comments_placeholder
             Loading all those comments...
       #comments-form
-        %textarea.comment
+        %textarea.comment{ :placeholder => "Anything cool to say?", :maxlength => "200" }
         %span.action-post-comment#action-post-comment Post comment
+        %img#comment-preloader.hidden{ :src => "/assets/actions/spinners/comment.gif" }
+        %span.counter
+          %span#characters-counter 0
+          = " / 200"
           
   %img{:src => @photo.image.large.url, :alt => "#{@photo.user.username}'s photo"}

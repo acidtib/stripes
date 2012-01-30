@@ -62,7 +62,10 @@ class PhotosController < ApplicationController
     if data["meta"]["code"] == 200
       comment = Meta::Comment.new data["data"]
       comment.user = @current_user
+      photo = Instagram.get_media params[:id]
+      html_update = view_context.pluralize photo.comments_count, "comment"
       data["html"] = render_to_string(:partial => "photos/comment", :locals => { :comment => comment })
+      data["html_update"] = "<span>Back</span>" + html_update
       render :json => data
     else
       render :json => data

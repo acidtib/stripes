@@ -205,14 +205,41 @@ $(document).ready ->
   # -----
   # commenting function
   comment_form = $("#comments-form textarea")
-  comment_form_button = $("#action-post-comment") 
+  comment_form_button = $("#action-post-comment")
+  comment_load_image = $("#comment-preloader")
 
   comment_form_button.click ->
     comment_text = comment_form.val()
 
-    $.post "/photos/#{$("#photo").attr("data-media-id")}/comment", { "text" : comment_text }, (data) ->
-      if data.meta.code == 200
-        $("#comments ul").append data.html
-        comment_form.val ""
-      else
-        alert data.meta.error_message
+    unless comment_text == ''
+      comment_form.addClass("disabled")
+      comment_form.attr("disabled", "disabled")
+      comment_load_image.toggleClass("hidden")
+      char_counter_holder.toggleClass("hidden")
+      
+      $.post "/photos/#{$("#photo").attr("data-media-id")}/comment", { "text" : comment_text }, (data) ->
+        
+        if data.meta.code == 200
+          $("#comments ul").append data.html
+          comment_form.val ""
+          char_counter.text "0"
+          $("#comments #navbar").html data.html_update
+        else
+          alert data.meta.error_message
+        
+        comment_form.removeClass("disabled")
+        comment_form.removeAttr("disabled")
+        comment_load_image.toggleClass("hidden")
+        char_counter_holder.toggleClass("hidden")
+
+    else
+      alert "You need to type in the comment first!"
+  
+  char_counter = $("#characters-counter")
+  char_counter_holder = $("#comments-form span.counter")
+  comment_form.keyup ->
+    char_counter.text comment_form.val().length
+    if comment_form.val().length == 200
+      char_counter_holder.addClass "full"
+    else
+      char_counter_holder.removeClass "full" if char_counter_holder.hasClass "full"
