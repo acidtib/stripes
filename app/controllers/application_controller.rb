@@ -4,6 +4,8 @@ class BadRequestError < MetaError; end
 class InternalServerError < MetaError; end
 class NotFoundError < MetaError; end
 class ServiceUnavailableError < MetaError; end
+class GatewayTimeoutError < MetaError; end
+class BadGatewayError < MetaError; end
 
 # there goes
 class ApplicationController < ActionController::Base

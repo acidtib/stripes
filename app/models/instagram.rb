@@ -12,6 +12,10 @@ class Instagram
           raise InternalServerError
         when "503"
           raise ServiceUnavailableError
+        when "504"
+          raise GatewayTimeoutError
+        when "502"
+          raise BadGatewayError
         end
       end
     end

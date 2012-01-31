@@ -11,7 +11,7 @@ module IGNetworking
       "&" + params.map{ |k, v| "#{k}=#{v}" }.join("&")
     end
 
-    def self.get request, params = nil
+    def self.get request, params = nil   
       @http.get("/v1/#{request}?access_token=#{@access_token}#{params ? params2str(params) : ''}")
     end
 
