@@ -22,6 +22,7 @@ gem 'rails', '3.1.0'
 # gem 'aws-s3', :require => 'aws/s3'
 gem 'haml'
 gem 'json_pure'
+gem 'settingslogic'
 
 group :assets do
   gem 'coffee-rails'

@@ -1,3 +1,5 @@
+
+
 # some custom error definitions
 class MetaError < StandardError; end
 class BadRequestError < MetaError; end
@@ -11,9 +13,9 @@ class BadGatewayError < MetaError; end
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  require 'i_g_networking'
+  require "instagram"
   
-  before_filter :get_session_data
+  before_filter :get_session_data, :except => [ :login, :logout ]
   before_filter :instantiate_controller_and_action_names
   caches_action :instantiate_controller_and_action_names
   
@@ -28,16 +30,14 @@ class ApplicationController < ActionController::Base
   end
   
   def get_session_data
-    if session.key? :access_token
-      @session = session[:access_token]
-      @access_token = @session["access_token"]
-      @current_user = Meta::User.new @session["user"]
-      IGNetworking::Request.init @access_token
+    if session.key? :user
+      @current_user = Instagram::AuthorizedUser.new JSON.parse(session[:user], { :symbolize_names => true }), ''
+      @current_user.access_token = JSON.parse(session[:user])["access_token"]
     end
   end
   
   def logged_in?
-    @session
+    @current_user
   end
 
   def check_authorization
@@ -48,19 +48,26 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_instagram_auth
-    redirect_to IGNetworking::OAuth.request_auth_url
+    redirect_to Instagram.authentication_url
   end
 
   def get_instagram_access_and_redirect code
-    response = IGNetworking::OAuth.authorize code
-    session[:access_token] = JSON.parse response
+    user = Instagram.authorize code
 
-    if session[:redirect]
-      url = session[:redirect]
-      session[:redirect] = nil
-      redirect_to url
+    if user
+      @current_user = user
+      session[:user] = user.to_json
+      
+      if session[:redirect] # how to handle this shit?
+        url = session[:redirect]
+        session[:redirect] = nil
+        redirect_to url
+      else
+        redirect_to :controller => :home, :action => :feed
+      end
     else
-      redirect_to :controller => :home, :action => :feed
+      flash[:notice] = "Something went wrong."
+      redirect_to :controller => :home, :action => :index
     end
   end
 
@@ -76,8 +83,8 @@ class ApplicationController < ActionController::Base
   end
 
   def logout
-    session[:access_token] = nil
-    IGNetworking::Request.halt
+    session[:user] = nil
+    @current_user = nil
     redirect_to :controller => :home, :action => :index
   end
 

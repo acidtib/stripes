@@ -37,10 +37,10 @@ class User < ActiveRecord::Base
     instagram_id = -1
     u = ''
 
-    if data.kind_of? Meta::User
+    if data.kind_of? Instagram::User
       instagram_id = data.id.to_i
       username = data.username
-    elsif data.kind_of?(Meta::Photo) or data.kind_of?(Meta::Comment)
+    elsif data.kind_of?(Instagram::Photo) or data.kind_of?(Instagram::Comment)
       instagram_id = data.user.id.to_i
       username = data.user.username
     end

@@ -1,5 +1,5 @@
 .thumbnail
-  %a.link-to-photo{:href => media_url(p.id), :title => "View #{p.user.username}'s photo"}
+  %a.link-to-photo{:href => media_url(p.instagram_id), :title => "View #{p.user.username}'s photo"}
     %img.filler{:src => "/assets/transparent-306.gif"}
     %img.photo{:src => p.image.medium.url, :alt => "#{p.user.username}'s photo preview"}
   
@@ -8,7 +8,7 @@
       %span Comments:
       %b<
         = p.comments_count
-    %li.like{:class => ("liked" if p.i_have_liked), "data-media-id" => p.id, :title => "Like #{p.user.username}'s photo" }<
+    %li.like{:class => ("liked" if p.liked), "data-media-id" => p.id, :title => "Like #{p.user.username}'s photo" }<
       %span Likes: 
       %b<
         = p.likes_count

@@ -3,17 +3,17 @@ class PhotosController < ApplicationController
   before_filter :check_authorization
   
   def show
-    @photo = Instagram.get_media params[:id]
+    @photo = Instagram.get_media @current_user.access_token, params[:id]
     
     if @photo.likes_count < 250
-      @likes_users = Instagram.get_media_likes params[:id]
+      @likes_users = Instagram.get_media_likes @current_user.access_token, params[:id]
       User.cache_data @likes_users
     else
       @lazy_load_likes = true
     end
 
     if @photo.comments_count < 50
-      @comments = Instagram.get_media_comments params[:id]
+      @comments = Instagram.get_media_comments @current_user.access_token, params[:id]
       User.cache_data @comments
     else
       @lazy_load_comments = true

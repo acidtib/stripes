@@ -39,7 +39,7 @@
 
       %ul.actions
         %li
-          - unless @photo.i_have_liked
+          - unless @photo.liked
             %span.like#action-like
           - else
             %span.like.toggled#action-like

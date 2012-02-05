@@ -1,0 +1,35 @@
+defaults: 
+  instagram: &defaults
+    photos_per_feed_page: 20
+    api:
+      server_url: api.instagram.com
+      server_port: 443
+      root_path: /v1/
+      ssl_required: true
+    oauth: &auth_defaults
+      server_url: api.instagram.com
+      server_port: 443
+      root_path: /oauth/
+      ssl_required: true
+
+development:
+  instagram:
+    <<: *defaults
+
+    oauth:
+      <<: *auth_defaults      
+      client_id: 5b94ab73a59145be939858ad04be772d
+      client_secret: 800e0c7c46c243a48ece23d022ce25d0
+      redirect_uri: http://localhost:3000/auth
+      scope: basic+relationships+comments+likes
+
+production:
+  instagram:
+    <<: *defaults
+
+    oauth:
+      <<: *auth_defaults
+      client_id: dc8647ac03ec496aaa387a287c97acca
+      client_secret: d3d03d10ffea4b2c84db5c84c579abae
+      redirect_uri: http://stripesdemo.herokuapp.com/auth
+      scope: basic+relationships+comments+likes

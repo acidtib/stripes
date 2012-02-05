@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   end
   
   def feed
-    @photos, @next_page_max_id = Instagram.get_my_recent_media
+    @photos, @next_page_max_id = Instagram.get_my_feed @current_user.access_token
   end
 
   def popular
@@ -24,7 +24,7 @@ class HomeController < ApplicationController
   end
   
   def feed_page_from_max_id
-    photos, next_page_max_id = Instagram.get_my_recent_media params[:max_id]
+    photos, next_page_max_id = Instagram.get_my_feed_from_max_id @current_user.access_token, params[:max_id]
     render :text => JSON.generate( 
       { 
         :next_max_id => next_page_max_id, 
