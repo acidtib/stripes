@@ -1,11 +1,11 @@
-module Instagram            
+module Instagram
   require 'instagram/models/location'
   require 'instagram/models/image_list'
   require 'instagram/models/extended_user'
   require 'instagram/validations/location'
 
   class Photo
-    attr_reader :id, :user_has_liked, :filter, :likes_count, :comments_count, :caption, 
+    attr_reader :id, :user_has_liked, :filter, :likes_count, :comments_count, :caption,
       :user, :location, :media, :created_time
 
     def initialize fields = {}
@@ -24,7 +24,7 @@ module Instagram
       @likes_count = fields[:likes][:count]
       @comments_count = fields[:comments][:count]
       @caption = fields[:caption][:text] if fields[:caption]
-      
+
       # complex properties as objects
       @user = ExtendedUser.new fields[:user]
       @location = Location.new(fields[:location]) if Validation::Location.valid?(fields[:location])

@@ -6,7 +6,7 @@
     #general
       #profile
         %img{:src => @photo.user.profile_picture_url, :alt => "#{@photo.user.username}'s portrait"}
-        
+
         %h3<
           = link_to @photo.user.username, profile_url(@photo.user.username), { :title => "Link to #{@photo.user.username}'s profile" }
         - unless @photo.user.full_name.empty?
@@ -19,15 +19,15 @@
           %p
             %a{:href => @photo.user.website}<
               =@photo.user.website
-      
+
       #details
         -if @photo.title
           %p.caption<
             = raw("&laquo;#{@photo.title}&raquo;")
-            
+
         -if @photo.location
           =render_location_image @photo.location.latitude, @photo.location.longitude
-          
+
         %p.meta.sherlock
           =raw("This shot was created #{time_ago_in_words(@photo.created_at)} ago with filter #{@photo.filter}.")
 
@@ -43,7 +43,7 @@
             %span.like#action-like
           - else
             %span.like.toggled#action-like
-          
+
     #likes
       .navbar<
         %span Back
@@ -54,7 +54,7 @@
         - else
           %li#likes_placeholder.placeholder
             Loading all those likes...
-  
+
     #comments
       .navbar<
         %span Back
@@ -72,5 +72,5 @@
         %span.counter
           %span#characters-counter 0
           = " / 200"
-          
+
   %img{:src => @photo.image.large.url, :alt => "#{@photo.user.username}'s photo"}
