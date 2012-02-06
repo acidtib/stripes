@@ -4,10 +4,13 @@ class UsersController < ApplicationController
 
   def show
     user_id = search_user_everywhere params[:username]
-    @user = Instagram.get_user_info @access_token, user_id
-    @relation = Instagram.get_user_relationship @access_token, user_id
-    @photos, @next_page_max_id = Instagram.get_user_feed @access_token, user_id
-    User.cache_data @user
+    if (@user = Instagram.get_user_info @access_token, user_id)
+      @relation = Instagram.get_user_relationship @access_token, user_id
+      @photos, @next_page_max_id = Instagram.get_user_feed @access_token, user_id
+      User.cache_data @user
+    else
+      render :file => "#{Rails.root}/public/404.html"
+    end
   end
 
   def feed_page_from_max_id
