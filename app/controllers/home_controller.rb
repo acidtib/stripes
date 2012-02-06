@@ -27,5 +27,4 @@ class HomeController < ApplicationController
     photos, next_page_max_id = Instagram.get_my_feed_from_max_id @access_token, params[:max_id]
     render :json => { :next_max_id => next_page_max_id, :html => render_to_string(:partial => "shared/feed_item", :collection => photos, :as => :p) }
   end
-
 end

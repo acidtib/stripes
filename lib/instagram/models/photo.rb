@@ -34,6 +34,7 @@ module Instagram
     alias_method :instagram_id, :id
     alias_method :liked, :user_has_liked
     alias_method :created_by, :user
+    alias_method :from, :user
     alias_method :created_at, :created_time
     alias_method :title, :caption
     alias_method :image, :media
