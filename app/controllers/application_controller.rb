@@ -1,24 +1,24 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
   require "instagram"
-  
+
   before_filter :get_session_data, :except => [ :login, :logout ]
   before_filter :instantiate_controller_and_action_names
   caches_action :instantiate_controller_and_action_names
-  
+
   def instantiate_controller_and_action_names
     @current_action = action_name
     @current_controller = controller_name
   end
-  
+
   def get_session_data
     if session.key? :user
       @current_user = Instagram::AuthorizedUser.new JSON.parse(session[:user], { :symbolize_names => true }), ''
       @access_token = JSON.parse(session[:user])["access_token"]
     end
   end
-  
+
   def logged_in?
     @current_user
   end
@@ -34,13 +34,12 @@ class ApplicationController < ActionController::Base
     redirect_to Instagram.authentication_url
   end
 
-  def get_instagram_access_and_redirect code
+  def get_instagram_access_and_redirect code # REFACTOR!!!
     user = Instagram.authorize code
-
     if user
       @current_user = user
       session[:user] = user.to_json
-      
+
       if session[:redirect] # how to handle this shit?
         url = session[:redirect]
         session[:redirect] = nil

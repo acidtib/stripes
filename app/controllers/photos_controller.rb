@@ -1,10 +1,10 @@
 class PhotosController < ApplicationController
 
   before_filter :check_authorization
-  
+
   def show
     @photo = Instagram.get_media @access_token, params[:id]
-    
+
     if @photo.likes_count < 250
       @likes_users = Instagram.get_media_likes @access_token, params[:id]
       User.cache_data @likes_users
@@ -21,11 +21,11 @@ class PhotosController < ApplicationController
 
     User.cache_data @photo
   end
-  
+
   def index
     redirect_to :controller => :home, :action => :feed
   end
-  
+
   def like
     response = Instagram.like_media @access_token, params[:id]
     if response.ok? and (photo = Instagram.get_media @access_token, params[:id])
@@ -33,7 +33,7 @@ class PhotosController < ApplicationController
     end
     render :json => response
   end
-  
+
   def unlike
     response = Instagram.unlike_media @access_token, params[:id]
     if response.ok? and (photo = Instagram.get_media @access_token, params[:id])
@@ -42,7 +42,7 @@ class PhotosController < ApplicationController
     render :json => response
   end
 
-  # xhr methods for lazy loading 
+  # xhr methods for lazy loading
   def lazy_load_likes
     likes_users = Instagram.get_media_likes @access_token, params[:id]
     render :json => { :html => render_to_string(:partial => "like", :collection => likes_users, :as => :user) }
@@ -52,7 +52,7 @@ class PhotosController < ApplicationController
     comments = Instagram.get_media_comments @access_token, params[:id]
     render :json => { :html => render_to_string(:partial => "comment", :collection => comments) }
   end
-  
+
   def comment
     response, comment = Instagram.comment_on_media @access_token, params[:id], params[:text]
     if response.ok? and comment
@@ -65,5 +65,5 @@ class PhotosController < ApplicationController
     end
     render :json => response
   end
-  
+
 end
