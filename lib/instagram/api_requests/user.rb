@@ -23,6 +23,14 @@ module Instagram
       def self.search token, query
         API.get "users/search", token, { :q => query }
       end
+
+      def self.follow token, instagram_id
+        API.post "users/#{instagram_id}/relationship", token, { :action => 'follow' }
+      end
+
+      def self.unfollow token, instagram_id
+        API.post "users/#{instagram_id}/relationship", token, { :action => 'unfollow' }
+      end
     end
   end
 end

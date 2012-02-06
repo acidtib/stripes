@@ -1,11 +1,13 @@
 require 'json'
 require 'instagram/parsing/api_response'
 require 'instagram/parsing/likes_list'
-require 'instagram/parsing/media_feed'
+require 'instagram/parsing/paged_media_feed'
 require 'instagram/parsing/photo'
 require 'instagram/parsing/post_comment_response'
 require 'instagram/parsing/session'
+require 'instagram/parsing/static_media_feed'
 require 'instagram/parsing/user'
+require 'instagram/parsing/users_list'
 
 module Instagram
   module Parsing

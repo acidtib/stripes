@@ -67,8 +67,17 @@ module Instagram
     Parsing::PagedMediaFeed.parse Request::User.get_feed_page_from_max_id(token, user_id, max_media_id)
   end
 
+  # User actions
+  def self.follow_user token, user_id
+    Parsing::APIResponse.parse Request::User.follow token, user_id
+  end
+
+  def self.unfollow_user token, user_id
+    Parsing::APIResponse.parse Request::User.unfollow token, user_id
+  end
+
   # Searches
-  def search_users token, query
-    
+  def self.search_users token, query
+    Parsing::UsersList.parse Request::User.search token, query
   end
 end

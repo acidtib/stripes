@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def get_session_data
     if session.key? :user
       @current_user = Instagram::AuthorizedUser.new JSON.parse(session[:user], { :symbolize_names => true }), ''
-      @current_user.access_token = JSON.parse(session[:user])["access_token"]
+      @access_token = JSON.parse(session[:user])["access_token"]
     end
   end
   

@@ -16,15 +16,15 @@ class HomeController < ApplicationController
   end
   
   def feed
-    @photos, @next_page_max_id = Instagram.get_my_feed @current_user.access_token
+    @photos, @next_page_max_id = Instagram.get_my_feed @access_token
   end
 
   def popular
-    @photos = Instagram.get_popular_media @current_user.access_token
+    @photos = Instagram.get_popular_media @access_token
   end
   
   def feed_page_from_max_id
-    photos, next_page_max_id = Instagram.get_my_feed_from_max_id @current_user.access_token, params[:max_id]
+    photos, next_page_max_id = Instagram.get_my_feed_from_max_id @access_token, params[:max_id]
     render :text => JSON.generate( { 
         :next_max_id => next_page_max_id, 
         :html => render_to_string(:partial => "shared/feed_item", 
