@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
     user_id = 0
 
-    if cache.kind_of? Meta::User
+    if cache.kind_of? Instagram::User
       user_id = cache.id
     elsif cache.kind_of? User
       user_id = cache.instagram_id
@@ -22,22 +22,18 @@ class UsersController < ApplicationController
       user_id = params[:username]
     end
       
-    @user = Instagram.get_user user_id
-    @relation = Instagram.get_relationship_status user_id
-    @photos, @next_page_max_id = Instagram.get_user_feed user_id
+    @user = Instagram.get_user_info @current_user.access_token, user_id
+    @relation = Instagram.get_user_relationship @current_user.access_token, user_id
+    @photos, @next_page_max_id = Instagram.get_user_feed @current_user.access_token, user_id
 
     User.cache_data @user
   end
   
   def feed_page_from_max_id
-    @photos, @next_page_max_id = Instagram.get_user_feed params[:id], params[:max_id]
+    @photos, @next_page_max_id = Instagram.get_user_feed_from_max_id @current_user.access_token, params[:id], params[:max_id]
     render :text => JSON.generate( { :next_max_id => @next_page_max_id, 
       :html => render_to_string(:partial => "shared/feed_item", :collection => @photos, :as => :p)
     } )
-  end
-
-  def bad_request_page
-    render :layout => nil, :file => "#{Rails.root}/public/404.html", :status => 404
   end
 
   def follow

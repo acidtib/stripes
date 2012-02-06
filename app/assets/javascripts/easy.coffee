@@ -71,14 +71,18 @@ $(document).ready ->
     
     if photos_item.hasClass "liked"
       $.get "/photos/#{photos_item.attr("data-media-id")}/unlike", (data) ->
-        if data.meta.code == 200
+        if data.ok
           photos_item.removeClass("liked")
           number_object.html parseInt(number_object.html())-1
+        else
+          alert data.message
     else
       $.get "/photos/#{photos_item.attr("data-media-id")}/like", (data) ->
-        if data.meta.code == 200
+        if data.ok
           photos_item.addClass("liked")
           number_object.html parseInt(number_object.html())+1
+        else
+          alert data.message
 
   assign_like_clicks = () ->
     $("li.like").off "click"
@@ -194,7 +198,7 @@ $(document).ready ->
           if t then toggle_action_handler(button, data) else untoggle_action_handler(button, data)
         else
           button.removeClass "down"
-          if data.meta.code == 200
+          if data.ok
             if t then button.addClass("toggled") else button.removeClass("toggled")
             button.html(if t then untoggle_action_name else toggle_action_name)
             $("##{id_to_update}").html data.html if id_to_update
@@ -219,13 +223,13 @@ $(document).ready ->
       
       $.post "/photos/#{$("#photo").attr("data-media-id")}/comment", { "text" : comment_text }, (data) ->
         
-        if data.meta.code == 200
+        if data.ok
           $("#comments ul").append data.html
           comment_form.val ""
           char_counter.text "0"
-          $("#comments .navbar").html data.html_update
+          $("#comments .navbar").html data.counter_update
         else
-          alert data.meta.error_message
+          alert data.message
         
         comment_form.removeClass("disabled")
         comment_form.removeAttr("disabled")

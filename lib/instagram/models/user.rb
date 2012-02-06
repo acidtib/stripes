@@ -3,9 +3,6 @@ module Instagram
     attr_reader :id, :username, :profile_picture, :full_name
 
     def initialize fields = {}
-      # fields.each do |k, v|
-      #  instance_variable_set "@#{k}".to_sym, v
-      # end
       @id = fields[:id].to_i
       @username = fields[:username]
       @profile_picture = fields[:profile_picture]

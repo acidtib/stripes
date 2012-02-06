@@ -23,6 +23,17 @@ development:
       redirect_uri: http://localhost:3000/auth
       scope: basic+relationships+comments+likes
 
+test:
+  instagram:
+    <<: *defaults
+
+    oauth:
+      <<: *auth_defaults      
+      client_id: 5b94ab73a59145be939858ad04be772d
+      client_secret: 800e0c7c46c243a48ece23d022ce25d0
+      redirect_uri: http://localhost:3000/auth
+      scope: basic+relationships+comments+likes
+
 production:
   instagram:
     <<: *defaults

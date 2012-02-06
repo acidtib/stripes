@@ -4,10 +4,6 @@ require 'instagram/networking/api'
 module Instagram
   module Request
     class MediaFeed
-      def get_user_media_feed user_instagram_id
-        
-      end
-
       def self.get_authorized_user_feed token
          API.get "users/self/feed", token, { :count => Settings.instagram.photos_per_feed_page }
       end
@@ -16,11 +12,11 @@ module Instagram
          API.get "users/self/feed", token, { :count => Settings.instagram.photos_per_feed_page, :max_id => max_id }
       end
 
-      def get_popular_feed
-        
+      def self.get_popular_feed token
+        API.get "media/popular", token
       end
 
-      def get_search_feed query
+      def self.get_search_feed query
         
       end
     end

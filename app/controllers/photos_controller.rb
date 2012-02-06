@@ -27,49 +27,43 @@ class PhotosController < ApplicationController
   end
   
   def like
-    data = Instagram.like_media params[:id]
-    photo = Instagram.get_media params[:id]
-    html_update = view_context.pluralize photo.likes_count, "like", "likes"
-    render :json => data.chop.concat(",\"html\": \"#{html_update}\"}")
+    response = Instagram.like_media @current_user.access_token, params[:id]
+    if response.ok? and (photo = Instagram.get_media @current_user.access_token, params[:id])
+      response[:html] = view_context.pluralize photo.likes_count, "like", "likes"
+    end
+    render :json => response
   end
   
   def unlike
-    data = Instagram.unlike_media params[:id]
-    photo = Instagram.get_media params[:id]
-    html_update = view_context.pluralize photo.likes_count, "like", "likes"
-    render :json => data.chop.concat(",\"html\": \"#{html_update}\"}")
+    response = Instagram.unlike_media @current_user.access_token, params[:id]
+    if response.ok? and (photo = Instagram.get_media @current_user.access_token, params[:id])
+      response[:html] = view_context.pluralize photo.likes_count, "like", "likes"
+    end
+    render :json => response
   end
 
   # xhr methods for lazy loading 
   def lazy_load_likes
-    likes_users = Instagram.get_media_likes params[:id]
+    likes_users = Instagram.get_media_likes @current_user.access_token, params[:id]
     render :text => JSON.generate( { :html => render_to_string(:partial => "like", :collection => likes_users, :as => :user) } )
   end
 
   def lazy_load_comments
-    comments = Instagram.get_media_comments params[:id]
+    comments = Instagram.get_media_comments @current_user.access_token, params[:id]
     render :text => JSON.generate( { :html => render_to_string(:partial => "comment", :collection => comments) } )    
   end
   
-  # fix to obscure instagram errors about bad requests when you
-  # provide wrong or illegal media id
-  def bad_request_page
-    render :layout => nil, :file => "#{Rails.root}/public/404.html", :status => 404
-  end
-
   def comment
-    data = Instagram.post_comment params[:id], params[:text]
-    if data["meta"]["code"] == 200
-      comment = Meta::Comment.new data["data"]
-      comment.user = @current_user
-      photo = Instagram.get_media params[:id]
-      html_update = view_context.pluralize photo.comments_count, "comment"
-      data["html"] = render_to_string(:partial => "photos/comment", :locals => { :comment => comment })
-      data["html_update"] = "<span>Back</span>" + html_update
-      render :json => data
-    else
-      render :json => data
+    response, comment = Instagram.comment_on_media @current_user.access_token, params[:id], params[:text]
+    if response.ok? and comment
+      comment.from = @current_user
+      response[:html] = render_to_string(:partial => "photos/comment", :locals => { :comment => comment })
+
+      photo = Instagram.get_media @current_user.access_token, params[:id]
+      counter_update = view_context.pluralize photo.comments_count, "comment"
+      response[:counter_update] = "<span>Back</span>" + counter_update
     end
+    render :json => response
   end
   
 end
