@@ -19,7 +19,7 @@ module Instagram
 
     def self.is_valid_json? json, schema
       JSON::Validator.json_backend = :yajl
-      JSON::Validator.validate "lib/instagram/schemas/#{schema}.json", json
+      JSON::Validator.validate! "lib/instagram/schemas/#{schema}.json", json
     end
 
     def self.decode response, schema

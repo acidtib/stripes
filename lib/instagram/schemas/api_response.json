@@ -1,0 +1,15 @@
+{
+  "desctiption": "Generic API response",
+  "type": "object",
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "properties": {
+        "error_type": { "type": "string" },
+        "code": { "type": "integer", "required": "true" },
+        "error_message": { "type": "string" }
+      }
+    }
+  }
+}

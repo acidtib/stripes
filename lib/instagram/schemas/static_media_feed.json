@@ -1,15 +1,7 @@
 {
-  "desctiption": "Instagram's paged media feed, like user's feed, search results or user's media",
+  "desctiption": "Instagram's generic media feed with no pagination",
   "type": "object",
   "properties": {
-
-    "pagination": {
-      "type": "object",
-      "properties": {
-        "next_url": { "type": "string", "required": "true" },
-        "next_max_id": { "type": "string"}
-      }
-    },
 
     "meta": {
       "type": "object",

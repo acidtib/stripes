@@ -2,9 +2,9 @@ require 'instagram/models/user'
 
 module Instagram
   module Parsing
-    class LikesList
+    class LikesList < Parser
       def self.parse response
-        Parsing.decode(response) do |data|
+        Parsing.decode(response, self_schema_name) do |data|
           data[:data].collect do |like| Instagram::User.new like end
         end
       end

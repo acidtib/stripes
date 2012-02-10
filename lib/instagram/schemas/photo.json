@@ -1,0 +1,158 @@
+{
+  "desctiption": "Single photo",
+  "type": "object",
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "properties": {
+        "error_type": { "type": "string" },
+        "code": { "type": "integer", "required": "true" },
+        "error_message": { "type": "string" }
+      }
+    },
+
+    "data": {
+      "type": "object",
+      "properties": {
+
+        "type": { "type": "string" },
+
+        "location": {
+          "type": [ "object", "null" ],
+          "properties": {
+            "latitude": { "type": "float", "required": "true" },
+            "longitude": { "type": "float", "required": "true" },
+            "id": { "type": "integer" },
+            "name": { "type": "string" }
+          }
+        },
+
+        "tags": {
+          "type": [ "array", "null" ],
+          "items": { "type": "string" }
+        },
+
+        "comments": {
+          "type": "object",
+          "properties": {
+            "count": { "type" : "integer" },
+            "data": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "created_time" : { "type": "string", "required" : "true"},
+                  "text" : {"type": "string"},
+                  "id": { "type": "string", "required": "true"},
+                  "from": {
+                    "type" : "object",
+                    "required" : "true",
+                    "properties" : {
+                      "username": { "type": "string", "required": "true" },
+                      "profile_picture": { "type": "string", "required": "true" },
+                      "id": { "type": "string", "required": "true" },
+                      "full_name": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "filter": { "type" : "string", "required" : "true" },
+        "created_time": { "type" : "string", "required" : "true" },
+        "link": { "type" : [ "string", "null" ] },
+
+        "likes": {
+          "type": "object",
+          "properties" : {
+            "count": {"type": "integer"},
+            "data": {
+              "type": [ "array", "null" ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string", "required": "true" },
+                  "profile_picture": { "type": "string", "required": "true" },
+                  "id": { "type": "string", "required": "true" },
+                  "full_name": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+
+        "images": {
+          "type": "object",
+          "required": "true",
+          "properties": {
+            "low_resolution": {
+              "type": "object",
+              "required": "true",
+              "properties": {
+                "url": { "type": "string", "required":"true" },
+                "width": { "type": "integer" },
+                "height": { "type": "integer" }
+              }
+            },
+            "thumbnail": {
+              "type": "object",
+              "required": "true",
+              "properties": {
+                "url": { "type": "string", "required":"true" },
+                "width": { "type": "integer" },
+                "height": { "type": "integer" }
+              }
+            },
+            "standard_resolution": {
+              "type": "object",
+              "required": "true",
+              "properties": {
+                "url": { "type": "string", "required":"true" },
+                "width": { "type": "integer" },
+                "height": { "type": "integer" }
+              }
+            }
+          }
+        },
+
+        "caption": {
+          "type": ["object", "null"],
+          "properties": {
+            "created_time" : { "type": "string", "required" : "true"},
+            "text" : {"type": "string"},
+            "id": { "type": "string", "required": "true"},
+            "from": {
+              "type" : "object",
+              "required" : "true",
+              "properties" : {
+                "username": { "type": "string", "required": "true" },
+                "profile_picture": { "type": "string", "required": "true" },
+                "id": { "type": "string", "required": "true" },
+                "full_name": { "type": "string" }
+              }
+            }
+          }
+        },
+
+        "user_has_liked": { "type" : "boolean"},
+        "id": { "type" : "string" },
+
+        "user": {
+          "type" : "object",
+          "required" : "true",
+          "properties" : {
+            "username": { "type": "string", "required": "true" },
+            "profile_picture": { "type": "string", "required": "true" },
+            "id": { "type": "string", "required": "true" },
+            "full_name": { "type": "string" },
+            "bio": { "type": ["string", "null"] },
+            "website": { "type": ["string", "null"] }
+          }
+        }
+      }
+    }
+  }
+}

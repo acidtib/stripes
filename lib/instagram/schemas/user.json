@@ -1,0 +1,36 @@
+{
+  "desctiption": "Full user information",
+  "type": "object",
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "properties": {
+        "error_type": { "type": "string" },
+        "code": { "type": "integer", "required": "true" },
+        "error_message": { "type": "string" }
+      }
+    },
+
+    "data": {
+      "type": "object",
+      "properties": {
+        "username": { "type": "string", "required": "true" },
+        "profile_picture": { "type": "string", "required": "true" },
+        "id": { "type": "string", "required": "true" },
+        "full_name": { "type": "string" },
+        "bio": { "type": "string" },
+        "website": { "type": "string" },
+        "counts": {
+          "type": "object",
+          "required": "true",
+          "properties": {
+            "media": {"type": "integer", "required": "true"},
+            "followed_by": {"type": "integer", "required": "true"},
+            "follows": {"type": "integer", "required": "true"}
+          }
+        }
+      }
+    }
+  }
+}

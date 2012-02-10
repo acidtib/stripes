@@ -1,0 +1,25 @@
+{
+  "desctiption": "Relationship description between current user and requested user",
+  "type": "object",
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "required": "true",
+      "properties": {
+        "error_type": { "type": "string" },
+        "code": { "type": "integer", "required": "true" },
+        "error_message": { "type": "string" }
+      }
+    },
+
+    "data":  {
+      "type": "object",
+      "properties": {
+        "outgoing_status": { "type": "string", "required": "true" },
+        "target_user_is_private": { "type": "boolean", "required": "true" },
+        "incoming_status": { "type": "string", "required": "true"}
+      }
+    }
+  }
+}
