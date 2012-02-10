@@ -1,0 +1,21 @@
+{
+  "desctiption": "Authentication result returned by Instagram's OAuth server",
+  "type": "object",
+  "properties": {
+
+    "access_token": { "type": "string", "required": "true" },
+
+    "user": {
+      "type" : "object",
+      "required" : "true",
+      "properties" : {
+        "username": { "type": "string", "required": "true" },
+        "profile_picture": { "type": "string", "required": "true" },
+        "id": { "type": "string", "required": "true" },
+        "full_name": { "type": "string" },
+        "bio": { "type": ["string", "null"] },
+        "website": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
