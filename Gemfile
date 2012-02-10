@@ -21,8 +21,10 @@ gem 'rails', '3.1.0'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 gem 'haml'
-gem 'json_pure'
+gem 'json'
 gem 'settingslogic'
+gem 'yajl-ruby'
+gem 'json-schema'
 
 group :assets do
   gem 'coffee-rails'
@@ -40,7 +42,7 @@ group :development, :test do
 	gem 'sqlite3'
 end
 
-group :production do 
-  gem 'pg' 
+group :production do
+  gem 'pg'
   gem 'uglifier'
 end
