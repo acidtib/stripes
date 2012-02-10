@@ -8,7 +8,7 @@ module Instagram
   end
 
   def self.authentication_url
-    "https://instagram.com" + Request::Authentication.authentication_url    
+    "https://instagram.com" + Request::Authentication.authentication_url
   end
 
   # User's feed of images from people user is following and pagination function

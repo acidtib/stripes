@@ -2,11 +2,11 @@
 $ = jQuery
 
 $(document).ready ->
-  
+
   w = $(document).width()
   min_margin = 15
   base_w = 326 + min_margin * 2
-  
+
   # -----
   # animation triggers for Likes tab on photo page
   likes_link = $("#pages #likes-link")
@@ -23,7 +23,7 @@ $(document).ready ->
   # on-demand loading for too much likes
   likes_preloader = $("#photo #likes #likes_placeholder")
   if likes_preloader.length > 0
-      
+
     preload_likes = () ->
       console.log "THING"
       photo = $("#photo")
@@ -36,7 +36,7 @@ $(document).ready ->
         likes_link.off "click", preload_likes
 
     likes_link.on "click", preload_likes
-  
+
   # -----
   # animation triggers for Comments tab on photo page
   comments_link = $("#pages #comments-link")
@@ -44,7 +44,7 @@ $(document).ready ->
   comments_link.on "click", ->
     $("#general").animate {left: '-=358'}, "fast"
     $("#comments").animate {left: '0'}, "fast"
-  
+
   $("#comments .navbar span").click ->
     $("#general").animate {left: '0'}, "fast"
     $("#comments").animate {left: '359'}, "fast"
@@ -68,7 +68,7 @@ $(document).ready ->
   # like/unlike toggle on photos grid page
   toggle_like_media = (photos_item) ->
     number_object = photos_item.children().last()
-    
+
     if photos_item.hasClass "liked"
       $.get "/photos/#{photos_item.attr("data-media-id")}/unlike", (data) ->
         if data.ok
@@ -86,9 +86,9 @@ $(document).ready ->
 
   assign_like_clicks = () ->
     $("li.like").off "click"
-    $("li.like").on "click", () -> 
+    $("li.like").on "click", () ->
       toggle_like_media $(this)
-    
+
   # -----
   # infinite scrolling implementation
   next_page = () ->
@@ -111,24 +111,24 @@ $(document).ready ->
     $.getJSON url, (data) ->
       fake_preloader.before(data.html)
       assign_like_clicks()
-      
-      if data["next_max_id"] != ""
+
+      if data["next_max_id"]
         feed.attr("data-next-max-id", data.next_max_id)
         $(window).on "scroll", if_reached_bottom
       else
         feed.removeAttr("data-next-max-id")
         fake_preloader.html("<p>The end!</p>")
-  
+
   # -----
   # infinite scroll
   fake_preloader = $('#fake-preloader')
 
   if_reached_bottom = () ->
     bottom_offset = 400
-    scroll_top = $(document).scrollTop()  
+    scroll_top = $(document).scrollTop()
     scroll_height = $(window).height()
     body_height = $(document).height()
-    
+
     if (scroll_height + scroll_top) >= (body_height - bottom_offset)
       next_page()
       $(window).off "scroll"
@@ -145,7 +145,7 @@ $(document).ready ->
   follow_and_transform_button = () ->
     user_follow_button.addClass "down"
     user_follow_button.html ""
-    
+
     $.getJSON "/users/#{$("#user").attr("data-user-id")}/follow", (data) ->
       if data.ok
         user_follow_button.animate {width: 35, paddingLeft: 0, paddingRight: 0}, 250, "swing", () ->
@@ -160,10 +160,10 @@ $(document).ready ->
         user_follow_button.removeClass "down"
         user_follow_button.html "Follow"
         alert data.message
-    
+
   unfollow_and_transform_button = () ->
     user_unfollow_button.addClass "down"
-    
+
     $.getJSON "/users/#{$("#user").attr("data-user-id")}/unfollow", (data) ->
       if data.ok
         user_unfollow_button.html "Follow"
@@ -177,7 +177,7 @@ $(document).ready ->
       else
         user_unfollow_button.removeClass "down"
         alert data.message
-  
+
   user_follow_button.bind "click", follow_and_transform_button
   user_unfollow_button.bind "click", unfollow_and_transform_button
 
@@ -202,7 +202,7 @@ $(document).ready ->
             if t then button.addClass("toggled") else button.removeClass("toggled")
             button.html(if t then untoggle_action_name else toggle_action_name)
             $("##{id_to_update}").html data.html if id_to_update
-  
+
   media_id = $("#photo").attr "data-media-id"
   action_button("like", "", "", "/photos/#{media_id}/like", "/photos/#{media_id}/unlike", null, null, "likes-link")
 
@@ -220,9 +220,9 @@ $(document).ready ->
       comment_form.attr("disabled", "disabled")
       comment_load_image.toggleClass("hidden")
       char_counter_holder.toggleClass("hidden")
-      
+
       $.post "/photos/#{$("#photo").attr("data-media-id")}/comment", { "text" : comment_text }, (data) ->
-        
+
         if data.ok
           $("#comments ul").append data.html
           comment_form.val ""
@@ -230,7 +230,7 @@ $(document).ready ->
           $("#comments .navbar").html data.counter_update
         else
           alert data.message
-        
+
         comment_form.removeClass("disabled")
         comment_form.removeAttr("disabled")
         comment_load_image.toggleClass("hidden")
@@ -238,7 +238,7 @@ $(document).ready ->
 
     else
       alert "You need to type in the comment first!"
-  
+
   char_counter = $("#characters-counter")
   char_counter_holder = $("#comments-form span.counter")
   comment_form.keyup ->

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       @photos, @next_page_max_id = Instagram.get_user_feed @access_token, user_id
       User.cache_data @user
     else
-      render :file => "#{Rails.root}/public/404.html"
+      # render :file => "#{Rails.root}/public/404.html"
     end
   end
 
@@ -34,9 +34,9 @@ class UsersController < ApplicationController
 
   def search_user_everywhere username
     unless (cache = User.find_by_username_or_id username)
-      cache = users.first if (users = Instagram.search_users @access_token, username)
+      cache ||= Instagram.search_users(@access_token, username).first
     end
 
-    user_id = cache.respond_to?(:instagram_id) ? cache.instagram_id : username
+    user_id = cache.respond_to?(:instagram_id) ? cache.instagram_id : username.to_i
   end
 end

@@ -6,7 +6,7 @@
     "pagination": {
       "type": "object",
       "properties": {
-        "next_url": { "type": "string", "required": "true" },
+        "next_url": { "type": "string" },
         "next_max_id": { "type": "string"}
       }
     },

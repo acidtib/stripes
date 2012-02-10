@@ -31,6 +31,6 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_username_or_id thing
-    return (find_by_username(thing) || find_by_instagram_id(thing))
+    find_by_username(thing) || find_by_instagram_id(thing)
   end
 end
