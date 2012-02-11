@@ -1,7 +1,7 @@
 - content_for :title, "#{@user.username}'s profile - Stripes"
 
 #userinfo
-  %ul#meta    
+  %ul#meta
     %li<
       = meta_pluralize @user.media_count, "photo"
     %li#meta-followers<
@@ -13,9 +13,9 @@
     - unless @user.id == @current_user.id
       %li.action
         - if @relation.outgoing == "follows"
-          %span#button-unfollow.flat.following
+          %span#action-follow.follow.toggled
         - else
-          %span#button-follow.follow Follow
+          %span#action-follow.follow Follow
   = image_tag @user.profile_picture_url, :width => 60, :alt => "#{@user.username}'s portrait"
   %h2<
     = @user.username
@@ -28,7 +28,7 @@
   - unless @user.bio.empty?
     %p#bio<
       =@user.bio
-    
+
 .photos#user{ "data-next-max-id" => (@next_page_max_id if @next_page_max_id), "data-user-id" => @user.id }
   = render :partial => "shared/feed_item", :collection => @photos, :as => :p
   = render :partial => "shared/fake_preloader"

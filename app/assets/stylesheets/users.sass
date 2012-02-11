@@ -2,7 +2,7 @@
 
 #userinfo
   min-height: 60px
-  padding: 10px 0 
+  padding: 10px 0
   color: #ccc
   border-radius: 6px
   background: #141416 url('/assets/bg-blurred.png') top center
@@ -18,7 +18,7 @@
     padding:
       left: 10px
       right: 15px
-  
+
   h2
     display: inline
     line-height: 32px
@@ -28,30 +28,30 @@
       size: 18px
       weight: bold
 
-    
+
   p
     &#name
       padding-right: 13px
 
     &#name, &#url
       display: inline
-    
+
     &#bio
       font-size: 13px
       color: #666
       margin-right: 20px
-      
+
   ul#meta
     float: right
     margin-left: 20px
-    
+
     li
       font-size: 13px
       float: left
       margin:
         right: 20px
         top: 9px
-        
+
       span
         display: block
         font-size: 18px
@@ -82,16 +82,14 @@
             &:hover
               box-shadow: none
 
-        span.flat
-          border-color: transparent
-          box-shadow: none
 
-        span.following
+        span.follow.toggled
           @include big-button
           background: #4ea912 url('/assets/actions/checked.png') center no-repeat
           padding: 0
           margin-top: 5px
           width: 35px
+          border-color: transparent
           box-shadow: none
 
           &:hover
@@ -99,14 +97,13 @@
             @include border-color-like-bevel(#de3e19)
             background-image: url('/assets/actions/unfollow.png')
             box-shadow: transparentize(#de3e19, 0.7) 0px 0px 20px
-          
+
           &.down
             background: #4b2922 url('/assets/actions/spinners/unfollow.gif') center no-repeat
             @include border-color-like-bevel-down(#4b2922)
             box-shadow: none
             margin-top: 7px
 
-      
+
 .photos#user
   margin-top: 30px
-  

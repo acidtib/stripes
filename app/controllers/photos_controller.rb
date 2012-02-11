@@ -32,6 +32,7 @@ class PhotosController < ApplicationController
     response = Instagram.like_media @access_token, params[:id]
     if response.ok? and (photo = Instagram.get_media @access_token, params[:id])
       response[:html] = view_context.pluralize photo.likes_count, "like", "likes"
+      response[:count] = photo.likes_count
     end
     render :json => response
   end
@@ -40,6 +41,7 @@ class PhotosController < ApplicationController
     response = Instagram.unlike_media @access_token, params[:id]
     if response.ok? and (photo = Instagram.get_media @access_token, params[:id])
       response[:html] = view_context.pluralize photo.likes_count, "like", "likes"
+      response[:count] = photo.likes_count
     end
     render :json => response
   end

@@ -52,7 +52,7 @@
         - unless @lazy_load_likes
           = render :partial => "like", :collection => @likes_users, :as => :user
         - else
-          %li#likes_placeholder.placeholder
+          %li#likes-placeholder.placeholder
             Loading all those likes...
 
     #comments
@@ -63,7 +63,7 @@
         - unless @lazy_load_comments
           = render :partial => "comment", :collection => @comments
         - else
-          %li.placeholder#comments_placeholder
+          %li.placeholder#comments-placeholder
             Loading all those comments...
       #comments-form
         %textarea.comment{ :placeholder => "Anything cool to say?", :maxlength => "200" }

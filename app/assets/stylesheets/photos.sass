@@ -6,11 +6,11 @@
   width:    1000px
   margin:   0 auto 40px
   height: 614px
-  
+
   img
     padding: 0
     margin: 0
-    
+
   h2
     font-size: 24px
     line-height: 36px
@@ -18,30 +18,30 @@
 
   h3
     font-weight: bold
-    
+
   #sidebar
     float: right
     width: 358px
     height: 612px
     overflow: hidden
     position: relative
-    
+
     .container
       overflow-x: none
       overflow-y: scroll
       height: 545px
-    
+
     #general, #likes, #comments
       position: absolute
       width: 358px
       top: 0
-      
+
     #general
       left: 0px
-      
+
     #likes, #comments
-      left: 359px
-            
+      left: 360px
+
     .navbar
       text-align: right
       color: #999
@@ -61,7 +61,7 @@
 
         &:hover
           color: maroon
-          
+
     #profile
       @include bottom-border
       padding:
@@ -69,7 +69,7 @@
         bottom: 15px
       position: relative
       min-height: 75px
-    
+
       img
         position: absolute
         top: 0
@@ -78,31 +78,31 @@
         height: 75px
         margin:
           right: 10px
-          
+
       h3
         color: #333
         font-size: 20px
         line-height: 28px
-      
+
       h4
         font:
           weight: normal
           size: 14px
         line-height: 22px
         padding-bottom: 2px
-        
+
       p.meta
         padding-bottom: 5px
-        
+
     #details
       @include bottom-border
       padding-bottom: 10px
       margin-top: 15px
-        
+
       img#map
         border-radius: 3px
         padding-bottom: 8px
-        
+
       p.caption
         color: #666
         font:
@@ -110,10 +110,10 @@
           style: italic
         line-height: 24px
         padding-bottom: 10px
-        
+
       p.sherlock
         font-size: 12px
-        
+
     ul.pages li
       @include bottom-border
       padding-bottom: 10px
@@ -137,8 +137,8 @@
 
       li
         margin-right: 10px
-        float: left  
-      
+        float: left
+
       #action-like
         @include big-button-with-icon-and-no-text('/assets/actions/like.png')
         @include border-color-like-bevel-white-bg(#ff0000)
@@ -183,7 +183,7 @@
           overflow: hidden
           color: #09c
           position: relative
-        
+
           img
             position: absolute
             top: 0px
@@ -194,7 +194,7 @@
 
           a
             margin-left: 46px
-        
+
     #comments
       position: relative
       height: 612px
@@ -203,22 +203,22 @@
         overflow-x: none
         overflow-y: scroll
         height: 455px
-        
+
         li
           margin-bottom: 10px
           padding-bottom: 10px
           line-height: 20px
           @include bottom-border
-        
+
           &:first-child
             margin-top: 0
-          
+
           a.author
             font-weight: bold
 
           span.user
             color: #2ab6cc
-          
+
           .time
             white-space: nowrap
             color: #ccc
@@ -240,11 +240,11 @@
 
           &.hidden
             display: none
-        
+
         .comment
           height: 48px
           width: 336px
-          margin: 5px 
+          margin: 5px
           padding: 5px
           line-height: 16px
           font-size: 12px
@@ -267,12 +267,12 @@
           &:hover
             background: darken(#93d3ff, 10%)
             @include border-color-like-bevel-white-bg(darken(#93d3ff, 10%))
-          
+
           &:active
             background: darken(#93d3ff, 20%)
             margin-top: 2px
-            @include border-color-like-bevel-down(darken(#93d3ff, 10%))  
-        
+            @include border-color-like-bevel-down(darken(#93d3ff, 10%))
+
         .counter
           float: left
           line-height: 25px
@@ -282,7 +282,7 @@
 
           &.full
             color: #f00
-                        
+
 
     #likes .placeholder,
     #comments .placeholder
