@@ -1,6 +1,6 @@
 - content_for :title, "#{@user.username}'s profile - Stripes"
 
-#userinfo
+#userinfo{ "data-user-id" => @user.id }
   %ul#meta
     %li<
       = meta_pluralize @user.media_count, "photo"
@@ -29,6 +29,8 @@
     %p#bio<
       =@user.bio
 
-.photos#user{ "data-next-max-id" => (@next_page_max_id if @next_page_max_id), "data-user-id" => @user.id }
-  = render :partial => "shared/feed_item", :collection => @photos, :as => :p
-  = render :partial => "shared/fake_preloader"
+- unless @photos.empty?
+  .photos.user_profile_feed#feed{ "data-next-max-id" => (@next_page_max_id if @next_page_max_id) }
+    = render :partial => "shared/feed_item", :collection => @photos, :as => :p
+    - if @next_page_max_id
+      = render :partial => "shared/fake_preloader"

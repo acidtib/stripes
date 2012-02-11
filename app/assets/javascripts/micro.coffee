@@ -75,7 +75,6 @@ domReady ->
   # ------------------------------------------------------------------------------------------
 
   user_profile = element_with_id("userinfo")
-  user_feed = element_with_id("user")
   feed_page = element_with_id("feed")
   photo = element_with_id("photo")
 
@@ -193,7 +192,7 @@ domReady ->
 
   # if we're on the user profile page
   if user_profile
-    user_id = objectize(user_feed).attr "data-user-id"
+    user_id = objectize(user_profile).attr "data-user-id"
 
     follow_button_following = (button, data, names, elements_to_update, next_action, current_action) ->
       button_object = objectize button
@@ -237,155 +236,55 @@ domReady ->
 
   # ------------------------------------------------------------------------------------------
 
-###
-  fake_preloader = fetch_one "#fake-preloader"
+  # if got to feed page and we got preloader, meaning we have something to load indeed
+  # and it's not just a static page like /popular
+  if feed_preloader = element_with_id "fake-preloader"
+    # and we already have user_id from the section above if anything
+    feed_preloader_object = objectize feed_preloader
+    feed_page_object = objectize feed_page
 
-  if(photo = fetch_one "#photo")
-    likes_preloader = fetch_one "#photo #likes #likes-placeholder"
-    likes_link = fetch_just "#pages #likes-link"
+    if_reached_bottom = () ->
+      scroll_top = window_scroll_top()
+      window_height = bonzo.viewport().height
+      html_height = bonzo.doc().height
 
-    comments_preloader = fetch_one "#photo #comments #comments-placeholder"
-    comments_link = fetch_just "#pages #comments-link"
+      if (window_height + scroll_top) >= (html_height - bottom_offset)
+        bean.remove window, "scroll"
+        next_feed_page()
 
-    comment_form_textarea = fetch_one "#comments-form textarea"
-    comment_form_button = fetch_just "#action-post-comment"
-    comment_form_load_image = fetch_one "#comment-preloader"
-    comment_form_char_counter = fetch_just("#characters-counter")
-    comment_form_char_counter_holder = fetch_one("#comments-form span.counter")
+    bind_like_clicks = ()->
+      like_links = select "li.like"
+      bean.remove link for link in like_links
+      bean.add link, "click", toggle_like_media for link in like_links
 
-  # ------------------------------------------------------------------------------------------
-
-  # I.1 FEEDS
-  # Loading another page of feed when scrolling to bottom of the feed
-  next_feed_page = () ->
-    if(feed = fetch_one("#feed"))
-      url = "/feed/next_page/#{feed.attr("data-next-max-id")}"
-    else if (feed = fetch_one("#user"))
-      url = "/users/#{feed.attr("data-user-id")}/next_page/#{feed.attr("data-next-max-id")}"
-    else
-      return false # breaking in case this is not any of feed pages
-
-    if feed.attr("data-next-max-id") == ""
-      fake_preloader.html "The end!"
-      return false # breaking if we have shown all of user's photos
-
-    xhr_get url, (data) ->
-      fake_preloader.before data.html
-      if data.next_max_id != ''
-        feed.attr "data-next-max-id", data.next_max_id
-        bean.add window, "scroll", if_reached_bottom
-        bind_like_clicks()
-      else
-        feed.removeAttr "data-next-max-id"
-        fake_preloader.html "<p>The end!</p>"
-
-  # Simple check on if the bottom of the page is reached
-  if_reached_bottom = () ->
-    scroll_top = window_scroll_top()
-    window_height = bonzo.viewport().height
-    html_height = bonzo.doc().height
-
-    if (window_height + scroll_top) >= (html_height - bottom_offset)
-      next_feed_page()
-      bean.remove window, "scroll"
-
-  # Like/unlike function for photos in feed
-  toggle_like_media = (event) ->
-    like_link = bonzo(event.currentTarget)
-    media_id = like_link.attr("data-media-id")
-    action = if like_link.hasClass("liked") then "unlike" else "like"
-    xhr_get "/photos/#{media_id}/#{action}", (data) ->
-      if data.ok
-        like_link.toggleClass "liked"
-        like_link.html "<span>Likes:</span> <b>#{data.count}</b>"
-      else
-        alert data.message
-
-  # Mass reassigning of like toggling on <li> inside photos in the grid,
-  # also called on loading more photos
-  bind_like_clicks = () ->
-    likes = zest("li.like")
-    bean.remove like_link for like_link in likes
-    bean.add like_link, "click", toggle_like_media for like_link in likes
-
-  # I.2 PHOTO PAGE
-  # Animation for Likes/Comments panels
-  photo_section_slide_left = (current_page, next_page) ->
-    morpheus current_page, { left: -360, duration: 250, easing: null }
-    morpheus next_page, { left: 0, duration: 250, easing: null }
-
-  photo_section_slide_right = (current_page, next_page) ->
-    morpheus current_page, { left: 0, duration: 250, easing: null }
-    morpheus next_page, { left: 360, duration: 250, easing: null }
-
-  preload_likes = () ->
-    xhr_get "/photos/#{photo.attr("data-media-id")}/load/likes", (data) ->
-      container = bonzo likes_preloader.parent()[0]
-      container.empty().html(data.html)
-
-  preload_comments = () ->
-    xhr_get "/photos/#{photo.attr("data-media-id")}/load/comments", (data) ->
-      # TODO: fix that response in controller and lib
-      # if data.ok
-      container = bonzo comments_preloader.parent()[0]
-      container.empty().html(data.html)
-      # else
-      # alert data.message
-
-  comment_on_photo = () ->
-    # aint no grave can hold my body down
-    text = comment_form_textarea.val()
-
-    unless text == ''
-      comment_form_textarea.addClass("disabled").attr("disabled", "disabled")
-      comment_form_load_image.toggleClass "hidden"
-      comment_form_char_counter_holder.toggleClass "hidden"
-
-      xhr_post "/photos/#{photo.attr("data-media-id")}/comment", { text: text }, (data) ->
+    toggle_like_media = (event) ->
+      like_link = objectize event.currentTarget
+      media_id = like_link.attr("data-media-id")
+      action = if like_link.hasClass("liked") then "unlike" else "like"
+      xhr_get "/photos/#{media_id}/#{action}", (data) ->
         if data.ok
-          bonzo(zest("#comments ul")).append data.html
-          comment_form_textarea.val ""
-          bonzo(comment_form_char_counter).text "0"
+          like_link.toggleClass "liked"
+          like_link.html "<span>Likes:</span> <b>#{data.count}</b>"
         else
           alert data.message
 
-        comment_form_textarea.removeClass("disabled").removeAttr("disabled")
-        comment_form_load_image.toggleClass "hidden"
-        comment_form_char_counter_holder.toggleClass "hidden"
-    else
-      alert "You need to type in a comment first!"
+    next_feed_page = () ->
+      if next_max_id = objectize(feed_page).attr("data-next-max-id")
+        console.log "HEJSAN"
+        next_page_url = if user_profile then "/users/#{user_id}/next_page/#{next_max_id}" else "/feed/next_page/#{next_max_id}"
 
-  # Chapter II. Event assigning
+        xhr_get next_page_url, (data) ->
+          feed_preloader_object.before data.html
+          if data.next_max_id
+            feed_page_object.attr "data-next-max-id", data.next_max_id
+            bean.add window, "scroll", if_reached_bottom
+            bind_like_clicks()
+          else
+            feed_page_object.removeAttr "data-next-max-id"
+            feed_preloader_object.html "No more photos for now."
+      else
+        objectize(feed_preloader).html "The end!"
+        false
 
-  # infinite scrolling
-  bean.add window, "scroll", if_reached_bottom
-
-  # like clicks in grid
-  bind_like_clicks()
-
-  # bringing life to "N Likes" link
-  if likes_link
-    bean.add likes_link, "click", ->
-      photo_section_slide_left fetch_just("#general"), fetch_just("#likes")
-    bean.add fetch_just("#likes .navbar span"), "click", ->
-      photo_section_slide_right fetch_just("#general"), fetch_just("#likes")
-    bean.one likes_link, "click", preload_likes if likes_preloader
-
-  # bringing life to "N Comments" link
-  if comments_link
-    bean.add comments_link, "click", ->
-      photo_section_slide_left fetch_just("#general"), fetch_just("#comments")
-    bean.add fetch_just("#comments .navbar span"), "click", ->
-      photo_section_slide_right fetch_just("#general"), fetch_just("#comments")
-    bean.one comments_link, "click", preload_comments if comments_preloader
-
-  # Dealing with "Post comment" button
-  bean.add comment_form_button, "click", comment_on_photo
-
-  # Character counter
-  bean.add fetch_just("#comments-form textarea"), "keyup", () ->
-    bonzo(comment_form_char_counter).text comment_form_textarea.val().length
-    if comment_form_textarea.val().length >= 200
-      bonzo(comment_form_char_counter_holder).addClass "full"
-    else
-      bonzo(comment_form_char_counter_holder).removeClass "full"
+    bean.add window, "scroll", if_reached_bottom
+    bind_like_clicks()
