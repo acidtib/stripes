@@ -4,10 +4,12 @@
     %title
       = yield :title
     = stylesheet_link_tag :application
-    = javascript_include_tag :application
+    -# = javascript_include_tag :application
     = csrf_meta_tag
 
   %body
     = render "shared/menu"
     .container
       = yield
+
+    %script{ :src => "/assets/application.js" }
