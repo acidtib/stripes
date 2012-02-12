@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       @photos, @next_page_max_id = Instagram.get_user_feed @access_token, user_id
       User.cache_data @user
     else
-      # render :file => "#{Rails.root}/public/404.html"
+      render :file => "#{Rails.root}/public/404.html"
     end
   end
 
