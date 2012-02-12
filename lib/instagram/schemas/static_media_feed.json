@@ -63,7 +63,7 @@
             }
           },
 
-          "filter": { "type" : "string", "required" : "true" },
+          "filter": { "type" : ["string", "null"], "required" : "true" },
           "created_time": { "type" : "string", "required" : "true" },
           "link": { "type" : [ "string", "null" ] },
 
