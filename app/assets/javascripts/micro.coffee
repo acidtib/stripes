@@ -270,7 +270,6 @@ domReady ->
 
     next_feed_page = () ->
       if next_max_id = objectize(feed_page).attr("data-next-max-id")
-        console.log "HEJSAN"
         next_page_url = if user_profile then "/users/#{user_id}/next_page/#{next_max_id}" else "/feed/next_page/#{next_max_id}"
 
         xhr_get next_page_url, (data) ->
