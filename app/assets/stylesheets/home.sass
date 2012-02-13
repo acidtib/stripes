@@ -1,63 +1,124 @@
-#landing
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400italic,400,700,700italic&subset=latin,cyrillic)
+@import "mixins"
+
+html
+  font-family:  'PT Sans', sans-serif
+  font-size:    14px
+  color: white
+
+  *
+    margin:   0
+    padding:  0
+
+a
+  color: #02a3f3
+  -webkit-transition: color 0.5s
+  text-decoration: none
+
+  &:hover
+    color: yellow
+
+#container
+  position: absolute
+  top: 0
+  left: 0
   width: 100%
-  min-height: 500px
-  text-align: center
-  font-style: italic
-  color: #fff
-  margin: 0
-  padding: 0
-    top: 80px
-  background: url('/assets/lights-bg.png') center top no-repeat
+  height: 100%
+  vertical-align: middle
+  background: #000 url('/assets/splash-bg-3.jpg') center no-repeat
 
-  img
-    color: red
-    margin-bottom: 20px
-  
-  p
-    font-size: 36px
+  #landing
+    height: 640px
+    width: 720px
+    // border: 1px solid #666
+    margin: 40px auto
+    background: transparent url('/assets/splash-borders.png') -10px 180px no-repeat
 
-    &#say
-      color: #fdaf08
+    #logo
+      display: block
+      margin-left: 156px
 
-    &#comment
-      line-height: 20px
-      font-size: 14px
-      color: #333
-    
-    &#desc
-      margin-bottom: 20px
-    
-      a
-        color: #fff
-        padding-left: 2px
-        border:
-          bottom: 2px solid
-          color: #00c1d8
-        -webkit-transition: border-color .5s
+    p.title
+      text-align: center
+      text-transform: uppercase
+      letter-spacing: 4px
+      font-size: 13px
+      margin-top: -20px
+      margin-bottom: 80px
 
-        &:hover
-          border-color: yellow
-          
-      a#login
-        display: block
-        width: 160px
-        height: 40px
-        margin: 60px auto 0
-        border: none
-        border-radius: 20px
-        box-shadow: rgba(#00acf8, 0.25) 0px 5px 20px
-        background: -webkit-linear-gradient(bottom, #18406b 0%, #00b1f7 100%)
-        line-height: 40px
-        font:
-          size: 22px
-          style: normal
-          weight: bold
-        letter-spacing: 1px
-        color: #fff
-        text-shadow: rgba(black, 0.8) 0px -1px 1px
-        -webkit-transition: box-shadow .5s, -webkit-transform .5s
-        
-        &:hover
-          background: -webkit-linear-gradient(bottom, #009088 0%, #00ffea 100%)
-          box-shadow: rgba(#00f5f8, 0.5) 0px 5px 40px
-      
+    ul
+      // border: 1px solid #666
+      height: 180px
+      width: 660px
+      margin:
+        left: 40px
+        bottom: 70px
+
+      li
+        // border: 1px solid #666
+        list-style: none
+        font-weight: bold
+        float: left
+        font-size: 24px
+        padding-left: 70px
+        line-height: 50px
+        margin: 20px 0
+        background: url('/assets/splash-action-icons.png') top left no-repeat
+
+        &.browse, &.follow, &.comment, &.search
+          width: 180px
+
+        &.comment
+          background-position: 0px -50px
+
+        &.like
+          background-position: 0px -100px
+
+        &.follow
+          background-position: 0px -150px
+
+        &.search
+          background-position: 0px -200px
+
+        &.share
+          background-position: 0px -250px
+
+    a.login
+      clear: both
+      @include huge-button
+      text-align: center
+      margin: 5px auto
+      color: #fff
+      background-color: #0380ff
+      width: 270px
+      font-weight: bold
+      @include border-color-like-bevel(#0380ff)
+      // box-shadow: transparentize(#000, 0.5) 0px 1px 15px
+      -webkit-transition: box-shadow 0.8s, background-color 0.7s
+      text-shadow: transparentize(#000, 0.8) 0px -1px 1px
+
+      &:hover
+        background-color: #03a3ff
+        @include border-color-like-bevel(#03a3ff)
+        box-shadow: transparentize(#00d8ff, 0.8) 0px 0px 50px
+        -webkit-transition: box-shadow 1s, background-color 0.2s, color 0.2s
+
+      &:active
+        background-color: #19416a
+        padding-top: 1px
+        text-shadow: none
+        color: #46719c
+        @include border-color-like-bevel-down(#19416a)
+        box-shadow: none
+
+    .enjoy
+      font-size: 24px
+      font-weight: bold
+      text-align: center
+      margin-top: 60px
+      line-height: 40px
+      opacity: 0.2
+
+
+
+
