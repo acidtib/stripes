@@ -5,45 +5,37 @@
 html
   font-family:  'PT Sans', sans-serif
   font-size:    14px
-  
+
   *
     margin:   0
     padding:  0
-  
+
 body
   background: #333 url('/assets/bg.png') top center
   background-attachment: fixed
-  padding:
-    top:  70px
-    
+
   &.dark
     background: #333 url('/assets/bg-dark.png') top center
     padding:
       top: 0
-    
-img.to-preload
-  position: absolute
-  top: 0
-  left: 0
-  z-index: -50
 
 .meta
   color: #999
 
 .hidden
   display: none
-  
+
 a
   text-decoration: none
   -webkit-transition: color 0.5s
 
   &:link, &:visited
     color: #09c
-  
+
 p
   font-size: 14px
   line-height: 21px
-  
+
 ul, ul li
   padding: 0
   margin: 0
@@ -59,7 +51,7 @@ ul, ul li
   width: 100%
   line-height: 40px
   color: #fff
-  
+
   h1
     width: 149px
     height: 56px
@@ -70,7 +62,7 @@ ul, ul li
 
     a, a:hover
       color: #000
-        
+
 
     span
       position: absolute
@@ -85,22 +77,22 @@ ul, ul li
     display: inline
     float: left
     margin-right: 20px
-    
+
   ul
     display: inline
-    
+
     li
       display: inline
       margin-right: 20px
-      
+
       &.current a
         color: cyan
-        
+
     &.right
       float: right
       margin-right: 20px
       font-size: 12px
-      
+
       li
         color: #999
         margin-right: 10px
@@ -108,5 +100,7 @@ ul, ul li
   a:hover
     color: yellow
 
-.container a:hover
-  color: maroon
+.container
+  margin-top: 70px
+  a:hover
+    color: maroon

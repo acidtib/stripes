@@ -1,6 +1,8 @@
 @import "mixins"
 
 .photos
+  margin-top: 30px
+
   .thumbnail
     @include white-bg-round-corners
     display:    block
@@ -17,10 +19,10 @@
       left: 0
       right: 0
     -webkit-transition: box-shadow 2s
-    
+
     &:hover
       box-shadow: transparentize(#fff, 0.6) 0px 0px 55px
-    
+
     a.link-to-photo
       // display: block
       // position: relative
@@ -38,10 +40,10 @@
       top: 0.712857142857143em // 10 ÷ 14
       left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
       image-rendering: optimizequality
-      // + fluid  
+      // + fluid
       max-width: 93.865030674846628% // 306 ÷ 326
       // margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
-    
+
     ul.actions
       float: right
       // + fluid
@@ -55,7 +57,7 @@
         background:
           repeat: no-repeat
           position: 0px 3px
-        
+
         b
           font-weight: normal
 
@@ -64,7 +66,7 @@
 
         &:first-child
           margin-right: 5px
-        
+
         &.like
           cursor: hand
           cursor: pointer
@@ -79,11 +81,11 @@
         &.comment
           background:
             image: url('/assets/comment.gif')
-    
+
     // ---------
     span
       line-height: 20px
-      
+
       &.user
         font-weight:  bold
         img
@@ -96,7 +98,7 @@
             right:  5px
           display:  inline
           float:    left
-    
+
   #fake-preloader
     color: #999
     background: none

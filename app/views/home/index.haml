@@ -1,15 +1,17 @@
 - content_for :title, "Stripes: just a bigger iPhone screen for your Instagram."
 
-#landing
-  %p#say Say hello to
-  %img{:src => "/assets/logo-splash.png", :alt => "Stripes logo"}
-  %p#desc<
-    A new beautiful and cool web app for 
-    %a{:href => "http://instagram.com", :title => "Instagram website"}<
-      Instagram
-  
-    %a#login{:href => "/login", :title => "Sign in to Stripes"}<
-      Try it!
-  
-  %p#comment
-    Sign in using your Instagram account.
+#container
+  #landing
+    %img#logo{ :src => "/assets/logo-splash-2.png" }
+    %p.title<
+      Cool web browser for
+      %a{ :href => "http://instagr.am" } Instagram
+    %ul
+      %li.browse Browse
+      %li.comment Comment
+      %li.like Like
+      %li.follow Follow
+      %li.search Search
+      %li.share Share
+    %a.login{ :href => "/login" } Sign in with Instagram
+    %p.enjoy Enjoy :)
