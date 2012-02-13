@@ -2,22 +2,31 @@ class PhotosController < ApplicationController
 
   before_filter :check_authorization
 
+  def handle_likes
+    if @photo.likes_count < 250 || @likes_page
+      @likes_users = Instagram.get_media_likes @access_token, params[:id]
+      User.cache_data @likes_users
+    else
+      @lazy_load_likes = true
+    end
+  end
+
+  def handle_comments
+    if @photo.comments_count < 50 || @comments_page
+      @comments = Instagram.get_media_comments @access_token, params[:id]
+      User.cache_data @comments
+    else
+      @lazy_load_comments = true
+    end
+  end
+
   def show
+    @likes_page = params[:page] == :likes ? true : false
+    @comments_page = params[:page] == :comments ? true : false
+
     if (@photo = Instagram.get_media @access_token, params[:id])
-      if @photo.likes_count < 250
-        @likes_users = Instagram.get_media_likes @access_token, params[:id]
-        User.cache_data @likes_users
-      else
-        @lazy_load_likes = true
-      end
-
-      if @photo.comments_count < 50
-        @comments = Instagram.get_media_comments @access_token, params[:id]
-        User.cache_data @comments
-      else
-        @lazy_load_comments = true
-      end
-
+      handle_likes
+      handle_comments
       User.cache_data @photo
     else
       render :file => "#{Rails.root}/public/404.html"

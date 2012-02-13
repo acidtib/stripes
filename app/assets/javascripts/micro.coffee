@@ -110,6 +110,13 @@ domReady ->
       comments: element_with_id "comments"
       info:     element_with_id "general"
 
+    if objectize(pages.likes).hasClass "current-page"
+      current_page = "likes"
+    else if objectize(pages.comments).hasClass "current-page"
+      current_page = "comments"
+    else
+      current_page = "info"
+
     disable_comments_form = () ->
       comments_form.textarea.addClass("disabled").attr("disabled", "yes")
       comments_form.spinner.removeClass("hidden")
@@ -137,8 +144,6 @@ domReady ->
       else
         alert "You'd better type a comment first!"
 
-    current_page = "info"
-
     slide_to_likes = () ->
       morpheus pages.info,  { left: -360, duration: 250, easing: null }
       morpheus pages.likes, { left: 0,    duration: 250, easing: null }
@@ -151,8 +156,11 @@ domReady ->
 
     slide_to_info = () ->
       if current_page == "likes"
-      then morpheus pages.likes,    { left: 360,  duration: 250, easing: null }
-      else morpheus pages.comments, { left: 360,  duration: 250, easing: null }
+        morpheus pages.likes,    { left: 360,  duration: 250, easing: null }
+        objectize(pages.likes).removeClass "current-page"
+      if current_page == "comments"
+        morpheus pages.comments, { left: 360,  duration: 250, easing: null }
+        objectize(pages.commments).removeClass "current-page"
       morpheus pages.info, { left: 0, duration: 250, easing: null }
       current_page == "info"
 

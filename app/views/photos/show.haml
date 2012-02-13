@@ -3,7 +3,7 @@
 #photo{"data-media-id" => @photo.id}
 
   #sidebar
-    #general
+    #general{:class => ("hidden-to-left" if @likes_page || @comments_page)}
       #profile
         %img{:src => @photo.user.profile_picture_url, :alt => "#{@photo.user.username}'s portrait"}
 
@@ -44,7 +44,7 @@
           - else
             %span.like.toggled#action-like
 
-    #likes
+    #likes{:class => ("current-page" if @likes_page)}
       .navbar<
         %span Back
         ="#{@photo.likes_count} likes for this shot"
@@ -55,7 +55,7 @@
           %li#likes-placeholder.placeholder
             Loading all those likes...
 
-    #comments
+    #comments{:class => ("current-page" if @comments_page)}
       .navbar<
         %span Back
         ="#{@photo.comments_count} comments"
