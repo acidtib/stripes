@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   def check_authorization
     unless logged_in?
       session[:redirect] = request.url
-      render :layout => "splash", :file => "home/unauthorized"
+      render :layout => "splash", :file => "home/index"
     end
   end
 
