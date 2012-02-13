@@ -29,6 +29,11 @@ domReady ->
   objectize = (element) ->
     bonzo element
 
+  # thingie for our html5 history stuff
+  get_photo_path = () ->
+    match = document.location.pathname.match("(\/photos\/[0-9_]*)")
+    if match then match[0] else null
+
   # wrapper for GET
   xhr_get = (url, callback) ->
     reqwest
@@ -83,6 +88,7 @@ domReady ->
   # if we're on the single photo page
   if photo
     instagram_id = objectize(photo).attr "data-media-id"
+    photo_title = document.title
 
     preload_likes_text = element_with_id "likes-placeholder"
     photo_likes =
@@ -160,9 +166,17 @@ domReady ->
         objectize(pages.likes).removeClass "current-page"
       if current_page == "comments"
         morpheus pages.comments, { left: 360,  duration: 250, easing: null }
-        objectize(pages.commments).removeClass "current-page"
+        objectize(pages.comments).removeClass "current-page"
       morpheus pages.info, { left: 0, duration: 250, easing: null }
-      current_page == "info"
+      current_page = "info"
+
+    pop_history_state = (event) ->
+      if document.location.pathname.search("likes") > 0
+        slide_to_likes()
+      else if document.location.pathname.search("comments") > 0
+        slide_to_comments()
+      else
+        slide_to_info()
 
     load_likes = () ->
       xhr_get "/photos/#{instagram_id}/load/likes", (data) ->
@@ -179,12 +193,26 @@ domReady ->
       then comments_form.counter_container.addClass "full"
       else comments_form.counter_container.removeClass "full"
 
-    bean.add comments_form.submit,     "click", post_comment
-    bean.add photo_likes.link,         "click", slide_to_likes
-    bean.add photo_likes.link_to_back, "click", slide_to_info
-    bean.add photo_comments.link,         "click", slide_to_comments
-    bean.add photo_comments.link_to_back, "click", slide_to_info
+    bean.add comments_form.submit, "click", post_comment
+
+    bean.add photo_likes.link, "click", ->
+      history.pushState null, photo_title, "#{get_photo_path()}/likes"
+      slide_to_likes()
+
+    bean.add photo_likes.link_to_back, "click", ->
+      history.pushState null, photo_title, "#{get_photo_path()}"
+      slide_to_info()
+
+    bean.add photo_comments.link, "click", ->
+      history.pushState null, photo_title, "#{get_photo_path()}/comments"
+      slide_to_comments()
+
+    bean.add photo_comments.link_to_back, "click", ->
+      history.pushState null, photo_title, "#{get_photo_path()}"
+      slide_to_info()
+
     bean.add select_first("#comments-form textarea"), "keyup", count_comment_characters
+    bean.add window, "popstate", pop_history_state
 
     bean.one photo_likes.link,    "click", load_likes if photo_likes.placeholder
     bean.one photo_comments.link, "click", load_comments if photo_comments.placeholder
