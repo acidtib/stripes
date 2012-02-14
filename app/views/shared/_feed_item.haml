@@ -2,6 +2,9 @@
   %a.link-to-photo{ :href => media_url(p.instagram_id) }
     %img.filler{:src => "/assets/transparent-306.gif"}
     %img.photo{:src => p.image.medium.url, :alt => "#{p.user.username}'s photo preview" }
+    - if p.title
+      %span.title
+        = p.title
 
   %span.user
     %a{ :href => profile_url(p.user.username), :title => "View #{p.user.username}'s profile" }<
