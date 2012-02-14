@@ -1,3 +1,4 @@
 %li<
-  %img{:src => user.profile_picture_url, :alt => "#{user.username}'s portrait"}>
-  = link_to user.username, profile_url(user.username), { :title => "View #{user.username}'s profile" }
+  %a{ :href => profile_url(user.username), :title => "View #{user.username}'s profile" }<
+    %img{:src => user.profile_picture_url, :alt => "#{user.username}'s portrait"}>
+    = user.username

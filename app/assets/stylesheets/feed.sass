@@ -38,6 +38,7 @@
 
     img.photo
       position: absolute
+      border-radius: 2px
       // top: 0.712857142857143em // 10 ÷ 14
       top: 0
       left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
@@ -96,6 +97,7 @@
         width: 93.865030674846628%
         font-weight:  bold
         display: block
+        position: relative
         overflow: hidden
         margin:
           left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
@@ -105,8 +107,13 @@
           width:    20px
           height:   20px
           padding:  0
-            right:  5px
-          float: left
+          position: absolute
+          top: 0
+          left: 0
+          border-radius: 2px
+
+        a
+          margin-left: 25px
 
   #fake-preloader
     color: #999
