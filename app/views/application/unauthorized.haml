@@ -1,0 +1,13 @@
+- content_for :title, "Sign in required - Stripes"
+
+#splash
+  #landing
+    %img#logo{ :src => "/assets/logo-splash-2.png" }
+    %p.title<
+      Cool web browser for
+      %a{ :href => "http://instagr.am" } Instagram
+    %p.unauthorized
+      %img{ :src => "/assets/key.png" }
+      %span Please sign in to view this page.
+    %a.login{ :href => "/login" } Sign in with Instagram
+    %p.enjoy Welcome!
