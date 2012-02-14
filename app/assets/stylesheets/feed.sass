@@ -7,7 +7,7 @@
     @include white-bg-round-corners
     display:    block
     float:      left
-    // position:   relative
+    position:   relative
     margin:
       top: 0
       bottom:   30px
@@ -48,8 +48,12 @@
 
     ul.actions
       float: right
+      position: absolute
+      right: 3.0674846625766871%
+      bottom: 0.5em
+      background: #fff
       // + fluid
-      margin-right: 3.0674846625766871% // 10 ÷ 326
+      // margin-right: 3.0674846625766871% // 10 ÷ 326
 
       li
         display: inline
@@ -89,17 +93,20 @@
       line-height: 20px
 
       &.user
+        width: 93.865030674846628%
         font-weight:  bold
+        display: block
+        overflow: hidden
+        margin:
+          left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
+          bottom: 0.5em
+
         img
-          margin:
-            left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
-            bottom: 0.5em
           width:    20px
           height:   20px
           padding:  0
             right:  5px
-          display:  inline
-          float:    left
+          float: left
 
   #fake-preloader
     color: #999
