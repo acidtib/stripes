@@ -21,8 +21,8 @@
         "location": {
           "type": [ "object", "null" ],
           "properties": {
-            "latitude": { "type": "float", "required": "true" },
-            "longitude": { "type": "float", "required": "true" },
+            "latitude": { "type": "float" },
+            "longitude": { "type": "float" },
             "id": { "type": "integer" },
             "name": { "type": "string" }
           }
