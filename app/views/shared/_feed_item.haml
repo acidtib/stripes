@@ -1,6 +1,6 @@
 .thumbnail
   .ratio
-  %a.link-to-photo{ :href => media_url(p.instagram_id) }
+  %a.link-to-photo{ :href => media_url(p.user.username, p.instagram_id) }
     %img.photo{:src => p.image.medium.url, :alt => "#{p.user.username}'s photo preview" }
     - if p.title
       %span.title

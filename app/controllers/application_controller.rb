@@ -70,4 +70,14 @@ class ApplicationController < ActionController::Base
     redirect_to :controller => :home, :action => :index
   end
 
+  # some common shit
+
+  def search_user_everywhere username
+    unless (cache = User.find_by_username_or_id username)
+      cache ||= Instagram.search_users(@access_token, username).first
+    end
+
+    user_id = cache.respond_to?(:instagram_id) ? cache.instagram_id : username.to_i
+  end
+
 end

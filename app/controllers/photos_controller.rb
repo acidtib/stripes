@@ -23,8 +23,10 @@ class PhotosController < ApplicationController
   def show
     @likes_page = params[:page] == :likes ? true : false
     @comments_page = params[:page] == :comments ? true : false
+    user_id = search_user_everywhere params[:username]
 
-    if (@photo = Instagram.get_media @access_token, params[:id])
+    if (@user = Instagram.get_user_info @access_token, user_id) &&
+    (@photo = Instagram.get_media @access_token, "#{params[:id]}_#{user_id}")
       handle_likes
       handle_comments
       User.cache_data @photo

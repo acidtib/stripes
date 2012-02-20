@@ -11,7 +11,8 @@ Easytiger::Application.routes.draw do
   match 'login' => 'application#login'
   match 'logout' => 'application#logout', :as => :logout
   match 'popular' => 'home#popular', :as => :popular
-  match 'photos/:id' => 'photos#show', :as => :media
+  match ':username' => 'users#show', :as => :profile
+  match ':username/photos/:id' => 'photos#show', :as => :media
   match 'photos/:id/like' => 'photos#like', :as => :like_media
   match 'photos/:id/unlike' => 'photos#unlike', :as => :unlike_media
   match 'photos/:id/comment' => 'photos#comment', :as => :comment_media
@@ -19,7 +20,6 @@ Easytiger::Application.routes.draw do
   match 'photos/:id/likes' => 'photos#show', :page => :likes
   match 'photos/:id/load/likes' => 'photos#lazy_load_likes'
   match 'photos/:id/load/comments' => 'photos#lazy_load_comments'
-  match 'users/:username' => 'users#show', :as => :profile
   match 'users/:id/next_page/:max_id' => 'users#feed_page_from_max_id'
   match 'users/:id/follow' => 'users#follow'
   match 'users/:id/unfollow' => 'users#unfollow'
