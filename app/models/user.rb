@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   validates :username, :length => { :in => 1..30 }
 
   def self.create_or_update instagram_id, username
-    user = User.find_or_initialize_by_instagram_id instagram_id
-    user.username = username unless user.username == username
+    user = User.find_or_initialize_by_username username
+    user.instagram_id = instagram_id
     user.save
   end
 
