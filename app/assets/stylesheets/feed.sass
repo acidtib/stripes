@@ -20,6 +20,9 @@
       right: 0
     -webkit-transition: box-shadow 2s
 
+    .ratio
+      margin-top: 100%
+
     &:hover
       box-shadow: transparentize(#fff, 0.6) 0px 0px 55px
 
@@ -30,12 +33,19 @@
 
     a.link-to-photo
       display: block
-      position: relative
+      position: absolute
+      top: 0
+      left: 0
+      width: 93.865030674846628% // 306 ÷ 326
+      margin:
+        top: 0.712857142857143em // 10 ÷ 14
+        left: 3.3674846625766871%
+        bottom: 0.5em
 
       span.title
         position: absolute
         bottom: 0
-        left: 3.3674846625766871%
+        left: 0
         height: 0px
         font-size: 1em
         line-height: 1.25em
@@ -47,27 +57,19 @@
         vertical-align: top
         display: block
         opacity: 0
-        width: 93.865030674846628%
+        width: 100%
         -webkit-transition: opacity 0.5s, height 0.3s
 
-    img.filler
-      max-width: 93.865030674846628% // 306 ÷ 326
-      margin-top: 0.712857142857143em // 10 ÷ 14
-      margin-left: 3.3674846625766871%
-      display: block
-      margin:
-        bottom: 0.5em
-
-    img.photo
-      position: absolute
-      border-radius: 2px
-      // top: 0.712857142857143em // 10 ÷ 14
-      top: 0
-      left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
-      image-rendering: optimizequality
-      // + fluid
-      max-width: 93.865030674846628% // 306 ÷ 326
-      // margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
+      img.photo
+        width: 100%
+        border-radius: 2px
+    //   // top: 0.712857142857143em // 10 ÷ 14
+    //   top: 0
+    //   left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
+    //   image-rendering: optimizequality
+    //   // + fluid
+    //   max-width: 93.865030674846628% // 306 ÷ 326
+    //   // margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
 
     ul.actions
       float: right
