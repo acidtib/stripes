@@ -13,11 +13,11 @@ Easytiger::Application.routes.draw do
   match 'popular' => 'home#popular', :as => :popular
   match ':username' => 'users#show', :as => :profile
   match ':username/photos/:id' => 'photos#show', :as => :media
+  match ':username/photos/:id/comments' => 'photos#show', :page => :comments
+  match ':username/photos/:id/likes' => 'photos#show', :page => :likes
   match 'photos/:id/like' => 'photos#like', :as => :like_media
   match 'photos/:id/unlike' => 'photos#unlike', :as => :unlike_media
   match 'photos/:id/comment' => 'photos#comment', :as => :comment_media
-  match 'photos/:id/comments' => 'photos#show', :page => :comments
-  match 'photos/:id/likes' => 'photos#show', :page => :likes
   match 'photos/:id/load/likes' => 'photos#lazy_load_likes'
   match 'photos/:id/load/comments' => 'photos#lazy_load_comments'
   match 'users/:id/next_page/:max_id' => 'users#feed_page_from_max_id'

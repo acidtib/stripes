@@ -31,7 +31,7 @@ domReady ->
 
   # thingie for our html5 history stuff
   get_photo_path = () ->
-    match = document.location.pathname.match("(\/photos\/[0-9_]*)")
+    match = document.location.pathname.match("(\/[a-zA-Z0-9_]+\/photos\/[0-9_]*)")
     if match then match[0] else null
 
   # wrapper for GET
