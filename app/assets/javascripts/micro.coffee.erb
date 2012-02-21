@@ -197,22 +197,22 @@ domReady ->
 
     bean.add photo_likes.link, "click", ->
       history.pushState null, photo_title, "#{get_photo_path()}/likes"
-      _gauges.push(['track'])
+      _gauges.push(['track']) if <%= Rails.env.production? %>
       slide_to_likes()
 
     bean.add photo_likes.link_to_back, "click", ->
       history.pushState null, photo_title, "#{get_photo_path()}"
-      _gauges.push(['track'])
+      _gauges.push(['track']) if <%= Rails.env.production? %>
       slide_to_info()
 
     bean.add photo_comments.link, "click", ->
       history.pushState null, photo_title, "#{get_photo_path()}/comments"
-      _gauges.push(['track'])
+      _gauges.push(['track']) if <%= Rails.env.production? %>
       slide_to_comments()
 
     bean.add photo_comments.link_to_back, "click", ->
       history.pushState null, photo_title, "#{get_photo_path()}"
-      _gauges.push(['track'])
+      _gauges.push(['track']) if <%= Rails.env.production? %>
       slide_to_info()
 
     bean.add select_first("#comments-form textarea"), "keyup", count_comment_characters

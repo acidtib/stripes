@@ -40,6 +40,16 @@ class ApplicationController < ActionController::Base
       @current_user = user
       session[:user] = user.to_json
 
+      cached_user = User.find_by_instagram_id user.instagram_id
+      if cached_user && !cached_user.registered
+        cached_user.registered = true
+        cached_user.save
+      else
+        User.create :instagram_id => user.instagram_id,
+          :username => user.username,
+          :registered => true
+      end
+
       if session[:redirect] # how to handle this shit?
         url = session[:redirect]
         session[:redirect] = nil
