@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(:version => 20120221042253) do
     t.integer  "instagram_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "registered"
   end
 
 end

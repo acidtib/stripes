@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     if logged_in?
       redirect_to :action => :feed
     else
-      render :layout => "splash"
+      request.user_agent.include?("iPhone") ? render(:layout => "iphone_splash") : render(:layout => "splash")
     end
   end
 
