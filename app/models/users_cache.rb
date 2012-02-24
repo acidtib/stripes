@@ -6,9 +6,6 @@ class UsersCache < ActiveRecord::Base
   validates :username, :format => { :with => /^[a-zA-Z\d_]*$/, :message => "Only latin numbers, letters and underscores are allowed." }
   validates :username, :length => { :in => 1..30 }
 
-  scope :registered, where(:registered => true)
-  scope :not_registered, where(:registered => false)
-
   def self.create_or_update instagram_id, username
     user = UsersCache.find_or_initialize_by_username username
     user.instagram_id = instagram_id
