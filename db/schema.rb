@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221042253) do
+ActiveRecord::Schema.define(:version => 20120224170544) do
 
-  create_table "users", :force => true do |t|
+  create_table "users_caches", :force => true do |t|
     t.string   "username"
     t.integer  "instagram_id"
     t.datetime "created_at"

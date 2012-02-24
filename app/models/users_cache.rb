@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class UsersCache < ActiveRecord::Base
 
   validates :instagram_id, :username, :presence => true
   validates :instagram_id, :format => { :with => /^(\d*)$/, :message => "Only numbers are allowed." }
@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   scope :not_registered, where(:registered => false)
 
   def self.create_or_update instagram_id, username
-    user = User.find_or_initialize_by_username username
+    user = UsersCache.find_or_initialize_by_username username
     user.instagram_id = instagram_id
     user.save
   end

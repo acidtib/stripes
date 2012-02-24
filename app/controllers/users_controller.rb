@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if (@user = Instagram.get_user_info @access_token, user_id)
       @relation = Instagram.get_user_relationship @access_token, user_id
       @photos, @next_page_max_id = Instagram.get_user_feed @access_token, user_id
-      User.cache_data @user
+      UsersCache.cache_data @user
     else
       render :file => "#{Rails.root}/public/404.html"
     end

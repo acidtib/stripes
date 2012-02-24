@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   after_filter :cache_data, :except => [ :index ]
 
   def cache_data
-    User.cache_data @photos if @photos
+    UsersCache.cache_data @photos if @photos
   end
 
   def index
