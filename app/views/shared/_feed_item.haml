@@ -11,12 +11,19 @@
       %img{:src => p.user.profile_picture_url, :alt => "#{p.user.username}'s portrait"}
       = p.user.username
 
-  %ul.actions
+  %ul.stats
     %li.comment<
       %span Comments:
       %b<
         = p.comments_count
-    %li.like{:class => ("liked" if p.liked), "data-media-id" => p.id, :title => "Like #{p.user.username}'s photo" }<
+    %li.like{:class => ("liked" if p.liked), :id => "#{p.id}-meta" }<
       %span Likes:
       %b<
         = p.likes_count
+
+  %ul.actions
+    %li.action-like{ "data-media-id" => p.id, :class => ("toggled" if p.liked)}<
+      - unless p.liked
+        Like!
+      - else
+        Unlike

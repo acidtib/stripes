@@ -55,8 +55,8 @@ domReady ->
       success: callback
 
   # somewhat complicated life bringer to action buttons
-  two_state_json_action_button = (action_id, names = {}, urls = {}, handlers = {}, elements_to_update = [], clear_on_click = true) ->
-    button_element = element_with_id action_id
+  create_action_button = (options = {}) ->
+    button_element = if options.element then options.element else element_with_id(options.action_id)
     button = objectize button_element
 
     bean.add button_element, "click", () ->
@@ -64,16 +64,21 @@ domReady ->
       current_action = if button.hasClass "toggled" then "toggle" else "untoggle"
 
       button.addClass "down"
-      button.html "" if clear_on_click
+      button.html "" if options.clear_on_click
 
-      xhr_get urls[next_action], (data) ->
+      xhr_get options.urls[next_action], (data) ->
         button.removeClass "down"
-        if handlers[next_action] # calling custom handlers if any
-          handlers[next_action](button_element, data, names, elements_to_update, next_action, current_action)
+        if options.handlers && options.handlers[next_action] # calling custom handlers if any
+          options.handlers[next_action](button_element, data, options.names, options.elements_to_update, next_action, current_action)
         else
           if data.ok
-            button.toggleClass("toggled").html(names[current_action])
-            objectize(element_with_id(replace.what)).html(data[replace.with]) for replace in elements_to_update
+            button.toggleClass("toggled")
+
+            if options.names && options.names[current_action]
+              button.html(options.names[current_action])
+
+            if options.elements_to_update
+              objectize(element_with_id(replace.what)).html(data[replace.with]) for replace in options.elements_to_update
           else
             alert data.message
 
@@ -221,12 +226,12 @@ domReady ->
     bean.one photo_likes.link,    "click", load_likes if photo_likes.placeholder
     bean.one photo_comments.link, "click", load_comments if photo_comments.placeholder
 
-    two_state_json_action_button "action-like",
-      null,
-      { toggle: "/photos/#{instagram_id}/like", untoggle: "/photos/#{instagram_id}/unlike" },
-      null,
-      [{ what: "likes-link", with: "html" }],
-      true
+    create_action_button {
+      action_id: "action-like",
+      urls: { toggle: "/photos/#{instagram_id}/like", untoggle: "/photos/#{instagram_id}/unlike" },
+      elements_to_update: [ { what: "likes-link", with: "html" } ],
+      clear_on_click: true
+    }
 
   # ------------------------------------------------------------------------------------------
 
@@ -267,12 +272,16 @@ domReady ->
         alert data.message
 
     # making Follow button usable
-    two_state_json_action_button "action-follow",
-      { toggle: "Follow", untoggle: "" }, # "" is "unfollow", but empty, because of the icon
-      { toggle: "/users/#{user_id}/follow", untoggle: "/users/#{user_id}/unfollow" },
-      { toggle: follow_button_following, untoggle: follow_button_not_following },
-      [{ what: "meta-followers", with: "html"}],
-      true
+    create_action_button {
+      action_id: "action-follow",
+      names: { toggle: "Follow", untoggle: "" }, # "" because of the icon
+      urls: { toggle: "/users/#{user_id}/follow", untoggle: "/users/#{user_id}/unfollow" },
+      handlers: { toggle: follow_button_following, untoggle: follow_button_not_following },
+      elements_to_update: [
+        { what: "meta-followers", with: "html"}
+      ],
+      clear_on_click: true
+    }
 
   # ------------------------------------------------------------------------------------------
 
@@ -293,20 +302,32 @@ domReady ->
         next_feed_page()
 
     bind_like_clicks = ()->
-      like_links = select "li.like"
+      like_links = select "li.action-like"
       bean.remove link for link in like_links
-      bean.add link, "click", toggle_like_media for link in like_links
+      bind_toggle_like_media(link) for link in like_links
 
-    toggle_like_media = (event) ->
-      like_link = objectize event.currentTarget
-      media_id = like_link.attr("data-media-id")
-      action = if like_link.hasClass("liked") then "unlike" else "like"
-      xhr_get "/photos/#{media_id}/#{action}", (data) ->
+    bind_toggle_like_media = (element) ->
+      media_id = objectize(element).attr("data-media-id")
+
+      handle_like_media_result = (element, data, names, updates, next_action, current_action) ->
         if data.ok
-          like_link.toggleClass "liked"
-          like_link.html "<span>Likes:</span> <b>#{data.count}</b>"
+          like_button = objectize element
+          like_meta = objectize element_with_id "#{like_button.attr("data-media-id")}-meta"
+
+          like_button.toggleClass "toggled"
+          like_meta.toggleClass "liked"
+          like_meta.html "<span>Likes:</span> <b>#{data.count}</b>"
+          like_button.html names[current_action]
         else
           alert data.message
+
+      create_action_button {
+        element: element,
+        names: { toggle: "Like!", untoggle: "Unlike" },
+        urls: { toggle: "/photos/#{media_id}/like", untoggle: "/photos/#{media_id}/unlike" },
+        handlers: { toggle: handle_like_media_result, untoggle: handle_like_media_result },
+        clear_on_click: true
+      }
 
     next_feed_page = () ->
       if next_max_id = objectize(feed_page).attr("data-next-max-id")

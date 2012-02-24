@@ -18,6 +18,7 @@
     padding:
       left: 0
       right: 0
+    overflow: hidden
     -webkit-transition: box-shadow 2s
 
     .ratio
@@ -28,7 +29,7 @@
 
       a.link-to-photo span.title
         display: block
-        opacity: 1
+        opacity: 0.9
         height: 2.5em
 
     a.link-to-photo
@@ -71,14 +72,48 @@
     //   max-width: 93.865030674846628% // 306 ÷ 326
     //   // margin-left: 3.3674846625766871% // 10 ÷ 326 and subpixel fix
 
+    &:hover
+      ul.stats
+        bottom: 2.5em
+        height: 0
+
+      ul.actions
+        bottom: 0.5em
+        height: 20px
+
     ul.actions
-      float: right
+      height: 0
+      bottom: -1em
+
+      li
+        cursor: pointer
+        line-height: 20px
+        float: left
+        background: #999
+        color: #fff
+        padding: 0 7px
+        box-shadow: inset transparentize(#fff, 0.7) 0px 10px 10px
+        border-radius: 2px
+        font-size: 13px
+        text-shadow: transparentize(#000, 0.5) 0px -1px 1px
+        -webkit-transition: background-color 0.3s
+
+        &:hover
+          background: #f33
+
+    ul.stats, ul.actions
       position: absolute
       right: 3.0674846625766871%
       bottom: 0.5em
       background: #fff
+      display: block
+      overflow: hidden
+      -webkit-transition: height 0.2s, bottom 0.2s
       // + fluid
       // margin-right: 3.0674846625766871% // 10 ÷ 326
+
+    ul.stats
+      height: 20px
 
       li
         display: inline
@@ -99,8 +134,6 @@
           margin-right: 5px
 
         &.like
-          cursor: hand
-          cursor: pointer
           background:
             image: url('/assets/like.gif')
 
@@ -112,6 +145,14 @@
         &.comment
           background:
             image: url('/assets/comment.gif')
+
+        &.button
+          display: none
+
+      &:hover
+        .like, .comment
+          top: 40px
+
 
     // ---------
     span

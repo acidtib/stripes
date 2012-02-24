@@ -74,5 +74,4 @@ class ApplicationController < ActionController::Base
 
     user_id = cache.respond_to?(:instagram_id) ? cache.instagram_id : username.to_i
   end
-
 end
