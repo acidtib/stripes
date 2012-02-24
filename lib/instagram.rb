@@ -3,7 +3,7 @@ require 'instagram/request'
 
 module Instagram
   # Authentication
-  def self.authorize code
+  def self.authorize_and_get_user code
     Parsing::Session.parse Request::Authentication.request_access(code)
   end
 

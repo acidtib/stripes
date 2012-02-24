@@ -31,13 +31,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_instagram_auth
-    redirect_to Instagram.authentication_url
-  end
-
   def get_instagram_access_and_redirect code # REFACTOR!!!
-    user = Instagram.authorize code
-    if user
+    if (user = Instagram.authorize_and_get_user code)
       @current_user = user
       session[:user] = user.to_json
 
@@ -49,7 +44,7 @@ class ApplicationController < ActionController::Base
         redirect_to :controller => :home, :action => :feed
       end
     else
-      flash[:notice] = "Something went wrong."
+      # TODO: handle errors during authorization
       redirect_to :controller => :home, :action => :index
     end
   end
@@ -57,24 +52,22 @@ class ApplicationController < ActionController::Base
   # authentication routing
 
   def login
-    redirect_to_instagram_auth
+    redirect_to Instagram.authentication_url
   end
 
   def auth
-    code = params[:code]
-    get_instagram_access_and_redirect code
+    get_instagram_access_and_redirect params[:code]
   end
 
   def logout
-    session[:user] = nil
-    @current_user = nil
+    session[:user] = @current_user = @access_token = nil
     redirect_to :controller => :home, :action => :index
   end
 
   # some common shit
 
   def search_user_everywhere username
-    unless (cache = User.find_by_username_or_id username)
+    unless (cache = UsersCache.find_by_username_or_id username)
       cache ||= Instagram.search_users(@access_token, username).first
     end
 
