@@ -120,7 +120,6 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails
   haml
-  json
   json-schema
   pg
   rails (= 3.1.0)
@@ -128,4 +127,4 @@ DEPENDENCIES
   settingslogic
   sqlite3
   uglifier
-  yajl-ruby
+  yajl-ruby (~> 1.1.0)

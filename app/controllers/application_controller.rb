@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  require "yajl"
   require "instagram"
 
   before_filter :get_session_data, :except => [ :login, :logout ]
@@ -14,8 +15,8 @@ class ApplicationController < ActionController::Base
 
   def get_session_data
     if session.key? :user
-      @current_user = Instagram::AuthorizedUser.new JSON.parse(session[:user], { :symbolize_names => true }), ''
-      @access_token = JSON.parse(session[:user])["access_token"]
+      @current_user = Instagram::AuthorizedUser.new Yajl::Parser.parse(session[:user], { :symbolize_keys => true }), ''
+      @access_token = Yajl::Parser.parse(session[:user])["access_token"]
     end
   end
 

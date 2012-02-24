@@ -21,9 +21,8 @@ gem 'rails', '3.1.0'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 gem 'haml'
-gem 'json'
 gem 'settingslogic'
-gem 'yajl-ruby'
+gem 'yajl-ruby', '~> 1.1.0', :require => 'yajl'
 gem 'json-schema'
 
 group :assets do
