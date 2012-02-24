@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
     if (user = Instagram.authorize_and_get_user code)
       @current_user = user
       session[:user] = user.to_json
+      UsersCache.cache_data @current_user if User.create_from_meta @current_user
 
       if session[:redirect] # how to handle this shit?
         url = session[:redirect]
