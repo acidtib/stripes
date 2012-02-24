@@ -20,12 +20,11 @@ class UsersCache < ActiveRecord::Base
 
   def self.update_or_create_cache item
     if item.kind_of? Instagram::User
-      instagram_id = item.instagram_id
-      username = item.username
+      instagram_id, username = item.instagram_id, item.username
     elsif (item.kind_of?(Instagram::Photo) or item.kind_of?(Instagram::Comment))
-      instagram_id = item.from.instagram_id
-      username = item.from.username
+      instagram_id, username = item.from.instagram_id, item.from.username
     end
+
     create_or_update instagram_id, username
   end
 
