@@ -85,13 +85,13 @@
       height: 0
       bottom: -1em
 
-      li
+      li.action-like
         cursor: pointer
         line-height: 20px
         float: left
         background: #999
         color: #fff
-        padding: 0 7px
+        width: 50px
         box-shadow: inset transparentize(#fff, 0.7) 0px 10px 10px
         border-radius: 2px
         font-size: 13px
@@ -100,6 +100,18 @@
 
         &:hover
           background: #f33
+
+        &.down
+          bottom: 0.5em
+          height: 20px
+          background: #ddd url('/assets/button-spinner.gif') center no-repeat
+          position: relative
+          top: 1px
+          box-shadow: inset transparentize(#000, 0.9) 0px 1px 1px
+          -webkit-transition: none
+
+        &.toggled
+          text-align: center
 
     ul.stats, ul.actions
       position: absolute
