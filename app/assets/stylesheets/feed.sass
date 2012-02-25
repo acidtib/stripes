@@ -89,9 +89,10 @@
         cursor: pointer
         line-height: 20px
         float: left
-        background: #999
+        background: #999 url('/assets/like-transparent.png') 5px center no-repeat
+        padding-left: 20px
         color: #fff
-        width: 50px
+        width: 32px
         box-shadow: inset transparentize(#fff, 0.7) 0px 10px 10px
         border-radius: 2px
         font-size: 13px
@@ -99,7 +100,7 @@
         -webkit-transition: background-color 0.3s
 
         &:hover
-          background: #f33
+          background-color: #f33
 
         &.down
           bottom: 0.5em
@@ -112,6 +113,12 @@
 
         &.toggled
           text-align: center
+          background-image: none
+          padding-left: 0
+          width: 52px
+
+          &.down
+            background-image: url('/assets/button-spinner.gif')
 
     ul.stats, ul.actions
       position: absolute
